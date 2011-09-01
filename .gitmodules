@@ -1,0 +1,15 @@
+[submodule ".emacs.d/plugins/ethan-wspace"]
+	path = .emacs.d/plugins/ethan-wspace
+	url = git://github.com/glasserc/ethan-wspace.git
+[submodule ".emacs.d/plugins/auto-complete"]
+	path = .emacs.d/plugins/auto-complete
+	url = git://github.com/m2ym/auto-complete.git
+[submodule ".emacs.d/plugins/magit"]
+	path = .emacs.d/plugins/magit
+	url = git://github.com/magit/magit.git
+[submodule ".emacs.d/plugins/multi-web-mode"]
+	path = .emacs.d/plugins/multi-web-mode
+	url = git://github.com/fgallina/multi-web-mode.git
+[submodule ".emacs.d/plugins/doxymacs"]
+	path = .emacs.d/plugins/doxymacs
+	url = git://github.com/emacsmirror/doxymacs.git
