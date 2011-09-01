@@ -1,0 +1,9 @@
+The doxymacs module needs to be built like that:
+
+$ automake --add-missing
+
+$ autoreconf
+
+$ ./configure --prefix=$(pwd)
+
+$ make install

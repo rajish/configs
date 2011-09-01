@@ -57,7 +57,7 @@
 (define-key global-map "\C-c\C-t" 'c-toggle-auto-hungry-state)
 
 ;============ DOXY(GEN)MACS ==============
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/doxymacs"))
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/doxymacs/lisp"))
 (require 'doxymacs)
 (add-hook 'c-mode-common-hook 'doxymacs-mode)
 ;; (add-hook 'c-mode-common-hook 'hs-minor-mode)
@@ -300,13 +300,6 @@
 (add-to-list
  'compilation-error-regexp-alist
  '("^\\([a-zA-Z]:.*\\):\\[\\([0-9]+\\),\\([0-9]+\\)\\]" 1 2 3))
-
-;=========== Xrefactory =========================================
-(defvar xref-current-project nil) ;; can be also "my_project_name"
-(defvar xref-key-binding 'global) ;; can be also 'local or 'none
-(setq load-path (cons (expand-file-name "~/.emacs.d/plugins/xref/emacs") load-path))
-(setq exec-path (cons (expand-file-name "~/.emacs.d/plugins/xref") exec-path))
-(load "xrefactory")
 
 ;========= Emacs customized layout ===============================
 
