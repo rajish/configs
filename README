@@ -3,6 +3,13 @@ First you have to pull all submodules:
 
     $ git submodule update --init --recursive
 
+Then install the following packages if not present (e.g. on a
+fresh Ubuntu installation):
+    * autoconfig-1.11
+    * automake
+    * libtool
+    * libxml2-dev
+
 The doxymacs module needs to be built like that:
 
     $ automake --add-missing
