@@ -438,10 +438,6 @@
                   (java-mode "%{[^}]*" "}%")))
 (setq mweb-filename-extensions '("php" "htm" "html" "ctp" "phtml" "php4" "php5"))
 (multi-web-global-mode 1)
-(add-hook 'js-mode-hook
-          (lambda()
-            (setq indent-tabs-mode t)
-            (define-key local-map "M-C-q" 'c-indent)))
 ;================== CUSTOMIZATIONS ===============================
 
 (custom-set-variables
@@ -521,6 +517,10 @@
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  '(default ((t (:stipple nil :background "#ffffff" :foreground "#000000" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 100 :width normal :foundry "misc" :family "fixed"))))
+ '(develock-long-line-2 ((t (:background "#feff97" :foreground "Red"))))
+ '(develock-whitespace-1 ((t (:background "#ffffaa00aa00"))))
+ '(develock-whitespace-2 ((t (:background "#ffda97"))))
+ '(develock-whitespace-3 ((t (:background "#feff97"))))
  '(font-lock-builtin-face ((((class color) (min-colors 88) (background light)) (:foreground "#04027a"))))
  '(font-lock-comment-face ((t (:foreground "#54ab80" :slant italic))))
  '(font-lock-constant-face ((((class color) (min-colors 88) (background light)) (:weight ultra-bold))))
