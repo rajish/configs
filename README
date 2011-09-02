@@ -28,3 +28,5 @@ The autocomplete installation:
     $ mkdir bin
 
     $ make DIR=bin install
+
+In the end go to the top directory and run the `./install.sh` script.
