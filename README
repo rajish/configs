@@ -1,9 +1,23 @@
+
+First you have to pull all submodules:
+
+    $ git submodule update --init --recursive
+
 The doxymacs module needs to be built like that:
 
-$ automake --add-missing
+    $ automake --add-missing
 
-$ autoreconf
+    $ autoreconf
 
-$ ./configure --prefix=$(pwd)
+    $ ./configure --prefix=$(pwd)
 
-$ make install
+    $ make install
+
+
+The autocomplete installation:
+
+    $ cd .emacs.d/plugins/auto-complete
+
+    $ mkdir bin
+
+    $ make DIR=bin install
