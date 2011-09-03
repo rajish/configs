@@ -9,6 +9,14 @@ fresh Ubuntu installation):
     * automake
     * libtool
     * libxml2-dev
+    * ant-contrib
+    * sun-java6-jdk
+      Adding the 'partner' repository is needed:
+
+         $ sudo add-apt-repository "deb http://archive.canonical.com/ natty partner")
+
+         $ sudo apt-get update
+
 
 The doxymacs module needs to be built like that:
 
@@ -28,5 +36,32 @@ The autocomplete installation:
     $ mkdir bin
 
     $ make DIR=bin install
+
+The jdee installation:
+
+    $ cd .emacs.d/plugins/jdee
+
+    # Edit the build.xml file with this patch:
+    #    ========[cut here]=======
+    #    --- a/build.xml
+    #    +++ b/build.xml
+    #    @@ -6,8 +6,11 @@
+    #          -->
+    #
+    #       <!-- add in the contribs (add ant-contrib-VERSION.jar) to CLASSPATH -->
+    #    -  <taskdef resource="net/sf/antcontrib/antlib.xml"/>
+    #    -
+    #    +  <taskdef resource="net/sf/antcontrib/antlib.xml">
+    #    +    <classpath>
+    #    +      <pathelement location="/usr/share/java/ant-contrib.jar"/>
+    #    +    </classpath>
+    #    +  </taskdef>
+    #
+    #       <!-- basic properties, the rest are taken from ${config.dir}/build. -->
+    #       <property name="project.dir" location="./"/>
+    #    ========[cut here]=======
+
+    $ ant
+
 
 In the end go to the top directory and run the `./install.sh` script.
