@@ -302,6 +302,8 @@
  'compilation-error-regexp-alist
  '("^\\([a-zA-Z]:.*\\):\\[\\([0-9]+\\),\\([0-9]+\\)\\]" 1 2 3))
 
+(load-file (expand-file-name "~/.emacs.d/plugins/jde-int/jde-int.el"))
+
 ;========= Emacs customized layout ===============================
 
 ;; (setq special-display-function 'my-display-buffer)
