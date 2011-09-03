@@ -13,3 +13,9 @@
 [submodule ".emacs.d/plugins/auto-complete"]
 	path = .emacs.d/plugins/auto-complete
 	url = git://github.com/m2ym/auto-complete.git
+[submodule ".emacs.d/plugins/jde-int"]
+	path = .emacs.d/plugins/jde-int
+	url = git://github.com/phua/jde-int.git
+[submodule ".emacs.d/plugins/jdee"]
+	path = .emacs.d/plugins/jdee
+	url = git://github.com/emacsmirror/jdee.git

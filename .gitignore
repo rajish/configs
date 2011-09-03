@@ -3,3 +3,4 @@ session.*
 /.emacs.d/ac-comphist.dat
 /.emacs.d/auto-save-list/
 *.elc
+/.emacs.d/tramp
