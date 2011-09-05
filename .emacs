@@ -503,6 +503,7 @@
  '(size-indication-mode t)
  '(tab-width 4)
  '(text-mode-hook (quote (text-mode-hook-identify)))
+ '(tooltip-mode nil)
  '(truncate-lines t)
  '(uniquify-buffer-name-style (quote forward) nil (uniquify))
  '(version-control never)
