@@ -53,7 +53,7 @@
 ; ============= cc-mode ===============
 (add-hook 'c-mode-common-hook (lambda ()
                                 (c-toggle-auto-hungry-state t)
-                                (c-subword-mode t)))
+                                (subword-mode t)))
 (define-key global-map "\C-c\C-t" 'c-toggle-auto-hungry-state)
 
 ;============ DOXY(GEN)MACS ==============
