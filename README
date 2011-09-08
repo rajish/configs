@@ -63,5 +63,10 @@ The jdee installation:
 
     $ ant
 
+The js2-mode compilation:
+
+    $ cd .emacs.d/plugins/js2-mode
+
+    $ emacs --batch -f batch-byte-compile js2-mode.el
 
 In the end go to the top directory and run the `./install.sh` script.
