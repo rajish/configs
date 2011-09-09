@@ -444,6 +444,10 @@
                   (java-mode "%{[^}]*" "}%")))
 (setq mweb-filename-extensions '("php" "htm" "html" "ctp" "phtml" "php4" "php5"))
 (multi-web-global-mode 1)
+;;===================== develock =============================
+(require 'develock)
+(global-font-lock-mode 1)
+(require 'scss-mode)
 ;================== CUSTOMIZATIONS ===============================
 
 (custom-set-variables
