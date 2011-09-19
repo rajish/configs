@@ -40,8 +40,7 @@
 (add-hook 'after-init-hook 'session-initialize)
 
 ;; yasnippet
-(yas/initialize)
-;(yas/load-directory "/usr/share/emacs/etc/yasnippet/snippets")
+(require 'yasnippet-bundle)
 
 ;;(require 'newcomment)
 (require 'ibuffer) ;"/usr/share/emacs/site-lisp/ibuffer/ibuffer.elc")
@@ -190,9 +189,48 @@
 ;;(desktop-load-default)
 (desktop-read)
 
+; ============ CEDET ============
+;; Load CEDET.
+;; See cedet/common/cedet.info for configuration details.
+(load-file "~/.emacs.d/plugins/cedet-1.0/common/cedet.el")
+
+
+;; Enable EDE (Project Management) features
+(global-ede-mode 1)
+
+;; Enable EDE for a pre-existing C++ project
+;; (ede-cpp-root-project "NAME" :file "~/myproject/Makefile")
+
+
+;; Enabling Semantic (code-parsing, smart completion) features
+;; Select one of the following:
+
+;; * This enables the database and idle reparse engines
+(semantic-load-enable-minimum-features)
+
+;; * This enables some tools useful for coding, such as summary mode
+;;   imenu support, and the semantic navigator
+(semantic-load-enable-code-helpers)
+
+;; * This enables even more coding tools such as intellisense mode
+;;   decoration mode, and stickyfunc mode (plus regular code helpers)
+;; (semantic-load-enable-gaudy-code-helpers)
+
+;; * This enables the use of Exuberent ctags if you have it installed.
+;;   If you use C++ templates or boost, you should NOT enable it.
+;; (semantic-load-enable-all-exuberent-ctags-support)
+;;   Or, use one of these two types of support.
+;;   Add support for new languges only via ctags.
+;; (semantic-load-enable-primary-exuberent-ctags-support)
+;;   Add support for using ctags as a backup parser.
+;; (semantic-load-enable-secondary-exuberent-ctags-support)
+
+;; Enable SRecode (Template management) minor-mode.
+(global-srecode-minor-mode 1)
+
 
 ;; ============== CSCOPE ==================
-(require 'xcscope)
+;; (require 'xcscope)
 ;;(define-key global-map [(control f3)]  'cscope-set-initial-directory)
 ;;(define-key global-map [(control f4)]  'cscope-unset-initial-directory)
 (define-key global-map "\M-."  'cscope-find-this-symbol)
@@ -472,9 +510,7 @@
  '(desktop-modes-not-to-save (quote (tags-table-mode cscope)))
  '(desktop-save-mode t)
  '(develock-html-font-lock-keywords (quote ((develock-find-long-lines (1 (quote develock-long-line-1) t nil) (2 (quote develock-long-line-2) t nil)) (develock-find-tab-or-long-space (1 (quote develock-whitespace-2)) (2 (quote develock-whitespace-3) nil t)) ("[^
- ]\\([   ]+\\)$" (1 (quote develock-whitespace-1) t nil)) ("\\( +\\)\\( +\\)" (1 (quote develock-whitespace-1) t nil) (2 (quote develock-whitespace-2) t nil)) ("\\(    \\)     " (1 (quote develock-whitespace-2) append nil)) ("^[     ]+$" (0 (quote develock-whitespace-2) append nil)) ((lambda (limit) (let (case-fold-search) (re-search-forward "</?\\([A-Z]+\\)" limit t))) (1 (quote develock-upper-case-tag) t nil)) ((lambda (limit) (let (case-fold-search) (re-search-forward "<[a-zA-Z]+[         ]+\\([A-Z]+\\)[         ]*=" limit t))) (1 (quote develock-upper-case-attribute) t nil)) ("#{\\([/.a-zA-Z]+\\)\\([^}]*\\)}" (0 (quote font-lock-type-face) t nil) (1 (quote font-lock-keyword-face) prepend nil)) ("\\*{\\(.*\\(:?[
- ]+.*\\)*?\\)}\\*" (0 (quote font-lock-comment-face) t nil)) ("%{\\(.*\\(:?[
- ]+.*\\)*?\\)}%" (0 (quote font-lock-type-face) t nil)) ("\\(@+\\|&\\|$\\|%\\){[^}]*}" 0 (quote font-lock-type-face) t nil))))
+ ]\\([   ]+\\)$" (1 (quote develock-whitespace-1) t nil)) ("\\( +\\)\\( +\\)" (1 (quote develock-whitespace-1) t nil) (2 (quote develock-whitespace-2) t nil)) ("\\(    \\)     " (1 (quote develock-whitespace-2) append nil)) ("^[     ]+$" (0 (quote develock-whitespace-2) append nil)) ((lambda (limit) (let (case-fold-search) (re-search-forward "</?\\([A-Z]+\\)" limit t))) (1 (quote develock-upper-case-tag) t nil)) ((lambda (limit) (let (case-fold-search) (re-search-forward "<[a-zA-Z]+[         ]+\\([A-Z]+\\)[         ]*=" limit t))) (1 (quote develock-upper-case-attribute) t nil)) ("#{\\([/.a-zA-Z]+\\)\\([^}]*\\)}" (0 (quote font-lock-type-face) t nil) (1 (quote font-lock-keyword-face) prepend nil)) ("\\(@+\\|&\\|$\\|%\\){[^}]*}" 0 (quote font-lock-type-face) t nil))))
  '(develock-max-column-plist (quote (emacs-lisp-mode 100 lisp-interaction-mode w change-log-mode t texinfo-mode t c-mode 100 c++-mode 100 java-mode 100 jde-mode 100 html-mode 180 html-helper-mode 100 cperl-mode 100 perl-mode 100 mail-mode t message-mode t cmail-mail-mode t tcl-mode 100 ruby-mode 100)))
  '(diff-switches "-c -b -B")
  '(doxymacs-blank-singleline-comment-template tempo-template-single-line)

@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 CFGDIR="$( cd -P "$( dirname "$0" )" && pwd )"
 

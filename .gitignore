@@ -5,3 +5,4 @@ session.*
 *.elc
 /.emacs.d/tramp
 /.emacs.d/plugins/yasnippet-bundle-0.6.1c.el.tgz
+/.emacs.d/.session
