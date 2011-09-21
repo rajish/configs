@@ -52,7 +52,7 @@
 ; ============= cc-mode ===============
 (add-hook 'c-mode-common-hook (lambda ()
                                 (c-toggle-auto-hungry-state t)
-                                (subword-mode t)))
+                                (c-subword-mode t)))
 (define-key global-map "\C-c\C-t" 'c-toggle-auto-hungry-state)
 
 ;============ DOXY(GEN)MACS ==============
@@ -486,6 +486,12 @@
 (require 'develock)
 (global-font-lock-mode 1)
 (require 'scss-mode)
+
+;;===================== yaml-mode =============================
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/yaml-mode"))
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+
 ;================== CUSTOMIZATIONS ===============================
 
 (custom-set-variables
