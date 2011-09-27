@@ -492,6 +492,11 @@
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
 
+;;===================== my functions =============================
+
+(defun align-after-char (beg end c)
+  (interactive "r\nsSeparation string: ")
+  (align-regexp beg end (concat c "\\(\\s-*\\)") 1 1 t))
 ;================== CUSTOMIZATIONS ===============================
 
 (custom-set-variables
