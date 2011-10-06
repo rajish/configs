@@ -492,6 +492,8 @@
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
 
+;;===================== js-beautifier =============================
+(require 'js-beautify)
 ;;===================== my functions =============================
 
 (defun align-after-char (beg end c)
@@ -543,7 +545,11 @@
  '(jde-imenu-sort (quote asc))
  '(jde-jdk (quote ("1.6.0")))
  '(jde-jdk-registry (quote (("1.5.0" . "/opt/sun-jdk-1.5.0.15") ("1.4.2" . "/opt/sun-jdk-1.4.2.17") ("1.6.0" . "/opt/sun-jdk-1.6.0.16"))))
+ '(js-beautify-path "~/proj/js-beautify/python/jsbeautifier.py")
  '(js-expr-indent-offset 4)
+ '(js2-auto-indent-p t)
+ '(js2-bounce-indent-p t)
+ '(js2-mirror-mode t)
  '(kill-whole-line t)
  '(longlines-show-hard-newlines t)
  '(longlines-wrap-follows-window-size t)
