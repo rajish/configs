@@ -69,4 +69,8 @@ The js2-mode compilation:
 
     $ emacs --batch -f batch-byte-compile js2-mode.el
 
+The js-beautify requires the source from git://github.com/einars/js-beautify.git in ~/proj/
+
+    $ git clone git://github.com/einars/js-beautify.git
+
 In the end go to the top directory and run the `./install.sh` script.
