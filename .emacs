@@ -505,6 +505,13 @@
    (setq auto-mode-alist
          (cons '("\\.text" . markdown-mode) auto-mode-alist)))
 
+;;===================== js-beautifier =============================
+(require 'js-beautify)
+;;===================== my functions =============================
+
+(defun align-after-char (beg end c)
+  (interactive "r\nsSeparation string: ")
+  (align-regexp beg end (concat c "\\(\\s-*\\)") 1 1 t))
 ;================== CUSTOMIZATIONS ===============================
 
 (custom-set-variables
@@ -550,8 +557,16 @@
  '(jde-help-docsets (quote (("JDK API" "/usr/share/doc/java-sdk-docs-1.6.0.10/html/api" nil))))
  '(jde-imenu-sort (quote asc))
  '(jde-jdk (quote ("1.6.0")))
+<<<<<<< HEAD
  '(jde-jdk-registry (quote (("1.5.0" . "/opt/sun-jdk-1.5.0.15") ("1.4.2" . "/opt/sun-jdk-1.4.2.17") ("1.6.0" . "/usr/lib/jvm/java-6-sun") ("1.6.0" . "/opt/sun-jdk-1.6.0.16"))))
+=======
+ '(jde-jdk-registry (quote (("1.5.0" . "/opt/sun-jdk-1.5.0.15") ("1.4.2" . "/opt/sun-jdk-1.4.2.17") ("1.6.0" . "/opt/sun-jdk-1.6.0.16"))))
+ '(js-beautify-path "~/proj/js-beautify/python/jsbeautifier.py")
+>>>>>>> cfa146794a12271c7cc4c6c47a337fb4173a3146
  '(js-expr-indent-offset 4)
+ '(js2-auto-indent-p t)
+ '(js2-bounce-indent-p t)
+ '(js2-mirror-mode t)
  '(kill-whole-line t)
  '(longlines-show-hard-newlines t)
  '(longlines-wrap-follows-window-size t)
