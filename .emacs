@@ -52,7 +52,7 @@
 ; ============= cc-mode ===============
 (add-hook 'c-mode-common-hook (lambda ()
                                 (c-toggle-auto-hungry-state t)
-                                (c-subword-mode t)))
+                                (subword-mode t)))
 (define-key global-map "\C-c\C-t" 'c-toggle-auto-hungry-state)
 
 ;============ DOXY(GEN)MACS ==============
@@ -476,7 +476,7 @@
 (require 'multi-web-mode)
 (setq mweb-default-major-mode 'html-mode)
 (setq mweb-tags '((php-mode "<\\?php\\|<\\? \\|<\\?=" "\\?>")
-                  (js2-mode "<script +\\(type=\"text/javascript\"\\|language=\"javascript\"\\)[^>]*>" "</script>")
+                  (js-mode "<script +\\(type=\"text/javascript\"\\|language=\"javascript\"\\)[^>]*>" "</script>")
                   (css-mode "<style +type=\"text/css\"[^>]*>" "</style>")
                   (java-mode "${[^}]*" "}")
                   (java-mode "%{[^}]*" "}%")))
@@ -491,6 +491,19 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/yaml-mode"))
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+
+;;===================== deft-mode and markdown =============================
+;; http://jblevins.org/projects/deft/
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/deft"))
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/markdown-mode"))
+(when (and (require 'deft nil 'noerror) (require 'markdown-mode nil 'noerror))
+   (setq
+      deft-extension "text"
+      deft-directory "~/.deft/"
+      deft-text-mode 'markdown-mode)
+   (global-set-key (kbd "<f9>") 'deft)
+   (setq auto-mode-alist
+         (cons '("\\.text" . markdown-mode) auto-mode-alist)))
 
 ;================== CUSTOMIZATIONS ===============================
 
@@ -537,7 +550,7 @@
  '(jde-help-docsets (quote (("JDK API" "/usr/share/doc/java-sdk-docs-1.6.0.10/html/api" nil))))
  '(jde-imenu-sort (quote asc))
  '(jde-jdk (quote ("1.6.0")))
- '(jde-jdk-registry (quote (("1.5.0" . "/opt/sun-jdk-1.5.0.15") ("1.4.2" . "/opt/sun-jdk-1.4.2.17") ("1.6.0" . "/opt/sun-jdk-1.6.0.16"))))
+ '(jde-jdk-registry (quote (("1.5.0" . "/opt/sun-jdk-1.5.0.15") ("1.4.2" . "/opt/sun-jdk-1.4.2.17") ("1.6.0" . "/usr/lib/jvm/java-6-sun") ("1.6.0" . "/opt/sun-jdk-1.6.0.16"))))
  '(js-expr-indent-offset 4)
  '(kill-whole-line t)
  '(longlines-show-hard-newlines t)
@@ -549,6 +562,7 @@
  '(save-place t nil (saveplace))
  '(scroll-bar-mode (quote right))
  '(select-active-regions t)
+ '(session-use-package t nil (session))
  '(show-paren-mode t)
  '(show-trailing-whitespace nil)
  '(size-indication-mode t)

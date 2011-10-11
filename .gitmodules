@@ -25,3 +25,9 @@
 [submodule ".emacs.d/plugins/yaml-mode"]
 	path = .emacs.d/plugins/yaml-mode
 	url = git://github.com/yoshiki/yaml-mode.git
+[submodule ".emacs.d/plugins/markdown-mode"]
+	path = .emacs.d/plugins/markdown-mode
+	url = git://jblevins.org/git/markdown-mode.git
+[submodule ".emacs.d/plugins/deft"]
+	path = .emacs.d/plugins/deft
+	url = git://jblevins.org/git/deft.git
