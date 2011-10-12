@@ -9,7 +9,7 @@
   :type '(string)
   :group 'js-beautify)
 
-(defcustom js-beautify-path "~/projects/js-beautify/python/jsbeautifier.py"
+(defcustom js-beautify-path "~/proj/js-beautify/python/js-beautify"
   "Path to jsbeautifier python file"
   :type '(string)
   :group 'js-beautify)

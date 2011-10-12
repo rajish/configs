@@ -8,3 +8,4 @@ session.*
 /.emacs.d/.session
 /.emacs.before_ecb_2.32*
 /.emacs.d/plugins/cedet-1.0/.emacs.desktop
+/.emacs.d/plugins/relaxng/

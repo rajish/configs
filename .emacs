@@ -557,12 +557,8 @@
  '(jde-help-docsets (quote (("JDK API" "/usr/share/doc/java-sdk-docs-1.6.0.10/html/api" nil))))
  '(jde-imenu-sort (quote asc))
  '(jde-jdk (quote ("1.6.0")))
-<<<<<<< HEAD
  '(jde-jdk-registry (quote (("1.5.0" . "/opt/sun-jdk-1.5.0.15") ("1.4.2" . "/opt/sun-jdk-1.4.2.17") ("1.6.0" . "/usr/lib/jvm/java-6-sun") ("1.6.0" . "/opt/sun-jdk-1.6.0.16"))))
-=======
- '(jde-jdk-registry (quote (("1.5.0" . "/opt/sun-jdk-1.5.0.15") ("1.4.2" . "/opt/sun-jdk-1.4.2.17") ("1.6.0" . "/opt/sun-jdk-1.6.0.16"))))
- '(js-beautify-path "~/proj/js-beautify/python/jsbeautifier.py")
->>>>>>> cfa146794a12271c7cc4c6c47a337fb4173a3146
+ '(js-beautify-path "~/proj/js-beautify/python/js-beautify")
  '(js-expr-indent-offset 4)
  '(js2-auto-indent-p t)
  '(js2-bounce-indent-p t)
