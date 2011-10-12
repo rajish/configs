@@ -1,4 +1,4 @@
-
+(setq noerror t)
 (add-to-list 'load-path
      (expand-file-name "~/.emacs.d/plugins")
      "/usr/lib/xemacs/site-lisp")
@@ -25,84 +25,85 @@
 (set-frame-size-according-to-resolution)
 
 ;; =========== INFO =================
-(require 'info)
-(setq Info-directory-list
-      (cons (expand-file-name "/usr/share/info/emacs-23")
-            Info-directory-list))
+(when (require 'info nil 'noerror)
+  (setq Info-directory-list
+        (cons (expand-file-name "/usr/share/info/emacs-23")
+              Info-directory-list)))
 
 
 ;; Filladapt
-(require 'filladapt)
-(setq-default filladapt-mode t)
+(when (require 'filladapt nil 'noerror)
+  (setq-default filladapt-mode t))
 
 ;; Session
-(require 'session)
-(add-hook 'after-init-hook 'session-initialize)
+(when (require 'session nil 'noerror)
+  (add-hook 'after-init-hook 'session-initialize))
 
 ;; yasnippet
-(require 'yasnippet-bundle)
+(require 'yasnippet-bundle nil 'noerror)
 
-;;(require 'newcomment)
-(require 'ibuffer) ;"/usr/share/emacs/site-lisp/ibuffer/ibuffer.elc")
-(define-key global-map "\C-x\C-b" 'ibuffer)
+;;(require 'newcomment nil 'noerror)
+(when (require 'ibuffer nil 'noerror)
+  (define-key global-map "\C-x\C-b" 'ibuffer))
 (define-key global-map "\M-;" 'comment-dwim)
 (define-key global-map "\C-T" 'transpose-lines)
-;;(define-key global-map "\M-/" 'hippie-expand)
+  ;;(define-key global-map "\M-/" 'hippie-expand)
 
 ; ============= cc-mode ===============
 (add-hook 'c-mode-common-hook (lambda ()
                                 (c-toggle-auto-hungry-state t)
                                 (subword-mode t)))
 (define-key global-map "\C-c\C-t" 'c-toggle-auto-hungry-state)
+(add-hook 'c-mode-common-hook (lambda () (font-lock-mode t)))
+;; (add-hook 'c-mode-common-hook 'hs-minor-mode)
 
 ;============ DOXY(GEN)MACS ==============
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/doxymacs/lisp"))
-(require 'doxymacs)
-(add-hook 'c-mode-common-hook 'doxymacs-mode)
-;; (add-hook 'c-mode-common-hook 'hs-minor-mode)
-(add-hook 'c-mode-common-hook (lambda () (font-lock-mode t)))
+(when (require 'doxymacs nil 'noerror)
+  (add-hook 'c-mode-common-hook 'doxymacs-mode)
 
-(defun my-doxymacs-font-lock-hook ()
-   (if (or (eq major-mode 'c-mode) (eq major-mode 'c++-mode))
-       (doxymacs-font-lock)))
-(add-hook 'font-lock-mode-hook 'my-doxymacs-font-lock-hook)
-(require 'tempo)
-;(defvar my-doxy-tempo-tags)
-(add-hook 'c-mode-common-hook '(lambda () (tempo-use-tag-list 'my-doxy-tempo-tags)))
-(tempo-define-template "single-line" '("/** " r > " */") "single-line" "Insert single line Doxygen comment")
-(tempo-define-template "group-start" '("/******************************************************************************" > n
-                                       " * " > n
-                                       " * " > n
-                                       " * " (doxymacs-doxygen-command-char) "defgroup" p > n
-                                       " * " (doxymacs-doxygen-command-char) "{" > n
-                                       "*/" > n)
-                       "group-start" "Insert group start Doxygen comment")
+  (defun my-doxymacs-font-lock-hook ()
+    (if (or (eq major-mode 'c-mode) (eq major-mode 'c++-mode))
+        (doxymacs-font-lock)))
+  (add-hook 'font-lock-mode-hook 'my-doxymacs-font-lock-hook))
 
-(tempo-define-template "group-end" '("/** " (doxymacs-doxygen-command-char) "}*/" > n)
-                       "group-end" "Insert group end Doxygen comment")
+(when (require 'tempo nil 'noerror)
+  ;(defvar my-doxy-tempo-tags)
+  (add-hook 'c-mode-common-hook '(lambda () (tempo-use-tag-list 'my-doxy-tempo-tags)))
+  (tempo-define-template "single-line" '("/** " r > " */") "single-line" "Insert single line Doxygen comment")
+  (tempo-define-template "group-start" '("/******************************************************************************" > n
+                                         " * " > n
+                                         " * " > n
+                                         " * " (doxymacs-doxygen-command-char) "defgroup" p > n
+                                         " * " (doxymacs-doxygen-command-char) "{" > n
+                                         "*/" > n)
+                         "group-start" "Insert group start Doxygen comment")
 
-(tempo-define-template "function-comment" '((let ((next-func (doxymacs-find-next-func)))
-                                              (if next-func
-                                                  (list
-                                                   'l
-                                                   "/*!" '> 'n
-                                                   " * \\brief " 'p '> 'n
-                                                   " * " '> 'n
-                                                   (doxymacs-parm-tempo-element (cdr (assoc 'args next-func)))
-                                                   (unless (string-match
-                                                            (regexp-quote (cdr (assoc 'return next-func)))
-                                                            doxymacs-void-types)
-                                                     '(l " * " > n " * "
-                                                         "\\return " (p "Returns: ") > n))
-                                                   " *" '> 'n
-                                                   " * \\author " (user-login-name) '> 'n
-                                                   " * \\date " (format-time-string "%d-%m-%Y") '> 'n
-                                                   " */" '> 'n)
-                                                (progn
-                                                  (error "Can't find next function declaration.")
-                                                  nil))))
-                       "function-comment"
-                       "Insert function description comment")
+  (tempo-define-template "group-end" '("/** " (doxymacs-doxygen-command-char) "}*/" > n)
+                         "group-end" "Insert group end Doxygen comment")
+
+  (tempo-define-template "function-comment" '((let ((next-func (doxymacs-find-next-func)))
+                                                (if next-func
+                                                    (list
+                                                     'l
+                                                     "/*!" '> 'n
+                                                     " * \\brief " 'p '> 'n
+                                                     " * " '> 'n
+                                                     (doxymacs-parm-tempo-element (cdr (assoc 'args next-func)))
+                                                     (unless (string-match
+                                                              (regexp-quote (cdr (assoc 'return next-func)))
+                                                              doxymacs-void-types)
+                                                       '(l " * " > n " * "
+                                                           "\\return " (p "Returns: ") > n))
+                                                     " *" '> 'n
+                                                     " * \\author " (user-login-name) '> 'n
+                                                     " * \\date " (format-time-string "%d-%m-%Y") '> 'n
+                                                     " */" '> 'n)
+                                                  (progn
+                                                    (error "Can't find next function declaration.")
+                                                    nil))))
+                         "function-comment"
+                         "Insert function description comment"))
 
 ; ============ DOS2UNIX line ends ===========
 (defun dos2unix (buffer)
@@ -114,11 +115,11 @@
           (replace-match (string ) nil t))))
 
 ; ============= Version control ================
-;;(require 'pcl-cvs)
-(require 'psvn)
+;;(require 'pcl-cvs nil 'noerror)
+(require 'psvn nil 'noerror)
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/magit"))
-(require 'magit)
-(require 'magit-svn)
+(require 'magit nil 'noerror)
+(require 'magit-svn nil 'noerror)
 
 ; ==============  modes hooking to file extensions =========
 ;;(remove-alist 'auto-mode-alist "\\.[ch]\\'")
@@ -130,61 +131,13 @@
                  ("\\.mkf\\'" . makefile-mode))
                auto-mode-alist))
 
-
-; ================== CODE STYLES ==================
-;;;;;; Vertel (3-space indents)
-(let* ((offsets
-        '((c-basic-offset             . 3)
-          (c-comment-only-line-offset . (0 . 0))
-          (c-offsets-alist            . ((statement-block-intro . +)
-                                         (statement-cont       . 0)
-                                         (statement-case-intro . 0)
-                                         (statement-case-intro . 3)
-                                         (statement-case-open  . 3)
-                                         (access-label         . -)
-                                         (label                . +)
-                                         (case-label           . +)
-                                         (substatement         . +)
-                                         (inclass              . ++)
-                                         (substatement-open    . 0)
-                                         (topmost-intro        . 0)
-                                         (topmost-intro-cont   . +)
-                                         (brace-list-open      . +)
-                                         (brace-list-entry     . 0)
-                                         )))))
-  (c-add-style "vertel" offsets nil))
-
-;;;;; HTQ (2-space indents)
-(let* ((offsets
-        '((c-basic-offset             . 2)
-          (c-comment-only-line-offset . (0 . 0))
-          (c-offsets-alist            . ((statement-block-intro . +)
-                                         (statement-cont       . 0)
-                                         (statement-case-intro . 0)
-                                         (statement-case-intro . 2)
-                                         (statement-case-open  . 2)
-                                         (access-label         . -)
-                                         (label                . +)
-                                         (case-label           . +)
-                                         (substatement         . +)
-                                         (inclass              . ++)
-                                         (substatement-open    . 0)
-                                         (topmost-intro        . 0)
-                                         (topmost-intro-cont   . +)
-                                         (brace-list-open      . +)
-                                         (brace-list-entry     . 0)
-                                         )))))
-  (c-add-style "htq" offsets nil))
-
-
 ;=========== ANSI color =============
-(require 'ansi-color)
-
-(add-hook 'compilation-mode-hook 'ansi-color-for-comint-mode-on)
+(when (require 'ansi-color nil 'noerror)
+  (add-hook 'compilation-mode-hook 'ansi-color-for-comint-mode-on))
 
 ; ============ desktop ============
 
-;;(require 'desktop)
+;;(require 'desktop nil 'noerror)
 ;;(desktop-save-mode 1)
 ;;(desktop-load-default)
 (desktop-read)
@@ -230,28 +183,28 @@
 
 
 ;; ============== CSCOPE ==================
-;; (require 'xcscope)
-;;(define-key global-map [(control f3)]  'cscope-set-initial-directory)
-;;(define-key global-map [(control f4)]  'cscope-unset-initial-directory)
-(define-key global-map "\M-."  'cscope-find-this-symbol)
-;;(define-key global-map [(control f6)]  'cscope-find-global-definition)
-;;(define-key global-map [(control f7)]
-;;  'cscope-find-global-definition-no-prompting)
-(define-key global-map [(meta *)]  'cscope-pop-mark)
-;;(define-key global-map [(control f9)]  'cscope-next-symbol)
-;;(define-key global-map [(control f10)] 'cscope-next-file)
-;;(define-key global-map [(control f11)] 'cscope-prev-symbol)
-;;(define-key global-map [(control f12)] 'cscope-prev-file)
-;;      (define-key global-map [(meta f9)]  'cscope-display-buffer)
-;;      (defin-ekey global-map [(meta f10)] 'cscope-display-buffer-toggle)
+(when (require 'xcscope nil 'noerror)
+  ;;(define-key global-map [(control f3)]  'cscope-set-initial-directory)
+  ;;(define-key global-map [(control f4)]  'cscope-unset-initial-directory)
+  (define-key global-map "\M-."  'cscope-find-this-symbol)
+  ;;(define-key global-map [(control f6)]  'cscope-find-global-definition)
+  ;;(define-key global-map [(control f7)]
+  ;;  'cscope-find-global-definition-no-prompting)
+  (define-key global-map [(meta *)]  'cscope-pop-mark)
+  ;;(define-key global-map [(control f9)]  'cscope-next-symbol)
+  ;;(define-key global-map [(control f10)] 'cscope-next-file)
+  ;;(define-key global-map [(control f11)] 'cscope-prev-symbol)
+  ;;(define-key global-map [(control f12)] 'cscope-prev-file)
+  ;;      (define-key global-map [(meta f9)]  'cscope-display-buffer)
+  ;;      (defin-ekey global-map [(meta f10)] 'cscope-display-buffer-toggle)
 
-(setq  cscope-database-regexps
-       '(
-         ("^/home/rajish/proj/net-snmp-5.4.1"
-          (t)
-          ("/home/rajish/proj/net-snmp-5.4.1"))
-         )
-)
+  (setq  cscope-database-regexps
+         '(
+           ("^/home/rajish/proj/net-snmp-5.4.1"
+            (t)
+            ("/home/rajish/proj/net-snmp-5.4.1"))
+           )
+         ))
 
 ;;; ============ Abbrevs ================
 (defun jump-to-column (arg)
@@ -313,9 +266,9 @@
 
 ;=========== JDE ==============
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/jdee/dist/jdee-2.4.1/lisp"))
-(require 'jde)
+(require 'jde nil 'noerror)
 
-(require 'compile)
+(require 'compile nil 'noerror)
 
 (defvar mvn-command-history nil
   "Maven command history variable")
@@ -342,47 +295,22 @@
 
 (load-file (expand-file-name "~/.emacs.d/plugins/jde-int/jde-int.el"))
 
-;========= Emacs customized layout ===============================
-
-;; (setq special-display-function 'my-display-buffer)
-;; (setq special-display-regexps '(".*"))
-
-;; (defun display-special-buffer (buf)
-;;   "put the special buffers in the right spot (bottom rigt)"
-;;   (let ((target-window (window-at (- (frame-width) 4) (- (frame-height) 4)))
-;;         (pop-up-windows t))
-;;     (set-window-buffer target-window buf)
-;;     target-window))
-
-;; (defun my-display-buffer (buf)
-;;   "put all buffers in a window other than the one in the bottom right"
-;;   (message (buffer-name  buf))
-;;   (if (member (buffer-name buf) special-display-buffer-names)
-;;       (display-special-buffer buf)
-;;     (progn
-;;       (let ((pop-up-windows t)
-;;             (windows (delete (window-at (- (frame-width) 4) (- (frame-height) 4))
-;;                              (delete (minibuffer-window) (window-list)))))
-;;         (message (buffer-name (window-buffer (car windows))))
-;;         (set-window-buffer (car (cdr windows)) buf)
-;;         (car (cdr windows))))))
-
 ;;================= emacs-wiki ===================================
 ;;(require 'emacs-wik
-(autoload 'wikipedia-mode "wikipedia-mode.el" "Major mode for editing documents in Wikipedia markup." t)
-(add-to-list 'auto-mode-alist
-             '("\\.wiki\\'" . wikipedia-mode))
-(add-to-list 'auto-mode-alist
-             '("itsalltext.*\\.txt$" . wikipedia-mode))
+(when (require 'wikipedia-mode  nil 'noerror)
+  (add-to-list 'auto-mode-alist
+               '("\\.wiki\\'" . wikipedia-mode))
+  (add-to-list 'auto-mode-alist
+               '("itsalltext.*\\.txt$" . wikipedia-mode)))
 
-;;(require 'wikipediafs)
+;;(require 'wikipediafs nil 'noerror)
 ;;================= emacs server =================================
 (server-start)
 ;;===================== w3m ======================================
-(setq browse-url-browser-function 'w3m-browse-url)
-(autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
- ;; optional keyboard short-cut
-(global-set-key "\C-xm" 'browse-url-at-point)
+(when (require 'w3m-browse-url nil 'noerror)
+  (setq browse-url-browser-function 'w3m-browse-url)
+  ;; optional keyboard short-cut
+  (global-set-key "\C-xm" 'browse-url-at-point))
 
 ;;===================== RectangleAdd =============================
 ;; From http://www.emacswiki.org/emacs/RectangleAdd
@@ -408,40 +336,38 @@
     (setq n (replace-match "" nil nil n)))
   (string-to-number n))
 
-(autoload 'po-mode "po-mode+"
-  "Major mode for translators to edit PO files" t)
+(when (require 'po-mode nil 'noerror)
+  (defun po-wrap ()
+    "Filter current po-mode buffer through `msgcat' tool to wrap all lines."
+    (interactive)
+    (if (eq major-mode 'po-mode)
+        (let ((tmp-file (make-temp-file "po-wrap."))
+              (tmp-buf (generate-new-buffer "*temp*")))
+          (unwind-protect
+              (progn
+                (write-region (point-min) (point-max) tmp-file nil 1)
+                (if (zerop
+                     (call-process
+                      "msgcat" nil tmp-buf t (shell-quote-argument tmp-file)))
+                    (let ((saved (point))
+                          (inhibit-read-only t))
+                      (delete-region (point-min) (point-max))
+                      (insert-buffer tmp-buf)
+                      (goto-char (min saved (point-max))))
+                  (with-current-buffer tmp-buf
+                    (error (buffer-string)))))
+            (kill-buffer tmp-buf)
+            (delete-file tmp-file)))))
 
-(defun po-wrap ()
-  "Filter current po-mode buffer through `msgcat' tool to wrap all lines."
-  (interactive)
-  (if (eq major-mode 'po-mode)
-      (let ((tmp-file (make-temp-file "po-wrap."))
-            (tmp-buf (generate-new-buffer "*temp*")))
-        (unwind-protect
-            (progn
-              (write-region (point-min) (point-max) tmp-file nil 1)
-              (if (zerop
-                   (call-process
-                    "msgcat" nil tmp-buf t (shell-quote-argument tmp-file)))
-                  (let ((saved (point))
-                        (inhibit-read-only t))
-                    (delete-region (point-min) (point-max))
-                    (insert-buffer tmp-buf)
-                    (goto-char (min saved (point-max))))
-                (with-current-buffer tmp-buf
-                  (error (buffer-string)))))
-          (kill-buffer tmp-buf)
-          (delete-file tmp-file)))))
+  (add-hook 'po-subedit-mode-hook (lambda ()
+                                    (ispell-change-dictionary "pl")
+                                    (flyspell-mode)
+                                    (longlines-mode 1)))
+  (add-hook 'po-subedit-exit-hook (lambda ()
+                                    (longlines-mode 0)
+                                    (po-wrap))))
 
-(add-hook 'po-subedit-mode-hook (lambda ()
-                                  (ispell-change-dictionary "pl")
-                                  (flyspell-mode)
-                                  (longlines-mode 1)))
-(add-hook 'po-subedit-exit-hook (lambda ()
-                                  (longlines-mode 0)
-                                  (po-wrap)))
-
-;;(require 'frame-cmds)
+;;(require 'frame-cmds nil 'noerror)
 (setq my-hostname
       (replace-regexp-in-string "\\(^[[:space:]\n]*\\|[[:space:]\n]*$\\)" "" ;; like perl chomp()
                                 (with-output-to-string
@@ -451,8 +377,8 @@
 
 ;;===================== ethan-wspace =============================
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/ethan-wspace/lisp"))
-(require 'ethan-wspace)
-(global-ethan-wspace-mode 1)
+(when (require 'ethan-wspace nil 'noerror)
+  (global-ethan-wspace-mode 1))
 ;;(add-hook 'before-save-hook 'delete-trailing-whitespace)
 (add-hook 'c-mode-common-hook
           (lambda()
@@ -464,33 +390,33 @@
             (setq indent-tabs-mode t)))
 ;;===================== auto-complete =============================
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/auto-complete/bin"))
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/plugins/auto-complete/bin/ac-dict")
-(ac-config-default)
+(when (require 'auto-complete-config nil 'noerror)
+  (add-to-list 'ac-dictionary-directories "~/.emacs.d/plugins/auto-complete/bin/ac-dict")
+  (ac-config-default))
 ;;===================== js2-mode =============================
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/js2-mode"))
-(autoload 'js2-mode "js2-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+(when (autoload 'js2-mode "js2-mode" nil t)
+  (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode)))
 ;;===================== multi-web-mode =============================
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/multi-web-mode"))
-(require 'multi-web-mode)
-(setq mweb-default-major-mode 'html-mode)
-(setq mweb-tags '((php-mode "<\\?php\\|<\\? \\|<\\?=" "\\?>")
-                  (js-mode "<script +\\(type=\"text/javascript\"\\|language=\"javascript\"\\)[^>]*>" "</script>")
-                  (css-mode "<style +type=\"text/css\"[^>]*>" "</style>")
-                  (java-mode "${[^}]*" "}")
-                  (java-mode "%{[^}]*" "}%")))
-(setq mweb-filename-extensions '("php" "htm" "html" "ctp" "phtml" "php4" "php5"))
-(multi-web-global-mode 1)
+(when (require 'multi-web-mode nil 'noerror)
+  (setq mweb-default-major-mode 'html-mode)
+  (setq mweb-tags '((php-mode "<\\?php\\|<\\? \\|<\\?=" "\\?>")
+                    (js-mode "<script +\\(type=\"text/javascript\"\\|language=\"javascript\"\\)[^>]*>" "</script>")
+                    (css-mode "<style +type=\"text/css\"[^>]*>" "</style>")
+                    (java-mode "${[^}]*" "}")
+                    (java-mode "%{[^}]*" "}%")))
+  (setq mweb-filename-extensions '("php" "htm" "html" "ctp" "phtml" "php4" "php5"))
+  (multi-web-global-mode 1))
 ;;===================== develock =============================
-(require 'develock)
+(require 'develock nil 'noerror)
 (global-font-lock-mode 1)
-(require 'scss-mode)
+(require 'scss-mode nil 'noerror)
 
 ;;===================== yaml-mode =============================
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/yaml-mode"))
-(require 'yaml-mode)
-(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+(when (require 'yaml-mode nil 'noerror)
+  (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode)))
 
 ;;===================== deft-mode and markdown =============================
 ;; http://jblevins.org/projects/deft/
@@ -506,7 +432,7 @@
          (cons '("\\.text" . markdown-mode) auto-mode-alist)))
 
 ;;===================== js-beautifier =============================
-(require 'js-beautify)
+(require 'js-beautify nil 'noerror)
 ;;===================== my functions =============================
 
 (defun align-after-char (beg end c)
