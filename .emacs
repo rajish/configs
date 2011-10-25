@@ -137,10 +137,10 @@
 
 ; ============ desktop ============
 
-;;(require 'desktop nil 'noerror)
+(require 'desktop nil 'noerror)
 ;;(desktop-save-mode 1)
 ;;(desktop-load-default)
-(desktop-read)
+;;(desktop-read)
 
 ; ============ CEDET ============
 ;; Load CEDET.
@@ -492,6 +492,7 @@
  '(kill-whole-line t)
  '(longlines-show-hard-newlines t)
  '(longlines-wrap-follows-window-size t)
+ '(markdown-command "pandoc")
  '(nxml-auto-insert-xml-declaration-flag t)
  '(nxml-slash-auto-complete-flag t)
  '(pydb-many-windows t)
@@ -522,7 +523,7 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(default ((t (:stipple nil :background "#ffffff" :foreground "#000000" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 100 :width normal :foundry "misc" :family "fixed"))))
+ '(default ((t (:stipple nil :background "#ffffff" :foreground "#000000" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 90 :width normal :foundry "xos4" :family "Terminus"))))
  '(develock-long-line-2 ((t (:background "#feff97" :foreground "Red"))))
  '(develock-whitespace-1 ((t (:background "#ffffaa00aa00"))))
  '(develock-whitespace-2 ((t (:background "#ffda97"))))
