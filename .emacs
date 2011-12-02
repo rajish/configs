@@ -294,7 +294,33 @@
  '("^\\([a-zA-Z]:.*\\):\\[\\([0-9]+\\),\\([0-9]+\\)\\]" 1 2 3))
 
 (load-file (expand-file-name "~/.emacs.d/plugins/jde-int/jde-int.el"))
-
+(c-add-style "java"
+              '(
+              (c-basic-offset . 4)
+              (c-comment-only-line-offset 0 . 0)
+                (c-hanging-braces-alist
+                 (inline-open after)
+                 (substatement-open after)
+                 (block-close . c-snug-do-while)
+                 (extern-lang-open after)
+                 (inexpr-class-open after)
+                 (inexpr-class-close before))
+              (c-cleanup-list)
+              (c-offsets-alist
+               (inline-open . 0)
+               (topmost-intro-cont . +)
+               (statement-block-intro . +)
+               (knr-argdecl-intro . 5)
+               (substatement-open . +)
+               (substatement-label . +)
+               (label . +)
+               (statement-case-open . +)
+               (statement-cont . +)
+               (arglist-intro . c-lineup-arglist-intro-after-paren)
+               (arglist-close . c-lineup-arglist)
+               (access-label . 0)
+               (inher-cont . c-lineup-java-inher)
+               (func-decl-cont . c-lineup-java-throws))))
 ;;================= emacs-wiki ===================================
 ;;(require 'emacs-wik
 (when (require 'wikipedia-mode  nil 'noerror)
