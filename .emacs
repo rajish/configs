@@ -468,10 +468,10 @@
 ;================== CUSTOMIZATIONS ===============================
 
 (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
  '(Buffer-menu-buffer+size-width 46)
  '(Info-additional-directory-list (quote ("/usr/share/info")))
  '(ac-modes (quote (emacs-lisp-mode lisp-mode lisp-interaction-mode slime-repl-mode c-mode cc-mode c++-mode java-mode malabar-mode clojure-mode scala-mode scheme-mode ocaml-mode tuareg-mode haskell-mode perl-mode cperl-mode python-mode ruby-mode ecmascript-mode javascript-mode js-mode js2-mode php-mode css-mode scss-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode)))
@@ -507,7 +507,7 @@
  '(ispell-silently-savep t)
  '(jde-compile-option-classpath nil)
  '(jde-global-classpath (quote ("/usr/lib/jvm/java-6-sun-1.6.0.26/jre/lib" "~/bin/play/framework" "~/bin/play/framework/lib")))
- '(jde-help-docsets (quote (("JDK API" "/usr/share/doc/java-sdk-docs-1.6.0.10/html/api" nil))))
+ '(jde-help-docsets (quote (("JDK API" "http://docs.oracle.com/javase/6/docs/api" nil) ("Play! Framework API" "http://www.playframework.org/documentation/api/1.2.4" nil))))
  '(jde-imenu-sort (quote asc))
  '(jde-jdk (quote ("1.6.0")))
  '(jde-jdk-registry (quote (("1.5.0" . "/opt/sun-jdk-1.5.0.15") ("1.4.2" . "/opt/sun-jdk-1.4.2.17") ("1.6.0" . "/usr/lib/jvm/java-6-sun") ("1.6.0" . "/opt/sun-jdk-1.6.0.16"))))
