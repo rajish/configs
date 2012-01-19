@@ -40,7 +40,9 @@
   (add-hook 'after-init-hook 'session-initialize))
 
 ;; yasnippet
-(require 'yasnippet-bundle nil 'noerror)
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/yasnippet"))
+(require 'yasnippet nil 'noerror)
+(yas/global-mode 1)
 
 ;;(require 'newcomment nil 'noerror)
 (when (require 'ibuffer nil 'noerror)
@@ -460,6 +462,17 @@
 
 ;;===================== js-beautifier =============================
 (require 'js-beautify nil 'noerror)
+
+;;===================== scala-mode =============================
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/scala-mode"))
+(require 'scala-mode-auto)
+(setq yas/my-directory (expand-file-name "~/.emacs.d/plugins/scala-mode/contrib/yasnippet/snippets")
+(yas/load-directory yas/my-directory)
+
+(add-hook 'scala-mode-hook
+          '(lambda ()
+             (yas/minor-mode-on)
+             ))
 ;;===================== my functions =============================
 
 (defun align-after-char (beg end c)

@@ -31,3 +31,6 @@
 [submodule ".emacs.d/plugins/deft"]
 	path = .emacs.d/plugins/deft
 	url = git://jblevins.org/git/deft.git
+[submodule ".emacs.d/plugins/yasnippet"]
+	path = .emacs.d/plugins/yasnippet
+	url = git://github.com/capitaomorte/yasnippet.git
