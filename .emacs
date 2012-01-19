@@ -466,13 +466,13 @@
 ;;===================== scala-mode =============================
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/scala-mode"))
 (require 'scala-mode-auto)
-(setq yas/my-directory (expand-file-name "~/.emacs.d/plugins/scala-mode/contrib/yasnippet/snippets")
-(yas/load-directory yas/my-directory)
+;; (setq yas/my-directory (expand-file-name "~/.emacs.d/plugins/scala-mode/contrib/yasnippet/snippets")
+;; (yas/load-directory yas/my-directory)
 
-(add-hook 'scala-mode-hook
-          '(lambda ()
-             (yas/minor-mode-on)
-             ))
+;; (add-hook 'scala-mode-hook
+;;           '(lambda ()
+;;              (yas/minor-mode-on)
+;;              ))
 ;;===================== my functions =============================
 
 (defun align-after-char (beg end c)
