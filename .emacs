@@ -41,8 +41,10 @@
 
 ;; yasnippet
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/yasnippet"))
-(require 'yasnippet nil 'noerror)
-(yas/global-mode 1)
+(when (require 'yasnippet nil 'noerror)
+  (yas/global-mode 1)
+  (setq yas/my-directory (expand-file-name "~/.emacs.d/plugins/scala-mode/contrib/yasnippet/snippets"))
+  (yas/load-directory yas/my-directory))
 
 ;;(require 'newcomment nil 'noerror)
 (when (require 'ibuffer nil 'noerror)
@@ -462,9 +464,11 @@
 ;;===================== scala-mode + ensime =======================
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/ensime/elisp"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/scala-mode"))
-(when (and (require 'scala-mode nil 'noerror) (require 'ensime nil 'noerror))
+(when (and (require 'scala-mode-auto nil 'noerror) (require 'ensime nil 'noerror))
   (add-to-list 'auto-mode-alist '("\\.scala.html$" . scala-mode))
-  (add-hook 'scala-mode-hook 'ensime-scala-mode-hook))
+  (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+  (add-hook 'scala-mode-hook '(lambda ()
+                              (yas/minor-mode-on))))
 
 ;;===================== js-beautifier =============================
 (require 'js-beautify nil 'noerror)
