@@ -40,7 +40,9 @@
   (add-hook 'after-init-hook 'session-initialize))
 
 ;; yasnippet
-(require 'yasnippet-bundle nil 'noerror)
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/yasnippet"))
+(require 'yasnippet nil 'noerror)
+(yas/global-mode 1)
 
 ;;(require 'newcomment nil 'noerror)
 (when (require 'ibuffer nil 'noerror)
@@ -466,6 +468,17 @@
 
 ;;===================== js-beautifier =============================
 (require 'js-beautify nil 'noerror)
+
+;;===================== scala-mode =============================
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/scala-mode"))
+(require 'scala-mode-auto)
+;; (setq yas/my-directory (expand-file-name "~/.emacs.d/plugins/scala-mode/contrib/yasnippet/snippets")
+;; (yas/load-directory yas/my-directory)
+
+;; (add-hook 'scala-mode-hook
+;;           '(lambda ()
+;;              (yas/minor-mode-on)
+;;              ))
 ;;===================== my functions =============================
 
 (defun align-after-char (beg end c)
@@ -513,7 +526,7 @@
  '(ispell-silently-savep t)
  '(jde-compile-option-classpath nil)
  '(jde-global-classpath (quote ("/usr/lib/jvm/java-6-sun-1.6.0.26/jre/lib" "~/bin/play/framework" "~/bin/play/framework/lib")))
- '(jde-help-docsets (quote (("JDK API" "http://docs.oracle.com/javase/6/docs/api" nil) ("Play! Framework API" "http://www.playframework.org/documentation/api/1.2.4" nil))))
+ '(jde-help-docsets (quote (("JDK API" "http://docs.oracle.com/javase/6/docs/api" nil) ("Play! Framework API" "/home/rajish/bin/play/documentation/api" nil))))
  '(jde-imenu-sort (quote asc))
  '(jde-jdk (quote ("1.6.0")))
  '(jde-jdk-registry (quote (("1.5.0" . "/opt/sun-jdk-1.5.0.15") ("1.4.2" . "/opt/sun-jdk-1.4.2.17") ("1.6.0" . "/usr/lib/jvm/java-6-sun") ("1.6.0" . "/opt/sun-jdk-1.6.0.16"))))
