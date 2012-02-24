@@ -423,18 +423,18 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/js2-mode"))
 (when (autoload 'js2-mode "js2-mode" nil t)
   (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode)))
-;;===================== multi-web-mode =============================
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/multi-web-mode"))
-(when (require 'multi-web-mode nil 'noerror)
-  (setq mweb-default-major-mode 'html-mode)
-  (setq mweb-tags '((php-mode "<\\?php\\|<\\? \\|<\\?=" "\\?>")
-                    (js-mode "<script +\\(type=\"text/javascript\"\\|language=\"javascript\"\\)[^>]*>" "</script>")
-                    (css-mode "<style +type=\"text/css\"[^>]*>" "</style>")
-                    (java-mode "${[^}]*" "}")
-                    (c++-mode "\%{[^}]*" "}\%")
-                    ))
-  (setq mweb-filename-extensions '("php" "htm" "html" "ctp" "phtml" "php4" "php5"))
-  (multi-web-global-mode 1))
+;; ;;===================== multi-web-mode =============================
+;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/multi-web-mode"))
+;; (when (require 'multi-web-mode nil 'noerror)
+;;   (setq mweb-default-major-mode 'html-mode)
+;;   (setq mweb-tags '((php-mode "<\\?php\\|<\\? \\|<\\?=" "\\?>")
+;;                     (js-mode "<script +\\(type=\"text/javascript\"\\|language=\"javascript\"\\)[^>]*>" "</script>")
+;;                     (css-mode "<style +type=\"text/css\"[^>]*>" "</style>")
+;;                     (java-mode "${[^}]*" "}")
+;;                     (c++-mode "\%{[^}]*" "}\%")
+;;                     ))
+;;   (setq mweb-filename-extensions '("php" "htm" "html" "ctp" "phtml" "php4" "php5"))
+;;   (multi-web-global-mode 1))
 ;;===================== develock =============================
 (require 'develock nil 'noerror)
 (global-font-lock-mode 1)
@@ -457,6 +457,12 @@
    (global-set-key (kbd "<f9>") 'deft)
    (setq auto-mode-alist
          (cons '("\\.text" . markdown-mode) auto-mode-alist)))
+;;===================== scala-mode + ensime =======================
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/ensime/elisp"))
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/scala-mode"))
+(when (and (require 'scala-mode nil 'noerror) (require 'ensime nil 'noerror))
+  (add-to-list 'auto-mode-alist '("\\.scala.html$" . scala-mode))
+  (add-hook 'scala-mode-hook 'ensime-scala-mode-hook))
 
 ;;===================== js-beautifier =============================
 (require 'js-beautify nil 'noerror)
