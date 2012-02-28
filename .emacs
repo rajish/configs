@@ -470,19 +470,28 @@
   (add-hook 'scala-mode-hook '(lambda ()
                               (yas/minor-mode-on))))
 
+(setq ensime-sem-high-faces
+      '(
+        (var . (:foreground "#ff2222"))
+        (val . (:foreground "#111111"))
+        (varField . (:foreground "#ff6666"))
+        (valField . (:foreground "#666666"))
+        (functionCall . (:foreground "#84BEE3"))
+        (param . (:foreground "#111111"))
+        (class . font-lock-type-face)
+        (trait . (:foreground "#084EA8"))
+        (object . (:foreground "#026DF7"))
+        (package . font-lock-preprocessor-face)))
+
+(defun make-play-doc-url (type &optional member)
+  (ensime-make-java-doc-url-helper
+    "http://developer.example.com/apidocs/" type member))
+
+(add-to-list 'ensime-doc-lookup-map '("^play\\.api\\." . make-play-doc-url))
+
 ;;===================== js-beautifier =============================
 (require 'js-beautify nil 'noerror)
 
-;;===================== scala-mode =============================
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/scala-mode"))
-(require 'scala-mode-auto)
-;; (setq yas/my-directory (expand-file-name "~/.emacs.d/plugins/scala-mode/contrib/yasnippet/snippets")
-;; (yas/load-directory yas/my-directory)
-
-;; (add-hook 'scala-mode-hook
-;;           '(lambda ()
-;;              (yas/minor-mode-on)
-;;              ))
 ;;===================== my functions =============================
 
 (defun align-after-char (beg end c)
