@@ -417,7 +417,13 @@
 (add-hook 'html-mode-hook
           (lambda()
             (setq sgml-basic-offset 4)
-            (setq indent-tabs-mode t)))
+            (setq indent-tabs-mode t)
+            (flyspell-prog-mode 1)))
+
+(global-set-key (kbd "C-c p")
+                (lambda()(interactive)
+                  (ispell-change-dictionary "polish")
+                  (flyspell-buffer)))
 ;;===================== auto-complete =============================
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/auto-complete/bin"))
 (when (require 'auto-complete-config nil 'noerror)
