@@ -491,7 +491,7 @@
 
 (defun make-play-doc-url (type &optional member)
   (ensime-make-java-doc-url-helper
-    "http://developer.example.com/apidocs/" type member))
+    "file:///home/rajish/bin/play2/documentation/api/scala/" type member))
 
 (add-to-list 'ensime-doc-lookup-map '("^play\\.api\\." . make-play-doc-url))
 
@@ -503,6 +503,11 @@
 (defun align-after-char (beg end c)
   (interactive "r\nsSeparation string: ")
   (align-regexp beg end (concat c "\\(\\s-*\\)") 1 1 t))
+
+(setq exec-path (append exec-path
+                        (list
+                         (expand-file-name "~/bin/" )
+                         (expand-file-name "~/bin/play2" ))))
 ;================== CUSTOMIZATIONS ===============================
 
 (custom-set-variables
