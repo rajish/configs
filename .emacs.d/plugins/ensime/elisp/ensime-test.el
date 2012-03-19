@@ -666,11 +666,15 @@
 		     :contents ,(ensime-test-concat-lines
 				 "package com.helloworld"
 				 "import java.ut/*1*/"
+				 "import Vec/*3*/"
+				 "import java.util.{ List, Vec/*4*/}"
 				 "class HelloWorld{"
 				 "import sc/*2*/"
 				 "}"
 				 )
-		     ))))
+		     ))
+		  '(:disable-index-on-startup nil)
+		  ))
 	   (src-files (plist-get proj :src-files)))
       (ensime-test-var-put :proj proj)
       (find-file (car src-files))
@@ -678,7 +682,7 @@
 
     ((:connected connection-info))
 
-    ((:full-typecheck-finished val)
+    ((:indexer-ready status)
      (ensime-test-with-proj
       (proj src-files)
 
@@ -688,6 +692,19 @@
       (ensime-test-eat-label "1")
       (let* ((candidates (ensime-ac-completion-candidates "ut")))
 	(ensime-assert (member "util" candidates)))
+      (insert "il.HashMap")
+      (ensime-write-buffer)
+
+      ;; complete java package member by class name
+      (ensime-test-eat-label "3")
+      (let* ((candidates (ensime-ac-completion-candidates "Vec"))
+	     (to-inserts (mapcar 'ensime-ac-candidate-to-insert candidates)))
+	(ensime-assert (member "java.util.Vector" to-inserts)))
+
+      ;; complete java package member by class name in name list
+      (ensime-test-eat-label "4")
+      (let* ((candidates (ensime-ac-completion-candidates "Vec")))
+	(ensime-assert (member "Vector" candidates)))
 
       ;; complete scala package
       (ensime-test-eat-label "2")

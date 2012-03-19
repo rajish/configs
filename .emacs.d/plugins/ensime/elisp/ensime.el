@@ -251,10 +251,24 @@ Do not show 'Writing..' message."
       (define-key prefix-map (kbd "C-v f") 'ensime-format-source)
       (define-key prefix-map (kbd "C-v u") 'ensime-undo-peek)
       (define-key prefix-map (kbd "C-v v") 'ensime-search)
+      (define-key prefix-map (kbd "C-v t") 'ensime-show-doc-for-symbol-at-point)
       (define-key prefix-map (kbd "C-v .") 'ensime-expand-selection-command)
 
       (define-key prefix-map (kbd "C-d d") 'ensime-db-start)
       (define-key prefix-map (kbd "C-d b") 'ensime-db-set-break)
+      (define-key prefix-map (kbd "C-d u") 'ensime-db-clear-break)
+      (define-key prefix-map (kbd "C-d s") 'ensime-db-step)
+      (define-key prefix-map (kbd "C-d n") 'ensime-db-next)
+      (define-key prefix-map (kbd "C-d r") 'ensime-db-run)
+      (define-key prefix-map (kbd "C-d c") 'ensime-db-continue)
+      (define-key prefix-map (kbd "C-d q") 'ensime-db-quit)
+      (define-key prefix-map (kbd "C-d l") 'ensime-db-list-locals)
+
+      (define-key prefix-map (kbd "C-b s") 'ensime-sbt-switch)
+      (define-key prefix-map (kbd "C-b c") 'ensime-sbt-do-compile)
+      (define-key prefix-map (kbd "C-b n") 'ensime-sbt-do-clean)
+      (define-key prefix-map (kbd "C-b p") 'ensime-sbt-do-package)
+
       (define-key prefix-map (kbd "C-d u") 'ensime-db-clear-break)
       (define-key prefix-map (kbd "C-d s") 'ensime-db-step)
       (define-key prefix-map (kbd "C-d n") 'ensime-db-next)
@@ -332,6 +346,15 @@ Do not show 'Writing..' message."
      ["Forward compilation note" ensime-forward-note]
      ["Expand selection" ensime-expand-selection-command]
      ["Search" ensime-search])
+
+    ("Documentation"
+     ["Browse documentation of symbol" ensime-show-doc-for-symbol-at-point])
+
+    ("SBT"
+     ["Start or switch to" ensime-sbt-switch]
+     ["Compile" ensime-sbt-do-compile]
+     ["Clean" ensime-sbt-do-clean]
+     ["Package" ensime-sbt-do-package])
 
     ("Debugger"
      ["Start" ensime-db-start]
@@ -1690,7 +1713,6 @@ If PROCESS is not specified, `ensime-connection' is used.
   (let ((ensime-dispatching-connection connection))
     (destructuring-bind (&key pid server-implementation version
 			      &allow-other-keys) info
-      (ensime-check-version version connection)
       (setf (ensime-pid) pid)
       (destructuring-bind (&key name) server-implementation
 	(setf (ensime-server-implementation-name) name
@@ -1729,15 +1751,6 @@ computed on server into the local config structure."
     (ensime-set-config conn config)
     (force-mode-line-update t)))
 
-
-(defun ensime-check-version (version conn)
-  (or (equal version ensime-protocol-version)
-      (equal ensime-protocol-version 'ignore)
-      (y-or-n-p
-       (format "Versions differ: %s (ensime) vs. %s (swank). Continue? "
-	       ensime-protocol-version version))
-      (ensime-net-close conn)
-      (top-level)))
 
 (defun ensime-generate-connection-name (server-name)
   (loop for i from 1
@@ -1812,10 +1825,11 @@ versions cannot deal with that."
        (ensime-rex (tag sexp)
 	   sexp
 	 ((:ok value)
-	  (unless (member tag ensime-stack-eval-tags)
-	    (error "Reply to canceled synchronous eval request tag=%S sexp=%S"
-		   tag sexp))
-	  (throw tag (list #'identity value)))
+	  (if (not (member tag ensime-stack-eval-tags))
+	      (message
+	       "Reply to canceled synchronous eval request tag=%S sexp=%S"
+	       tag sexp)
+	    (throw tag (list #'identity value))))
 	 ((:abort code reason)
 	  (throw tag (list #'error
 			   (format
@@ -2891,19 +2905,14 @@ with the current project's dependencies loaded. Returns a property list."
    :end
    ))
 
-(defun ensime-rpc-name-completions-at-point (&optional prefix is-constructor)
-  (ensime-eval
-   `(swank:scope-completion
-     ,buffer-file-name
-     ,(ensime-computed-point)
-     ,(or prefix "")
-     ,is-constructor)))
 
-(defun ensime-rpc-completions-at-point ()
+(defun ensime-rpc-completions-at-point (&optional max-results case-sens)
   (ensime-eval
    `(swank:completions
      ,buffer-file-name
      ,(ensime-computed-point)
+     ,(or max-results 0)
+     ,case-sens
      )))
 
 (defun ensime-rpc-import-suggestions-at-point (names max-results)
@@ -2929,13 +2938,6 @@ with the current project's dependencies loaded. Returns a property list."
      ,buffer-file-name
      ,(ensime-computed-point)
      )))
-
-(defun ensime-rpc-members-for-type-at-point (&optional prefix)
-  (ensime-eval
-   `(swank:type-completion
-     ,buffer-file-name
-     ,(ensime-computed-point)
-     ,(or prefix ""))))
 
 (defun ensime-rpc-package-member-completions (path &optional prefix)
   (ensime-eval
@@ -3660,6 +3662,12 @@ It should be used for \"background\" messages such as argument lists."
 
 (defun ensime-symbol-type (sym)
   (plist-get sym :type))
+
+(defun ensime-symbol-is-callable (sym)
+  (plist-get sym :is-callable))
+
+(defun ensime-symbol-owner-type-id (sym)
+  (plist-get sym :owner-type-id))
 
 (defun ensime-package-name (info)
   (plist-get info :name))
