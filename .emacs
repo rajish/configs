@@ -461,12 +461,14 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/markdown-mode"))
 (when (and (require 'deft nil 'noerror) (require 'markdown-mode nil 'noerror))
    (setq
-      deft-extension "text"
+      deft-extension "md"
       deft-directory "~/.deft/"
-      deft-text-mode 'markdown-mode)
+      deft-text-mode 'markdown-mode
+      deft-use-filename-as-title t)
    (global-set-key (kbd "<f9>") 'deft)
    (setq auto-mode-alist
-         (cons '("\\.text" . markdown-mode) auto-mode-alist)))
+         (append '(("\\.text" . markdown-mode)
+                   ("\\.md" . markdown-mode)) auto-mode-alist)))
 ;;===================== scala-mode + ensime =======================
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/ensime/elisp"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/scala-mode"))
