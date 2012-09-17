@@ -9,7 +9,7 @@
 	url = git://github.com/fgallina/multi-web-mode.git
 [submodule ".emacs.d/plugins/doxymacs"]
 	path = .emacs.d/plugins/doxymacs
-	url = git://github.com/emacsmirror/doxymacs.git
+	url = git://doxymacs.git.sourceforge.net/gitroot/doxymacs/doxymacs
 [submodule ".emacs.d/plugins/auto-complete"]
 	path = .emacs.d/plugins/auto-complete
 	url = git://github.com/m2ym/auto-complete.git
