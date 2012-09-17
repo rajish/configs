@@ -5,7 +5,7 @@ session.*
 *.elc
 /.emacs.d/tramp
 /.emacs.d/plugins/yasnippet-bundle-0.6.1c.el.tgz
-/.emacs.d/.session
+/.emacs.d/.session*
 /.emacs.before_ecb_2.32*
 /.emacs.d/plugins/cedet-1.0/.emacs.desktop
 /.emacs.d/plugins/relaxng/

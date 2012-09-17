@@ -14,6 +14,5 @@ for file in "${CONFIGS[@]}"; do
         [ "$ANS" == 'y' -o "$ANS" == 'Y' ] &&
         rm -rf "$file"
     fi &&
-
-    ln -s $CFGDIR/"$(basename "$file")" "$file"
+    ln -s "$CFGDIR/$(basename $file)" "$file"
 done

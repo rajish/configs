@@ -2,7 +2,7 @@
 (add-to-list 'load-path
      (expand-file-name "~/.emacs.d/plugins")
      "/usr/lib/xemacs/site-lisp")
-
+(global-auto-revert-mode 1)
 
 ;; ================ Window size ==========================
 (defun set-frame-size-according-to-resolution ()
@@ -90,18 +90,17 @@
                                                 (if next-func
                                                     (list
                                                      'l
-                                                     "/*!" '> 'n
-                                                     " * \\brief " 'p '> 'n
-                                                     " * " '> 'n
+                                                     "/**" 'p '> 'n
+                                                     "  * " '> 'n
                                                      (doxymacs-parm-tempo-element (cdr (assoc 'args next-func)))
                                                      (unless (string-match
                                                               (regexp-quote (cdr (assoc 'return next-func)))
                                                               doxymacs-void-types)
-                                                       '(l " * " > n " * "
-                                                           "\\return " (p "Returns: ") > n))
-                                                     " *" '> 'n
-                                                     " * \\author " (user-login-name) '> 'n
-                                                     " * \\date " (format-time-string "%d-%m-%Y") '> 'n
+                                                       '(l "  * " > n "  * "
+                                                           "@return " (p "Returns: ") > n))
+                                                     "  *" '> 'n
+                                                     "  * @author " (user-login-name) '> 'n
+                                                     " * @since " (format-time-string "%d-%m-%Y") '> 'n
                                                      " */" '> 'n)
                                                   (progn
                                                     (error "Can't find next function declaration.")
@@ -418,7 +417,8 @@
           (lambda()
             (setq sgml-basic-offset 4)
             (setq indent-tabs-mode t)
-            (flyspell-prog-mode 1)))
+            (ethan-wspace-type-deactivate 'tabs)))
+;;            (flyspell-prog-mode 1)))
 
 (global-set-key (kbd "C-c p")
                 (lambda()(interactive)
@@ -446,7 +446,7 @@
 ;;   (setq mweb-filename-extensions '("php" "htm" "html" "ctp" "phtml" "php4" "php5"))
 ;;   (multi-web-global-mode 1))
 ;;===================== develock =============================
-(require 'develock nil 'noerror)
+;;(require 'develock nil 'noerror)
 (global-font-lock-mode 1)
 (require 'scss-mode nil 'noerror)
 
@@ -473,7 +473,7 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/ensime/elisp"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/scala-mode"))
 (when (and (require 'scala-mode-auto nil 'noerror) (require 'ensime nil 'noerror))
-  (add-to-list 'auto-mode-alist '("\\.scala.html$" . scala-mode))
+  (add-to-list 'auto-mode-alist '("\\.scala.html$" . html-mode))
   (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
   (add-hook 'scala-mode-hook '(lambda ()
                               (yas/minor-mode-on))))
@@ -481,11 +481,11 @@
 (setq ensime-sem-high-faces
       '(
         (var . (:foreground "#ff2222"))
-        (val . (:foreground "#111111"))
+        (val . (:foreground "#aaaaaa"))
         (varField . (:foreground "#ff6666"))
         (valField . (:foreground "#666666"))
         (functionCall . (:foreground "#84BEE3"))
-        (param . (:foreground "#111111"))
+        (param . (:foreground "#bbaabb"))
         (class . font-lock-type-face)
         (trait . (:foreground "#084EA8"))
         (object . (:foreground "#026DF7"))
@@ -496,15 +496,30 @@
     "file:///home/rajish/bin/play2/documentation/api/scala/" type member))
 
 (add-to-list 'ensime-doc-lookup-map '("^play\\.api\\." . make-play-doc-url))
-
+(add-to-list 'auto-mode-alist '("\\.xsd$" . nxml-mode))
 ;;===================== js-beautifier =============================
 (require 'js-beautify nil 'noerror)
+
+;;===================== coffee-mode =============================
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/coffee-mode"))
+(require 'coffee-mode)
+(add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
+(add-to-list 'auto-mode-alist '("Cakefile" . coffee-mode))
+
+;;===================== coffee-mode =============================
+(require 'less-css-mode)
+(add-to-list 'auto-mode-alist '("\\.less$" . less-css-mode))
 
 ;;===================== my functions =============================
 
 (defun align-after-char (beg end c)
   (interactive "r\nsSeparation string: ")
   (align-regexp beg end (concat c "\\(\\s-*\\)") 1 1 t))
+
+(defun align-before-char (beg end c)
+  (interactive "r\nsSeparation string: ")
+  (align-regexp beg end (concat "\\(\\s-*\\)" c) 1 1 t))
+
 
 (setq exec-path (append exec-path
                         (list
@@ -524,6 +539,8 @@
  '(backward-delete-char-untabify-method (quote hungry))
  '(browse-url-browser-function (quote browse-url-firefox))
  '(c-default-style (quote ((c-mode . "stroustrup") (c++-mode . "stroustrup") (java-mode . "java") (other . "stroustrup"))))
+ '(coffee-cygwin-mode nil)
+ '(coffee-tab-width 4)
  '(column-number-mode t)
  '(comment-column 80)
  '(comment-fill-column 180)
@@ -543,7 +560,9 @@
  '(doxymacs-function-comment-template tempo-template-function-comment)
  '(doxymacs-member-comment-end " */")
  '(doxymacs-member-comment-start "/**<  ")
+ '(ensime-default-server-cmd "~/.emacs.d/plugins/ensime/bin/server")
  '(font-lock-verbose nil)
+ '(frame-background-mode (quote dark))
  '(hippie-expand-dabbrev-as-symbol nil)
  '(ibuffer-formats (quote ((mark modified read-only " " (name 46 -1) " " (size 6 -1 :right) " " (mode 16 16 :right) " " filename) (mark " " (name 46 -1) " " filename))))
  '(indent-tabs-mode nil)
@@ -565,11 +584,13 @@
  '(longlines-show-hard-newlines t)
  '(longlines-wrap-follows-window-size t)
  '(markdown-command "pandoc")
+ '(mode-require-final-newline nil)
  '(nxml-auto-insert-xml-declaration-flag t)
  '(nxml-slash-auto-complete-flag t)
  '(pydb-many-windows t)
  '(safe-local-variable-values (quote ((c-style . whitesmith))))
  '(save-place t nil (saveplace))
+ '(scala-mode-feature:speedbar-open nil)
  '(scroll-bar-mode (quote right))
  '(select-active-regions t)
  '(session-use-package t nil (session))
@@ -595,7 +616,8 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(default ((t (:stipple nil :background "#ffffff" :foreground "#000000" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 90 :width normal :foundry "xos4" :family "Terminus"))))
+ '(default ((t (:stipple nil :background "#000000" :foreground "#ffffff" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 90 :width normal :foundry "xos4" :family "Terminus"))))
+ '(cursor ((t (:background "brown"))))
  '(develock-long-line-2 ((t (:background "#feff97" :foreground "Red"))))
  '(develock-whitespace-1 ((t (:background "#ffffaa00aa00"))))
  '(develock-whitespace-2 ((t (:background "#ffda97"))))
@@ -605,7 +627,7 @@
  '(font-lock-constant-face ((((class color) (min-colors 88) (background light)) (:weight ultra-bold))))
  '(font-lock-keyword-face ((t (:foreground "#742828" :weight bold))))
  '(font-lock-negation-char-face ((t (:weight bold))))
- '(font-lock-string-face ((((class color) (min-colors 88) (background light)) (:foreground "#02620d"))))
+ '(font-lock-string-face ((nil (:foreground "#bada55"))))
  '(font-lock-type-face ((((class color) (min-colors 88) (background light)) (:foreground "#742828" :weight semi-light))))
  '(font-lock-variable-name-face ((((class color) (min-colors 88) (background light)) (:foreground "red3"))))
  '(jde-java-font-lock-doc-tag-face ((((class color) (background light)) (:foreground "green4" :weight bold))))
