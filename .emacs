@@ -466,6 +466,9 @@
       deft-text-mode 'markdown-mode
       deft-use-filename-as-title t)
    (global-set-key (kbd "<f9>") 'deft)
+   (add-hook 'markdown-mode (lambda ()
+                              (ethan-wspace-clean-eol-mode nil)
+                              (ethan-wspace-clean-eol-mode-disable-highlight)))
    (setq auto-mode-alist
          (append '(("\\.text" . markdown-mode)
                    ("\\.md" . markdown-mode)) auto-mode-alist)))
