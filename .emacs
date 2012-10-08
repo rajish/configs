@@ -148,41 +148,41 @@
 ; ============ CEDET ============
 ;; Load CEDET.
 ;; See cedet/common/cedet.info for configuration details.
-(load-file "~/.emacs.d/plugins/cedet-1.0/common/cedet.el")
+;; (load-file "~/.emacs.d/plugins/cedet-1.0/common/cedet.el")
 
 
-;; Enable EDE (Project Management) features
-(global-ede-mode 1)
+;; ;; Enable EDE (Project Management) features
+;; (global-ede-mode 1)
 
-;; Enable EDE for a pre-existing C++ project
-;; (ede-cpp-root-project "NAME" :file "~/myproject/Makefile")
+;; ;; Enable EDE for a pre-existing C++ project
+;; ;; (ede-cpp-root-project "NAME" :file "~/myproject/Makefile")
 
 
-;; Enabling Semantic (code-parsing, smart completion) features
-;; Select one of the following:
+;; ;; Enabling Semantic (code-parsing, smart completion) features
+;; ;; Select one of the following:
 
-;; * This enables the database and idle reparse engines
-(semantic-load-enable-minimum-features)
+;; ;; * This enables the database and idle reparse engines
+;; (semantic-load-enable-minimum-features)
 
-;; * This enables some tools useful for coding, such as summary mode
-;;   imenu support, and the semantic navigator
-(semantic-load-enable-code-helpers)
+;; ;; * This enables some tools useful for coding, such as summary mode
+;; ;;   imenu support, and the semantic navigator
+;; (semantic-load-enable-code-helpers)
 
-;; * This enables even more coding tools such as intellisense mode
-;;   decoration mode, and stickyfunc mode (plus regular code helpers)
-;; (semantic-load-enable-gaudy-code-helpers)
+;; ;; * This enables even more coding tools such as intellisense mode
+;; ;;   decoration mode, and stickyfunc mode (plus regular code helpers)
+;; ;; (semantic-load-enable-gaudy-code-helpers)
 
-;; * This enables the use of Exuberent ctags if you have it installed.
-;;   If you use C++ templates or boost, you should NOT enable it.
-;; (semantic-load-enable-all-exuberent-ctags-support)
-;;   Or, use one of these two types of support.
-;;   Add support for new languges only via ctags.
-;; (semantic-load-enable-primary-exuberent-ctags-support)
-;;   Add support for using ctags as a backup parser.
-;; (semantic-load-enable-secondary-exuberent-ctags-support)
+;; ;; * This enables the use of Exuberent ctags if you have it installed.
+;; ;;   If you use C++ templates or boost, you should NOT enable it.
+;; ;; (semantic-load-enable-all-exuberent-ctags-support)
+;; ;;   Or, use one of these two types of support.
+;; ;;   Add support for new languges only via ctags.
+;; ;; (semantic-load-enable-primary-exuberent-ctags-support)
+;; ;;   Add support for using ctags as a backup parser.
+;; ;; (semantic-load-enable-secondary-exuberent-ctags-support)
 
-;; Enable SRecode (Template management) minor-mode.
-(global-srecode-minor-mode 1)
+;; ;; Enable SRecode (Template management) minor-mode.
+;; (global-srecode-minor-mode 1)
 
 
 ;; ============== CSCOPE ==================
@@ -245,7 +245,7 @@
   (move-to-column (- color-point 1))
   (indent-according-to-mode))
 
-(read-abbrev-file "~/.emacs.d/abbrevs")
+; (read-abbrev-file "~/.emacs.d/abbrevs")
 
 ;=========================================
 ; Doppke's hack for following the cursor in the compile window
@@ -262,7 +262,7 @@
           (select-window curwindow)))))
 (if (featurep 'compile)
     (ad-activate 'compile)
-  (eval-when (WHEN load) '(ad-activate 'compile)))
+  (eval-after-load 'compile '(ad-activate 'compile)))
 
 ;=========== docbook =============
 (add-hook 'docbook-mode-hook 'turn-on-font-lock)
@@ -296,7 +296,7 @@
  'compilation-error-regexp-alist
  '("^\\([a-zA-Z]:.*\\):\\[\\([0-9]+\\),\\([0-9]+\\)\\]" 1 2 3))
 
-(load-file (expand-file-name "~/.emacs.d/plugins/jde-int/jde-int.el"))
+; (load-file (expand-file-name "~/.emacs.d/plugins/jde-int/jde-int.el"))
 (c-add-style "java"
               '(
               (c-basic-offset . 4)
@@ -475,9 +475,11 @@
 ;;===================== scala-mode + ensime =======================
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/ensime/elisp"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/scala-mode"))
-(when (and (require 'scala-mode-auto nil 'noerror) (require 'ensime nil 'noerror))
+(when (require 'scala-mode-auto nil 'noerror)
   (add-to-list 'auto-mode-alist '("\\.scala.html$" . html-mode))
-  (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+  (when  (require 'ensime nil 'noerror)
+    (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+    (add-to-list 'ensime-doc-lookup-map '("^play\\.api\\." . make-play-doc-url)))
   (add-hook 'scala-mode-hook '(lambda ()
                               (yas/minor-mode-on))))
 
@@ -498,20 +500,19 @@
   (ensime-make-java-doc-url-helper
     "file:///home/rajish/bin/play2/documentation/api/scala/" type member))
 
-(add-to-list 'ensime-doc-lookup-map '("^play\\.api\\." . make-play-doc-url))
 (add-to-list 'auto-mode-alist '("\\.xsd$" . nxml-mode))
 ;;===================== js-beautifier =============================
 (require 'js-beautify nil 'noerror)
 
 ;;===================== coffee-mode =============================
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/coffee-mode"))
-(require 'coffee-mode)
-(add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
-(add-to-list 'auto-mode-alist '("Cakefile" . coffee-mode))
+(when (require 'coffee-mode nil 'noerror)
+  (add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
+  (add-to-list 'auto-mode-alist '("Cakefile" . coffee-mode)))
 
 ;;===================== coffee-mode =============================
-(require 'less-css-mode)
-(add-to-list 'auto-mode-alist '("\\.less$" . less-css-mode))
+(when (require 'less-css-mode nil 'noerror)
+  (add-to-list 'auto-mode-alist '("\\.less$" . less-css-mode)))
 
 ;;===================== my functions =============================
 
@@ -531,10 +532,10 @@
 ;================== CUSTOMIZATIONS ===============================
 
 (custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(Buffer-menu-buffer+size-width 46)
  '(Info-additional-directory-list (quote ("/usr/share/info")))
  '(ac-modes (quote (emacs-lisp-mode lisp-mode lisp-interaction-mode slime-repl-mode c-mode cc-mode c++-mode java-mode malabar-mode clojure-mode scala-mode scheme-mode ocaml-mode tuareg-mode haskell-mode perl-mode cperl-mode python-mode ruby-mode ecmascript-mode javascript-mode js-mode js2-mode php-mode css-mode scss-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode)))
@@ -590,6 +591,7 @@
  '(mode-require-final-newline nil)
  '(nxml-auto-insert-xml-declaration-flag t)
  '(nxml-slash-auto-complete-flag t)
+ '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") ("melpa" . "http://melpa.milkbox.net/packages/"))))
  '(pydb-many-windows t)
  '(safe-local-variable-values (quote ((c-style . whitesmith))))
  '(save-place t nil (saveplace))
@@ -615,10 +617,10 @@
   :group 'font-lock-faces)
 
 (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(default ((t (:stipple nil :background "#000000" :foreground "#ffffff" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 90 :width normal :foundry "xos4" :family "Terminus"))))
  '(cursor ((t (:background "brown"))))
  '(develock-long-line-2 ((t (:background "#feff97" :foreground "Red"))))
