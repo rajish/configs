@@ -2,7 +2,7 @@
 
 CFGDIR="$( cd -P "$( dirname "$0" )" && pwd )"
 
-CONFIGS=("$HOME/.emacs" "$HOME/.emacs.d")
+CONFIGS=("$HOME/.emacs" "$HOME/.emacs.d" "$HOME/.bashrc" "$HOME/.bash_profile")
 
 for file in "${CONFIGS[@]}"; do
 

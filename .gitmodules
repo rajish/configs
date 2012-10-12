@@ -1,39 +1,3 @@
 [submodule ".emacs.d/plugins/ethan-wspace"]
 	path = .emacs.d/plugins/ethan-wspace
 	url = git://github.com/glasserc/ethan-wspace.git
-[submodule ".emacs.d/plugins/magit"]
-	path = .emacs.d/plugins/magit
-	url = git://github.com/magit/magit.git
-[submodule ".emacs.d/plugins/multi-web-mode"]
-	path = .emacs.d/plugins/multi-web-mode
-	url = git://github.com/fgallina/multi-web-mode.git
-[submodule ".emacs.d/plugins/doxymacs"]
-	path = .emacs.d/plugins/doxymacs
-	url = git://doxymacs.git.sourceforge.net/gitroot/doxymacs/doxymacs
-[submodule ".emacs.d/plugins/auto-complete"]
-	path = .emacs.d/plugins/auto-complete
-	url = git://github.com/m2ym/auto-complete.git
-[submodule ".emacs.d/plugins/jde-int"]
-	path = .emacs.d/plugins/jde-int
-	url = git://github.com/phua/jde-int.git
-[submodule ".emacs.d/plugins/jdee"]
-	path = .emacs.d/plugins/jdee
-	url = git://github.com/emacsmirror/jdee.git
-[submodule ".emacs.d/plugins/js2-mode"]
-	path = .emacs.d/plugins/js2-mode
-	url = git://github.com/mooz/js2-mode.git
-[submodule ".emacs.d/plugins/yaml-mode"]
-	path = .emacs.d/plugins/yaml-mode
-	url = git://github.com/yoshiki/yaml-mode.git
-[submodule ".emacs.d/plugins/markdown-mode"]
-	path = .emacs.d/plugins/markdown-mode
-	url = git://jblevins.org/git/markdown-mode.git
-[submodule ".emacs.d/plugins/deft"]
-	path = .emacs.d/plugins/deft
-	url = git://jblevins.org/git/deft.git
-[submodule ".emacs.d/plugins/yasnippet"]
-	path = .emacs.d/plugins/yasnippet
-	url = git://github.com/capitaomorte/yasnippet.git
-[submodule ".emacs.d/plugins/coffee-mode"]
-	path = .emacs.d/plugins/coffee-mode
-	url = https://github.com/defunkt/coffee-mode.git
