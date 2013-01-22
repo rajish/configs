@@ -107,7 +107,7 @@ else \
 fi)'
 
 
-export PROMPT_COMMAND='echo -ne  "\033]0;[${CHROOT}] ${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"'
+export PROMPT_COMMAND='echo -ne  "\033]0;$(if [ -n "$CHROOT" ]; then echo -ne  "[${CHROOT}]"; fi)${USER}@${HOSTNAME}:${PWD/$HOME/~}\007"'
 
 export TZ='Europe/Warsaw'
 
