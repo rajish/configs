@@ -91,7 +91,7 @@ Jobs="\j"
 # This PS1 snippet was adopted from code for MAC/BSD I saw from: http://allancraig.net/index.php?option=com_content&view=article&id=108:ps1-export-command-for-git&catid=45:general&Itemid=96
 # I tweaked it to work on UBUNTU 11.04 & 11.10 plus made it mo' better
 
-export PS1=$IBlack$Time12h$Color_Off'$(git branch &>/dev/null;\
+export PS1='$(if [ -n "$CHROOT" ]; then echo -ne "['$IWhite$CHROOT$Color_Off'] "; fi)'$IBlack$Time12h$Color_Off'$(git branch &>/dev/null;\
 if [ $? -eq 0 ]; then \
   echo "$(echo `git status` | grep "nothing to commit" > /dev/null 2>&1; \
   if [ "$?" -eq "0" ]; then \
@@ -105,3 +105,14 @@ else \
   # @2 - Prompt when not in GIT repo
   echo " '$Yellow$PathShort$Color_Off'\$ "; \
 fi)'
+
+
+export PROMPT_COMMAND='echo -ne  "\033]0;[${CHROOT}] ${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"'
+
+export TZ='Europe/Warsaw'
+
+
+if [ -z "$SSH_AUTH_SOCK" ]; then
+    ssh_env=$(ssh-agent)
+    eval "$ssh_env"
+fi

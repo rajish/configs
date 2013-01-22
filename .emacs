@@ -61,7 +61,8 @@
 (define-key global-map "\C-c\C-t" 'c-toggle-auto-hungry-state)
 (add-hook 'c-mode-common-hook (lambda () (font-lock-mode t)))
 ;; (add-hook 'c-mode-common-hook 'hs-minor-mode)
-
+;; (c-add-style "ivo"
+;;              ("stroustrup"))
 ;============ DOXY(GEN)MACS ==============
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/doxymacs/lisp"))
 (when (require 'doxymacs nil 'noerror)
@@ -97,11 +98,7 @@
                                                      (unless (string-match
                                                               (regexp-quote (cdr (assoc 'return next-func)))
                                                               doxymacs-void-types)
-                                                       '(l "  * " > n "  * "
-                                                           "@return " (p "Returns: ") > n))
-                                                     "  *" '> 'n
-                                                     "  * @author " (user-login-name) '> 'n
-                                                     " * @since " (format-time-string "%d-%m-%Y") '> 'n
+                                                       '(l "  * " > n "  * " "\\return " (p "Returns: ") > n))
                                                      " */" '> 'n)
                                                   (progn
                                                     (error "Can't find next function declaration.")
@@ -129,7 +126,7 @@
 ;;(remove-alist 'auto-mode-alist "\\.[ch]\\'")
 (setq auto-mode-alist
       (append  '(("\\.tcf\\'" . c-mode)
-                 ("\\.[ch]\\'" . c-mode)
+                 ("\\.[ch]\\'" . c++\-mode)
                  ("\\.inc\\'" . c-mode)
                  ("Makefile\\.*". makefile-mode)
                  ("\\.mkf\\'" . makefile-mode))
@@ -473,9 +470,9 @@
       deft-text-mode 'markdown-mode
       deft-use-filename-as-title t)
    (global-set-key (kbd "<f9>") 'deft)
-   (add-hook 'markdown-mode (lambda ()
-                              (ethan-wspace-clean-eol-mode nil)
-                              (ethan-wspace-clean-eol-mode-disable-highlight)))
+   ;; (add-hook 'markdown-mode (lambda ()
+   ;;                            (ethan-wspace-clean-all-modes)
+   ;;                            (ethan-wspace-clean-eol-mode-disable-highlight)))
    (setq auto-mode-alist
          (append '(("\\.text" . markdown-mode)
                    ("\\.md" . markdown-mode)) auto-mode-alist)))
