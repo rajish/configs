@@ -92,6 +92,8 @@ Jobs="\j"
 # I tweaked it to work on UBUNTU 11.04 & 11.10 plus made it mo' better
 
 source ~/configs/git-prompt.sh
+export MAKE_JOBS=-j9
+export HOST_N_CORES=9
 
 export PS1='$(if [ -n "$CHROOT" ]; then echo -ne "['$IWhite$CHROOT$Color_Off'] "; fi)'$IBlack$Time12h$Color_Off'$(git branch &>/dev/null;\
 if [ $? -eq 0 ]; then \
