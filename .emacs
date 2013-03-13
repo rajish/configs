@@ -435,8 +435,8 @@
   (ac-config-default))
 ;;===================== js2-mode =============================
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/js2-mode"))
-(when (autoload 'js2-mode "js2-mode" nil t)
-  (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode)))
+(when (autoload 'js3-mode "js3-mode" nil t)
+  (add-to-list 'auto-mode-alist '("\\.js$" . js3-mode)))
 ;; ;;===================== multi-web-mode =============================
 ;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/multi-web-mode"))
 ;; (when (require 'multi-web-mode nil 'noerror)
@@ -480,12 +480,22 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/ensime/elisp"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/scala-mode"))
 (when (require 'scala-mode-auto nil 'noerror)
-  (add-to-list 'auto-mode-alist '("\\.scala.html$" . html-mode))
+  (add-to-list 'auto-mode-alist '("\\.scala.html$" . web-mode))
   (when  (require 'ensime nil 'noerror)
     (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
     (add-to-list 'ensime-doc-lookup-map '("^play\\.api\\." . make-play-doc-url)))
   (add-hook 'scala-mode-hook '(lambda ()
                               (yas/minor-mode-on))))
+
+(when (require 'web-mode nil 'noerror)
+  (add-to-list 'auto-mode-alist 
+               '("\\.html$" . web-mode)
+               '("\\.hbs$" . web-mode))
+  (add-hook 'web-mode-hook
+          (lambda()
+            (setq sgml-basic-offset 4)
+            (setq indent-tabs-mode t)
+            (ethan-wspace-type-deactivate 'tabs))))
 
 (setq ensime-sem-high-faces
       '(

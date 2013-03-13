@@ -2772,4 +2772,3 @@
  (org-toodledo .
 	       [(20120721 1825)
 		nil "Toodledo integration for Emacs Org mode [source: github]" tar]))
-

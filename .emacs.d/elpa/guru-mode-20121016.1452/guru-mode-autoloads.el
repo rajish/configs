@@ -4,7 +4,7 @@
 
 
 ;;;### (autoloads (guru-global-mode guru-mode) "guru-mode" "guru-mode.el"
-;;;;;;  (20763 19830))
+;;;;;;  (20766 48284))
 ;;; Generated autoloads from guru-mode.el
 
 (autoload 'guru-mode "guru-mode" "\
@@ -35,7 +35,7 @@ See `guru-mode' for more information on Guru mode.
 
 ;;;***
 
-;;;### (autoloads nil nil ("guru-mode-pkg.el") (20763 19830 162546))
+;;;### (autoloads nil nil ("guru-mode-pkg.el") (20766 48284 743538))
 
 ;;;***
 

@@ -3,6 +3,8 @@
 # Source global definitions
 if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
+elif [ -f /etc/bash.bashrc ]; then
+    . /etc/bash.bashrc
 fi
 
 # User specific aliases and functions
@@ -120,3 +122,5 @@ if [ -z "$SSH_AUTH_SOCK" ]; then
     ssh_env=$(ssh-agent)
     eval "$ssh_env"
 fi
+
+alias ll="ls -lahF"
