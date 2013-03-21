@@ -7,73 +7,73 @@
 ; ============ CEDET ============
 ;; Load CEDET.
 ;; See cedet/common/cedet.info for configuration details.
-(load-file "~/.emacs.d/plugins/cedet-1.1/common/cedet.el")
+;; (load-file "~/.emacs.d/plugins/cedet-1.1/common/cedet.el")
 
-;; EDE
-(global-ede-mode 1)
-(ede-enable-generic-projects)
-(semantic-load-enable-code-helpers)
-(semantic-load-enable-excessive-code-helpers)
+;; ;; EDE
+;; (global-ede-mode 1)
+;; (ede-enable-generic-projects)
+;; (semantic-load-enable-code-helpers)
+;; (semantic-load-enable-excessive-code-helpers)
 
-;; select which submodes we want to activate
-(add-to-list 'semantic-default-submodes 'global-semantic-mru-bookmark-mode)
-(add-to-list 'semantic-default-submodes 'global-semanticdb-minor-mode)
-(add-to-list 'semantic-default-submodes 'global-semantic-idle-scheduler-mode)
-(add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
-(add-to-list 'semantic-default-submodes 'global-cedet-m3-minor-mode)
-(add-to-list 'semantic-default-submodes 'global-semantic-highlight-func-mode)
-(add-to-list 'semantic-default-submodes 'global-semanticdb-minor-mode)
+;; ;; select which submodes we want to activate
+;; (add-to-list 'semantic-default-submodes 'global-semantic-mru-bookmark-mode)
+;; (add-to-list 'semantic-default-submodes 'global-semanticdb-minor-mode)
+;; (add-to-list 'semantic-default-submodes 'global-semantic-idle-scheduler-mode)
+;; (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
+;; (add-to-list 'semantic-default-submodes 'global-cedet-m3-minor-mode)
+;; (add-to-list 'semantic-default-submodes 'global-semantic-highlight-func-mode)
+;; (add-to-list 'semantic-default-submodes 'global-semanticdb-minor-mode)
 
-;; Activate semantic
-(require 'semantic)
-(require 'semanticdb)
-;;(semantic-mode 1)
+;; ;; Activate semantic
+;; (require 'semantic)
+;; (require 'semanticdb)
+;; ;;(semantic-mode 1)
 
-;; load contrib library
-(require 'eassist)
+;; ;; load contrib library
+;; (require 'eassist)
 
-;; customisation of modes
-(defun alexott/cedet-hook ()
-  (local-set-key [(control return)] 'semantic-ia-complete-symbol-menu)
-  (local-set-key "\C-c?" 'semantic-ia-complete-symbol)
-  ;;
-  (local-set-key "\C-c>" 'semantic-complete-analyze-inline)
-  (local-set-key "\C-c=" 'semantic-decoration-include-visit)
+;; ;; customisation of modes
+;; (defun alexott/cedet-hook ()
+;;   (local-set-key [(control return)] 'semantic-ia-complete-symbol-menu)
+;;   (local-set-key "\C-c?" 'semantic-ia-complete-symbol)
+;;   ;;
+;;   (local-set-key "\C-c>" 'semantic-complete-analyze-inline)
+;;   (local-set-key "\C-c=" 'semantic-decoration-include-visit)
 
-  (local-set-key "\C-cj" 'semantic-ia-fast-jump)
-  (local-set-key "\C-cq" 'semantic-ia-show-doc)
-  (local-set-key "\C-cs" 'semantic-ia-show-summary)
-  (local-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle)
-  )
-(add-hook 'c-mode-common-hook 'alexott/cedet-hook)
-(add-hook 'lisp-mode-hook 'alexott/cedet-hook)
-(add-hook 'scheme-mode-hook 'alexott/cedet-hook)
-(add-hook 'emacs-lisp-mode-hook 'alexott/cedet-hook)
-(add-hook 'erlang-mode-hook 'alexott/cedet-hook)
+;;   (local-set-key "\C-cj" 'semantic-ia-fast-jump)
+;;   (local-set-key "\C-cq" 'semantic-ia-show-doc)
+;;   (local-set-key "\C-cs" 'semantic-ia-show-summary)
+;;   (local-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle)
+;;   )
+;; (add-hook 'c-mode-common-hook 'alexott/cedet-hook)
+;; (add-hook 'lisp-mode-hook 'alexott/cedet-hook)
+;; (add-hook 'scheme-mode-hook 'alexott/cedet-hook)
+;; (add-hook 'emacs-lisp-mode-hook 'alexott/cedet-hook)
+;; (add-hook 'erlang-mode-hook 'alexott/cedet-hook)
 
-(require 'eieio)
-(require 'eieio-load)
+;; (require 'eieio)
+;; (require 'eieio-load)
 
-(defun alexott/c-mode-cedet-hook ()
-  (local-set-key "\C-ct" 'eassist-switch-h-cpp)
-  (local-set-key "\C-xt" 'eassist-switch-h-cpp)
-  (local-set-key "\C-ce" 'eassist-list-methods)
-  (local-set-key "\C-c\C-r" 'semantic-symref)
-  )
-(add-hook 'c-mode-common-hook 'alexott/c-mode-cedet-hook)
+;; (defun alexott/c-mode-cedet-hook ()
+;;   (local-set-key "\C-ct" 'eassist-switch-h-cpp)
+;;   (local-set-key "\C-xt" 'eassist-switch-h-cpp)
+;;   (local-set-key "\C-ce" 'eassist-list-methods)
+;;   (local-set-key "\C-c\C-r" 'semantic-symref)
+;;   )
+;; (add-hook 'c-mode-common-hook 'alexott/c-mode-cedet-hook)
 
-(semanticdb-enable-gnu-global-databases 'c-mode t)
-(semanticdb-enable-gnu-global-databases 'c++-mode t)
+;; (semanticdb-enable-gnu-global-databases 'c-mode t)
+;; (semanticdb-enable-gnu-global-databases 'c++-mode t)
 
-(when (cedet-ectag-version-check t)
-  (semantic-load-enable-primary-ectags-support))
+;; (when (cedet-ectag-version-check t)
+;;   (semantic-load-enable-primary-ectags-support))
 
-;; SRecode
-(require 'srecode)
-(global-srecode-minor-mode 1)
+;; ;; SRecode
+;; (require 'srecode)
+;; (global-srecode-minor-mode 1)
 
-(require 'cogre)
-(require 'cedet-contrib)
+;; (require 'cogre)
+;; (require 'cedet-contrib)
 
 ;; ================ Window size ==========================
 ;; (defun set-frame-size-according-to-resolution ()
@@ -205,6 +205,11 @@
 
 ;=========== ANSI color =============
 (when (require 'ansi-color nil 'noerror)
+  (defun colorize-compilation-buffer ()
+    (toggle-read-only)
+    (ansi-color-apply-on-region (point-min) (point-max))
+    (toggle-read-only))
+  (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
   (add-hook 'compilation-mode-hook 'ansi-color-for-comint-mode-on))
 
 ; ============ desktop ============
@@ -683,9 +688,11 @@
  '(font-lock-string-face ((nil (:foreground "#bada55"))))
  '(font-lock-type-face ((((class color) (background light dark)) (:foreground "#742828" :weight semi-light))))
  '(font-lock-variable-name-face ((((class color) (min-colors 88) (background light dark)) (:foreground "red3"))))
- '(jde-java-font-lock-doc-tag-face ((((class color) ) (:foreground "green4" :weight bold))))
- '(jde-java-font-lock-modifier-face ((((class color) ) (:foreground "Orchid4" :weight bold))))
- '(jde-java-font-lock-number-face ((((class color) ) (:foreground "RosyBrown4")))))
+ '(jde-java-font-lock-doc-tag-face ((((class color)) (:foreground "green4" :weight bold))))
+ '(jde-java-font-lock-modifier-face ((((class color)) (:foreground "Orchid4" :weight bold))))
+ '(jde-java-font-lock-number-face ((((class color)) (:foreground "RosyBrown4"))))
+ '(semantic-decoration-on-unparsed-includes ((t (:background "#333300"))))
+ '(semantic-highlight-func-current-tag-face ((t (:background "gray15")))))
 
 
 (put 'upcase-region 'disabled nil)

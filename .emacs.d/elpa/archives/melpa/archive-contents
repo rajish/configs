@@ -924,7 +924,7 @@
 	      [(20130218 2209)
 	       nil "Minor mode for interacting with Pandoc [source: github]" tar])
  (pallet .
-	 [(20130310 2146)
+	 [(20130313 908)
 	  ((carton
 	    (0 1 1)))
 	  "A package manager for Emacs, using Carton. [source: github]" tar])
@@ -2772,3 +2772,4 @@
  (org-toodledo .
 	       [(20120721 1825)
 		nil "Toodledo integration for Emacs Org mode [source: github]" tar]))
+
