@@ -4,6 +4,77 @@
      "/usr/lib/xemacs/site-lisp")
 (global-auto-revert-mode 1)
 
+; ============ CEDET ============
+;; Load CEDET.
+;; See cedet/common/cedet.info for configuration details.
+;; (load-file "~/.emacs.d/plugins/cedet-1.1/common/cedet.el")
+
+;; ;; EDE
+;; (global-ede-mode 1)
+;; (ede-enable-generic-projects)
+;; (semantic-load-enable-code-helpers)
+;; (semantic-load-enable-excessive-code-helpers)
+
+;; ;; select which submodes we want to activate
+;; (add-to-list 'semantic-default-submodes 'global-semantic-mru-bookmark-mode)
+;; (add-to-list 'semantic-default-submodes 'global-semanticdb-minor-mode)
+;; (add-to-list 'semantic-default-submodes 'global-semantic-idle-scheduler-mode)
+;; (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
+;; (add-to-list 'semantic-default-submodes 'global-cedet-m3-minor-mode)
+;; (add-to-list 'semantic-default-submodes 'global-semantic-highlight-func-mode)
+;; (add-to-list 'semantic-default-submodes 'global-semanticdb-minor-mode)
+
+;; ;; Activate semantic
+;; (require 'semantic)
+;; (require 'semanticdb)
+;; ;;(semantic-mode 1)
+
+;; ;; load contrib library
+;; (require 'eassist)
+
+;; ;; customisation of modes
+;; (defun alexott/cedet-hook ()
+;;   (local-set-key [(control return)] 'semantic-ia-complete-symbol-menu)
+;;   (local-set-key "\C-c?" 'semantic-ia-complete-symbol)
+;;   ;;
+;;   (local-set-key "\C-c>" 'semantic-complete-analyze-inline)
+;;   (local-set-key "\C-c=" 'semantic-decoration-include-visit)
+
+;;   (local-set-key "\C-cj" 'semantic-ia-fast-jump)
+;;   (local-set-key "\C-cq" 'semantic-ia-show-doc)
+;;   (local-set-key "\C-cs" 'semantic-ia-show-summary)
+;;   (local-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle)
+;;   )
+;; (add-hook 'c-mode-common-hook 'alexott/cedet-hook)
+;; (add-hook 'lisp-mode-hook 'alexott/cedet-hook)
+;; (add-hook 'scheme-mode-hook 'alexott/cedet-hook)
+;; (add-hook 'emacs-lisp-mode-hook 'alexott/cedet-hook)
+;; (add-hook 'erlang-mode-hook 'alexott/cedet-hook)
+
+;; (require 'eieio)
+;; (require 'eieio-load)
+
+;; (defun alexott/c-mode-cedet-hook ()
+;;   (local-set-key "\C-ct" 'eassist-switch-h-cpp)
+;;   (local-set-key "\C-xt" 'eassist-switch-h-cpp)
+;;   (local-set-key "\C-ce" 'eassist-list-methods)
+;;   (local-set-key "\C-c\C-r" 'semantic-symref)
+;;   )
+;; (add-hook 'c-mode-common-hook 'alexott/c-mode-cedet-hook)
+
+;; (semanticdb-enable-gnu-global-databases 'c-mode t)
+;; (semanticdb-enable-gnu-global-databases 'c++-mode t)
+
+;; (when (cedet-ectag-version-check t)
+;;   (semantic-load-enable-primary-ectags-support))
+
+;; ;; SRecode
+;; (require 'srecode)
+;; (global-srecode-minor-mode 1)
+
+;; (require 'cogre)
+;; (require 'cedet-contrib)
+
 ;; ================ Window size ==========================
 ;; (defun set-frame-size-according-to-resolution ()
 ;;   (interactive)
@@ -51,7 +122,18 @@
   (define-key global-map "\C-x\C-b" 'ibuffer))
 (define-key global-map "\M-;" 'comment-dwim)
 (define-key global-map "\C-T" 'transpose-lines)
+(define-key global-map [(control tab)] 'next-multiframe-window)
+(define-key global-map [(control shift iso-lefttab)] 'previous-multiframe-window)
   ;;(define-key global-map "\M-/" 'hippie-expand)
+(defun toggle-fullscreen ()
+  "Toggle full screen on X11"
+  (interactive)
+  (when (eq window-system 'x)
+    (set-frame-parameter
+     nil 'fullscreen
+     (when (not (frame-parameter nil 'fullscreen)) 'fullboth))))
+
+(global-set-key [f11] 'toggle-fullscreen)
 
 ; ============= cc-mode ===============
 (require 'cc-mode)
@@ -134,6 +216,11 @@
 
 ;=========== ANSI color =============
 (when (require 'ansi-color nil 'noerror)
+  (defun colorize-compilation-buffer ()
+    (toggle-read-only)
+    (ansi-color-apply-on-region (point-min) (point-max))
+    (toggle-read-only))
+  (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
   (add-hook 'compilation-mode-hook 'ansi-color-for-comint-mode-on))
 
 ; ============ desktop ============
@@ -148,45 +235,6 @@
 ;;(desktop-save-mode 1)
 ;;(desktop-load-default)
 ;;(desktop-read)
-
-; ============ CEDET ============
-;; Load CEDET.
-;; See cedet/common/cedet.info for configuration details.
-;; (load-file "~/.emacs.d/plugins/cedet-1.0/common/cedet.el")
-
-
-;; ;; Enable EDE (Project Management) features
-;; (global-ede-mode 1)
-
-;; ;; Enable EDE for a pre-existing C++ project
-;; ;; (ede-cpp-root-project "NAME" :file "~/myproject/Makefile")
-
-
-;; ;; Enabling Semantic (code-parsing, smart completion) features
-;; ;; Select one of the following:
-
-;; ;; * This enables the database and idle reparse engines
-;; (semantic-load-enable-minimum-features)
-
-;; ;; * This enables some tools useful for coding, such as summary mode
-;; ;;   imenu support, and the semantic navigator
-;; (semantic-load-enable-code-helpers)
-
-;; ;; * This enables even more coding tools such as intellisense mode
-;; ;;   decoration mode, and stickyfunc mode (plus regular code helpers)
-;; ;; (semantic-load-enable-gaudy-code-helpers)
-
-;; ;; * This enables the use of Exuberent ctags if you have it installed.
-;; ;;   If you use C++ templates or boost, you should NOT enable it.
-;; ;; (semantic-load-enable-all-exuberent-ctags-support)
-;; ;;   Or, use one of these two types of support.
-;; ;;   Add support for new languges only via ctags.
-;; ;; (semantic-load-enable-primary-exuberent-ctags-support)
-;; ;;   Add support for using ctags as a backup parser.
-;; ;; (semantic-load-enable-secondary-exuberent-ctags-support)
-
-;; ;; Enable SRecode (Template management) minor-mode.
-;; (global-srecode-minor-mode 1)
 
 
 ;; ============== CSCOPE ==================
@@ -488,7 +536,7 @@
                               (yas/minor-mode-on))))
 
 (when (require 'web-mode nil 'noerror)
-  (add-to-list 'auto-mode-alist 
+  (add-to-list 'auto-mode-alist
                '("\\.html$" . web-mode)
                '("\\.hbs$" . web-mode))
   (add-hook 'web-mode-hook
@@ -579,6 +627,7 @@
  '(doxymacs-function-comment-template tempo-template-function-comment)
  '(doxymacs-member-comment-end " */")
  '(doxymacs-member-comment-start "/**<  ")
+ '(ede-project-directories (quote ("/home/rajish/proj/sicl")))
  '(ensime-default-server-cmd "~/.emacs.d/plugins/ensime/bin/server")
  '(font-lock-verbose nil)
  '(frame-background-mode (quote dark))
@@ -650,9 +699,11 @@
  '(font-lock-string-face ((nil (:foreground "#bada55"))))
  '(font-lock-type-face ((((class color) (background light dark)) (:foreground "#742828" :weight semi-light))))
  '(font-lock-variable-name-face ((((class color) (min-colors 88) (background light dark)) (:foreground "red3"))))
- '(jde-java-font-lock-doc-tag-face ((((class color) ) (:foreground "green4" :weight bold))))
- '(jde-java-font-lock-modifier-face ((((class color) ) (:foreground "Orchid4" :weight bold))))
- '(jde-java-font-lock-number-face ((((class color) ) (:foreground "RosyBrown4")))))
+ '(jde-java-font-lock-doc-tag-face ((((class color)) (:foreground "green4" :weight bold))))
+ '(jde-java-font-lock-modifier-face ((((class color)) (:foreground "Orchid4" :weight bold))))
+ '(jde-java-font-lock-number-face ((((class color)) (:foreground "RosyBrown4"))))
+ '(semantic-decoration-on-unparsed-includes ((t (:background "#333300"))))
+ '(semantic-highlight-func-current-tag-face ((t (:background "gray15")))))
 
 
 (put 'upcase-region 'disabled nil)

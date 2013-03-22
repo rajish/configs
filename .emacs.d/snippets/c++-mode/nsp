@@ -1,0 +1,8 @@
+# name: namespace ...
+# key: nsp
+# --
+namespace ${1:} {
+
+    $0
+
+} // ${1:$(unless yas/modified-p "Unnamed ")}namespace $1
