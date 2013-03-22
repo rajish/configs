@@ -434,7 +434,7 @@
   (add-to-list 'ac-dictionary-directories "~/.emacs.d/plugins/auto-complete/bin/ac-dict")
   (ac-config-default))
 ;;===================== js2-mode =============================
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/js2-mode"))
+;;(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/js2-mode"))
 (when (autoload 'js3-mode "js3-mode" nil t)
   (add-to-list 'auto-mode-alist '("\\.js$" . js3-mode)))
 ;; ;;===================== multi-web-mode =============================
@@ -478,7 +478,7 @@
                    ("\\.md" . markdown-mode)) auto-mode-alist)))
 ;;===================== scala-mode + ensime =======================
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/ensime/elisp"))
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/scala-mode"))
+;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/scala-mode"))
 (when (require 'scala-mode-auto nil 'noerror)
   (add-to-list 'auto-mode-alist '("\\.scala.html$" . web-mode))
   (when  (require 'ensime nil 'noerror)
