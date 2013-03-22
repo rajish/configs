@@ -122,7 +122,18 @@
   (define-key global-map "\C-x\C-b" 'ibuffer))
 (define-key global-map "\M-;" 'comment-dwim)
 (define-key global-map "\C-T" 'transpose-lines)
+(define-key global-map [(control tab)] 'next-multiframe-window)
+(define-key global-map [(control shift iso-lefttab)] 'previous-multiframe-window)
   ;;(define-key global-map "\M-/" 'hippie-expand)
+(defun toggle-fullscreen ()
+  "Toggle full screen on X11"
+  (interactive)
+  (when (eq window-system 'x)
+    (set-frame-parameter
+     nil 'fullscreen
+     (when (not (frame-parameter nil 'fullscreen)) 'fullboth))))
+
+(global-set-key [f11] 'toggle-fullscreen)
 
 ; ============= cc-mode ===============
 (require 'cc-mode)
