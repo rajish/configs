@@ -1,122 +1,44 @@
-(setq noerror t)
+;;; .emacs --- summary
+;;(setq noerror t)
+;;; Code:
+
 (add-to-list 'load-path
      (expand-file-name "~/.emacs.d/plugins")
      "/usr/lib/xemacs/site-lisp")
 (global-auto-revert-mode 1)
 
-; ============ CEDET ============
-;; Load CEDET.
-;; See cedet/common/cedet.info for configuration details.
-;; (load-file "~/.emacs.d/plugins/cedet-1.1/common/cedet.el")
-
-;; ;; EDE
-;; (global-ede-mode 1)
-;; (ede-enable-generic-projects)
-;; (semantic-load-enable-code-helpers)
-;; (semantic-load-enable-excessive-code-helpers)
-
-;; ;; select which submodes we want to activate
-;; (add-to-list 'semantic-default-submodes 'global-semantic-mru-bookmark-mode)
-;; (add-to-list 'semantic-default-submodes 'global-semanticdb-minor-mode)
-;; (add-to-list 'semantic-default-submodes 'global-semantic-idle-scheduler-mode)
-;; (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
-;; (add-to-list 'semantic-default-submodes 'global-cedet-m3-minor-mode)
-;; (add-to-list 'semantic-default-submodes 'global-semantic-highlight-func-mode)
-;; (add-to-list 'semantic-default-submodes 'global-semanticdb-minor-mode)
-
-;; ;; Activate semantic
-;; (require 'semantic)
-;; (require 'semanticdb)
-;; ;;(semantic-mode 1)
-
-;; ;; load contrib library
-;; (require 'eassist)
-
-;; ;; customisation of modes
-;; (defun alexott/cedet-hook ()
-;;   (local-set-key [(control return)] 'semantic-ia-complete-symbol-menu)
-;;   (local-set-key "\C-c?" 'semantic-ia-complete-symbol)
-;;   ;;
-;;   (local-set-key "\C-c>" 'semantic-complete-analyze-inline)
-;;   (local-set-key "\C-c=" 'semantic-decoration-include-visit)
-
-;;   (local-set-key "\C-cj" 'semantic-ia-fast-jump)
-;;   (local-set-key "\C-cq" 'semantic-ia-show-doc)
-;;   (local-set-key "\C-cs" 'semantic-ia-show-summary)
-;;   (local-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle)
-;;   )
-;; (add-hook 'c-mode-common-hook 'alexott/cedet-hook)
-;; (add-hook 'lisp-mode-hook 'alexott/cedet-hook)
-;; (add-hook 'scheme-mode-hook 'alexott/cedet-hook)
-;; (add-hook 'emacs-lisp-mode-hook 'alexott/cedet-hook)
-;; (add-hook 'erlang-mode-hook 'alexott/cedet-hook)
-
-;; (require 'eieio)
-;; (require 'eieio-load)
-
-;; (defun alexott/c-mode-cedet-hook ()
-;;   (local-set-key "\C-ct" 'eassist-switch-h-cpp)
-;;   (local-set-key "\C-xt" 'eassist-switch-h-cpp)
-;;   (local-set-key "\C-ce" 'eassist-list-methods)
-;;   (local-set-key "\C-c\C-r" 'semantic-symref)
-;;   )
-;; (add-hook 'c-mode-common-hook 'alexott/c-mode-cedet-hook)
-
-;; (semanticdb-enable-gnu-global-databases 'c-mode t)
-;; (semanticdb-enable-gnu-global-databases 'c++-mode t)
-
-;; (when (cedet-ectag-version-check t)
-;;   (semantic-load-enable-primary-ectags-support))
-
-;; ;; SRecode
-;; (require 'srecode)
-;; (global-srecode-minor-mode 1)
-
-;; (require 'cogre)
-;; (require 'cedet-contrib)
-
-;; ================ Window size ==========================
-;; (defun set-frame-size-according-to-resolution ()
-;;   (interactive)
-;;   (if window-system
-;;       (progn
-;;         ;; use 120 char wide window for largeish displays
-;;         ;; and smaller 80 column windows for smaller displays
-;;         ;; pick whatever numbers make sense for you
-;;         (if (> (x-display-pixel-width) 1280)
-;;             (add-to-list 'default-frame-alist (cons 'width 120))
-;;           (add-to-list 'default-frame-alist (cons 'width 80)))
-;;         ;; for the height, subtract a couple hundred pixels
-;;         ;; from the screen height (for panels, menubars and
-;;         ;; whatnot), then divide by the height of a char to
-;;         ;; get the height we want
-;;         (add-to-list 'default-frame-alist
-;;                      (cons 'height (/ (- (x-display-pixel-height) 200) (frame-char-height)))))))
-
-;; (set-frame-size-according-to-resolution)
-
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                           ("marmalade" . "http://marmalade-repo.org/packages/")
+                           ("melpa" . "http://melpa.milkbox.net/packages/")))
 ;; =========== INFO =================
-(when (require 'info nil 'noerror)
-  (setq Info-directory-list
-        (cons (expand-file-name "/usr/share/info/emacs-23")
-              Info-directory-list)))
+;; (when (require 'info nil 'noerror)
+;;   (setq Info-directory-list
+;;         (cons (expand-file-name "/usr/share/info/emacs-24")
+;;               Info-directory-list)))
 
 
 ;; Filladapt
-(when (require 'filladapt nil 'noerror)
-  (setq-default filladapt-mode t))
+;; (when (require 'filladapt nil 'noerror)
+;;   (setq-default filladapt-mode t))
 
 ;; Session
 (when (require 'session nil 'noerror)
   (add-hook 'after-init-hook 'session-initialize))
 
 ;; yasnippet
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/yasnippet"))
-(when (require 'yasnippet nil 'noerror)
-  (yas/global-mode 1)
-  (setq yas/my-directory (expand-file-name "~/.emacs.d/plugins/scala-mode/contrib/yasnippet/snippets"))
-  (yas/load-directory yas/my-directory))
+;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/yasnippet"))
 
+(eval-after-load "yasnippet"
+  '(progn
+     (if (require 'yasnippet nil 'noerror)
+         (progn
+           (yas/global-mode 1)
+           (setq yas/my-directory (expand-file-name "~/.emacs.d/plugins/scala-mode/contrib/yasnippet/snippets"))
+           (yas/load-directory yas/my-directory)
+           )
+       (warn "yasnipet not found")
+       )
+     ))
 ;;(require 'newcomment nil 'noerror)
 (when (require 'ibuffer nil 'noerror)
   (define-key global-map "\C-x\C-b" 'ibuffer))
@@ -126,7 +48,7 @@
 (define-key global-map [(control shift iso-lefttab)] 'previous-multiframe-window)
   ;;(define-key global-map "\M-/" 'hippie-expand)
 (defun toggle-fullscreen ()
-  "Toggle full screen on X11"
+  "Toggle full screen on X11."
   (interactive)
   (when (eq window-system 'x)
     (set-frame-parameter
@@ -136,6 +58,10 @@
 (global-set-key [f11] 'toggle-fullscreen)
 
 ; ============= cc-mode ===============
+
+;;; Commentary:
+;;
+
 (require 'cc-mode)
 (add-hook 'c-mode-common-hook (lambda ()
                                 (c-toggle-auto-hungry-state t)
@@ -183,14 +109,14 @@
                                                        '(l "  * " > n "  * " "\\return " (p "Returns: ") > n))
                                                      " */" '> 'n)
                                                   (progn
-                                                    (error "Can't find next function declaration.")
+                                                    (error "Can't find next function declaration")
                                                     nil))))
                          "function-comment"
                          "Insert function description comment"))
 
 ; ============ DOS2UNIX line ends ===========
 (defun dos2unix (buffer)
-      "Automate M-% C-q C-m RET C-q C-j RET"
+      "Automate M-% C-q C-m RET C-q C-j RET."
       (interactive "*b")
       (save-excursion
         (goto-char (point-min))
@@ -210,7 +136,7 @@
       (append  '(("\\.tcf\\'" . c-mode)
                  ("\\.[ch]\\'" . c++\-mode)
                  ("\\.inc\\'" . c-mode)
-                 ("Makefile\\.*". makefile-mode)
+                 ("Makefile\\.*".  makefile-mode)
                  ("\\.mkf\\'" . makefile-mode))
                auto-mode-alist))
 
@@ -326,12 +252,12 @@
 (require 'compile nil 'noerror)
 
 (defvar mvn-command-history nil
-  "Maven command history variable")
+  "Maven command history variable.")
 
 (defun mvn(&optional args)
-  "Runs maven in the current project. Starting at the directoy where the file being vsisited resides, a search is
-   made for pom.xml recsurively. A maven command is made from the first directory where the pom.xml file is found is then displayed
-  in the minibuffer. The command can be edited as needed and then executed. Errors are navigate to as in any other compile mode"
+  "Runs maven in the current project.  Starting at the directoy where the file being vsisited resides, a search is
+   made for pom.xml recsurively.  A maven command is made from the first directory where the pom.xml file is found is then displayed
+  in the minibuffer.  The command can be edited as needed and then executed.  Errors are navigate to as in any other compile mode"
   (interactive)
   (let ((fn (buffer-file-name)))
     (let ((dir (file-name-directory fn)))
@@ -343,7 +269,7 @@
         (compile (read-from-minibuffer "Command: "
                                        (concat "mvn -f " dir "/pom.xml test") nil nil 'mvn-command-history))))))
 
-;; String pattern for locating errors in maven output. This assumes a Windows drive letter at the beginning
+;; String pattern for locating errors in maven output.  This assumes a Windows drive letter at the beginning
 (add-to-list
  'compilation-error-regexp-alist
  '("^\\([a-zA-Z]:.*\\):\\[\\([0-9]+\\),\\([0-9]+\\)\\]" 1 2 3))
@@ -385,7 +311,7 @@
                '("itsalltext.*\\.txt$" . wikipedia-mode)))
 
 ;;(require 'wikipediafs nil 'noerror)
-;;================= emacs server =================================
+;;================= Emacs server =================================
 (server-start)
 ;;===================== w3m ======================================
 (when (require 'w3m-browse-url nil 'noerror)
@@ -397,8 +323,8 @@
 ;; From http://www.emacswiki.org/emacs/RectangleAdd
 
 (defun rectangle-add (start end)
-  "Add all the lines in the region-rectangle and put the result in the
-        kill ring."
+  "Add all the lines in the region-rectangle and put the result in the kill ring.
+Argument START Beginning of the region."
   (interactive "r")
   (let ((sum 0))
     (mapc (lambda (line)
@@ -409,7 +335,7 @@
 
 (defun rectangle-add-make-number (n)
   "Turn a string into a number, being tolerant of commas and even other 'junk'.
-    When I started programming, my numeric input routines translated l
+When I started programming, my numeric input routines translated l
     (lowercase ell) into 'one', as many users had learnt their
       keyboarding on manual typewriters which typically lacked
       a separate key for the digit 1. Am I old, or what?"
@@ -477,26 +403,24 @@
                   (ispell-change-dictionary "polish")
                   (flyspell-buffer)))
 ;;===================== auto-complete =============================
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/auto-complete/bin"))
-(when (require 'auto-complete-config nil 'noerror)
-  (add-to-list 'ac-dictionary-directories "~/.emacs.d/plugins/auto-complete/bin/ac-dict")
-  (ac-config-default))
+;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/auto-complete/bin"))
+(eval-after-load 'auto-complete-autoloads
+  '(progn
+     (if (require 'auto-complete-config nil 'noerror)
+         (progn
+           (add-to-list 'ac-dictionary-directories "~/.emacs.d/plugins/auto-complete/ac-dict")
+           (ac-config-default)
+           )
+       (warn "auto-complete not found"))))
 ;;===================== js2-mode =============================
 ;;(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/js2-mode"))
-(when (autoload 'js3-mode "js3-mode" nil t)
-  (add-to-list 'auto-mode-alist '("\\.js$" . js3-mode)))
-;; ;;===================== multi-web-mode =============================
-;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/multi-web-mode"))
-;; (when (require 'multi-web-mode nil 'noerror)
-;;   (setq mweb-default-major-mode 'html-mode)
-;;   (setq mweb-tags '((php-mode "<\\?php\\|<\\? \\|<\\?=" "\\?>")
-;;                     (js-mode "<script +\\(type=\"text/javascript\"\\|language=\"javascript\"\\)[^>]*>" "</script>")
-;;                     (css-mode "<style +type=\"text/css\"[^>]*>" "</style>")
-;;                     (java-mode "${[^}]*" "}")
-;;                     (c++-mode "\%{[^}]*" "}\%")
-;;                     ))
-;;   (setq mweb-filename-extensions '("php" "htm" "html" "ctp" "phtml" "php4" "php5"))
-;;   (multi-web-global-mode 1))
+(eval-after-load "js3-mode"
+  '(progn
+     (if (autoload 'js3-mode "js3-mode" nil t)
+         (add-to-list 'auto-mode-alist '("\\.js$" . js3-mode))
+       (warn "js3-mode not found")
+       )))
+
 ;;===================== develock =============================
 ;;(require 'develock nil 'noerror)
 (global-font-lock-mode 1)
@@ -509,41 +433,60 @@
 
 ;;===================== deft-mode and markdown =============================
 ;; http://jblevins.org/projects/deft/
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/deft"))
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/markdown-mode"))
-(when (and (require 'deft nil 'noerror) (require 'markdown-mode nil 'noerror))
-   (setq
-      deft-extension "md"
-      deft-directory "~/.deft/"
-      deft-text-mode 'markdown-mode
-      deft-use-filename-as-title t)
-   (global-set-key (kbd "<f9>") 'deft)
-   ;; (add-hook 'markdown-mode (lambda ()
-   ;;                            (ethan-wspace-clean-all-modes)
-   ;;                            (ethan-wspace-clean-eol-mode-disable-highlight)))
-   (setq auto-mode-alist
-         (append '(("\\.text" . markdown-mode)
-                   ("\\.md" . markdown-mode)) auto-mode-alist)))
+;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/deft"))
+;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/markdown-mode"))
+(eval-after-load 'deft-autoloads
+  '(progn
+     (if (require 'deft nil 'noerror)
+         (progn
+           (setq
+            deft-extension "md"
+            deft-directory "~/.deft/"
+            deft-text-mode 'markdown-mode
+            deft-use-filename-as-title t)
+           (global-set-key (kbd "<f9>") 'deft))
+       (warn "No deft mode found"))))
+
+(eval-after-load 'markdown-mode-autoloads
+  '(progn
+     (if  (require 'markdown-mode nil 'noerror)
+         (progn
+           ;; (add-hook 'markdown-mode (lambda ()
+           ;; (ethan-wspace-clean-all-modes)
+           ;; (ethan-wspace-clean-eol-mode-disable-highlight)))
+           (setq auto-mode-alist
+                 (append '(("\\.text" . markdown-mode)
+                           ("\\.md" . markdown-mode)) auto-mode-alist)))
+       (warn "No markdown mode found"))))
+;;========================= web-mode ================================
+(eval-after-load "web-mode"
+  '(progn
+     (if (require 'web-mode nil 'noerror)
+         (progn
+           (setq auto-mode-alist (delq (assoc "\\.[sx]?html?\\(\\.[a-zA-Z_]+\\)?\\'" auto-mode-alist) auto-mode-alist))
+           (add-to-list 'auto-mode-alist
+                        '("\\.html$" . web-mode)
+                        '("\\.hbs$" . web-mode))
+           (add-hook 'web-mode-hook
+                     (lambda()
+                       (setq sgml-basic-offset 4)
+                       (setq indent-tabs-mode t)
+                       (ethan-wspace-type-deactivate 'tabs))))
+       (warn "web-mode not found"))))
 ;;===================== scala-mode + ensime =======================
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/ensime/elisp"))
 ;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/scala-mode"))
-(when (require 'scala-mode-auto nil 'noerror)
-  (add-to-list 'auto-mode-alist '("\\.scala.html$" . web-mode))
-  (when  (require 'ensime nil 'noerror)
-    (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
-    (add-to-list 'ensime-doc-lookup-map '("^play\\.api\\." . make-play-doc-url)))
-  (add-hook 'scala-mode-hook '(lambda ()
-                              (yas/minor-mode-on))))
+(eval-after-load "scala-mode2"
+  '(progn
+     (if (require 'scala-mode nil 'noerror)
+         (progn
+           (add-to-list 'auto-mode-alist '("\\.scala.html$" . web-mode))
+           (when  (require 'ensime nil 'noerror)
+             (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+             (add-to-list 'ensime-doc-lookup-map '("^play\\.api\\." . make-play-doc-url)))
+           )
+       (warn "No scala-mode found"))))
 
-(when (require 'web-mode nil 'noerror)
-  (add-to-list 'auto-mode-alist
-               '("\\.html$" . web-mode)
-               '("\\.hbs$" . web-mode))
-  (add-hook 'web-mode-hook
-          (lambda()
-            (setq sgml-basic-offset 4)
-            (setq indent-tabs-mode t)
-            (ethan-wspace-type-deactivate 'tabs))))
 
 (setq ensime-sem-high-faces
       '(
@@ -572,7 +515,7 @@
   (add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
   (add-to-list 'auto-mode-alist '("Cakefile" . coffee-mode)))
 
-;;===================== coffee-mode =============================
+;;===================== less-css-mode =============================
 (when (require 'less-css-mode nil 'noerror)
   (add-to-list 'auto-mode-alist '("\\.less$" . less-css-mode)))
 
@@ -612,7 +555,7 @@
  '(comment-fill-column 180)
  '(compilation-scroll-output t)
  '(compilation-window-height 16)
- '(compile-command "make -j5 ")
+ '(compile-command "make -j9 ")
  '(cpp-config-file "~/configs/.cpp.el")
  '(delete-old-versions t)
  '(desktop-modes-not-to-save (quote (tags-table-mode cscope)))
@@ -655,7 +598,6 @@
  '(mode-require-final-newline nil)
  '(nxml-auto-insert-xml-declaration-flag t)
  '(nxml-slash-auto-complete-flag t)
- '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") ("melpa" . "http://melpa.milkbox.net/packages/"))))
  '(pydb-many-windows t)
  '(safe-local-variable-values (quote ((c-style . whitesmith))))
  '(save-place t nil (saveplace))
@@ -713,3 +655,5 @@
 ;;(set-frame-parameter (selected-frame) 'alpha '(<active> [<inactive>]))
 (set-frame-parameter (selected-frame) 'alpha '(85 75))
 (add-to-list 'default-frame-alist '(alpha 85 75))
+
+;;; .emacs ends here
