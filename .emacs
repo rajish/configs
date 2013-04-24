@@ -478,7 +478,7 @@ When I started programming, my numeric input routines translated l
 ;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/scala-mode"))
 (eval-after-load "scala-mode2"
   '(progn
-     (if (require 'scala-mode nil 'noerror)
+     (if (require 'scala-mode2 nil 'noerror)
          (progn
            (add-to-list 'auto-mode-alist '("\\.scala.html$" . web-mode))
            (when  (require 'ensime nil 'noerror)
@@ -579,6 +579,7 @@ When I started programming, my numeric input routines translated l
  '(indent-tabs-mode nil)
  '(indicate-buffer-boundaries (quote ((t . right) (top . left))))
  '(indicate-empty-lines t)
+ '(ispell-program-name "hunspell")
  '(ispell-silently-savep t)
  '(jde-compile-option-classpath nil)
  '(jde-global-classpath (quote ("/usr/lib/jvm/java-6-sun-1.6.0.26/jre/lib" "~/bin/play/framework" "~/bin/play/framework/lib")))
