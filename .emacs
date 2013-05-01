@@ -416,7 +416,7 @@ When I started programming, my numeric input routines translated l
 ;;(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/js2-mode"))
 (eval-after-load "js3-mode"
   '(progn
-     (if (autoload 'js3-mode "js3-mode" nil t)
+     (if (require 'js3-mode  nil t)
          (add-to-list 'auto-mode-alist '("\\.js$" . js3-mode))
        (warn "js3-mode not found")
        )))
@@ -478,7 +478,7 @@ When I started programming, my numeric input routines translated l
 ;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/scala-mode"))
 (eval-after-load "scala-mode2"
   '(progn
-     (if (require 'scala-mode nil 'noerror)
+     (if (require 'scala-mode2 nil t)
          (progn
            (add-to-list 'auto-mode-alist '("\\.scala.html$" . web-mode))
            (when  (require 'ensime nil 'noerror)
@@ -633,6 +633,7 @@ When I started programming, my numeric input routines translated l
  '(develock-whitespace-1 ((t (:background "#ffffaa00aa00"))))
  '(develock-whitespace-2 ((t (:background "#ffda97"))))
  '(develock-whitespace-3 ((t (:background "#feff97"))))
+ '(flymake-errline ((t (:background "#180000"))))
  '(font-lock-builtin-face ((((class color) (min-colors 88)) (:foreground "firebrick"))))
  '(font-lock-comment-face ((t (:foreground "#54ab80" :slant italic))))
  '(font-lock-constant-face ((((class color) (min-colors 88)) (:foreground "saddle brown" :weight bold))))
