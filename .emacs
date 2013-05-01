@@ -416,7 +416,7 @@ When I started programming, my numeric input routines translated l
 ;;(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/js2-mode"))
 (eval-after-load "js3-mode"
   '(progn
-     (if (require 'js3-mode  nil t)
+     (if (autoload 'js3-mode "js3-mode" nil t)
          (add-to-list 'auto-mode-alist '("\\.js$" . js3-mode))
        (warn "js3-mode not found")
        )))
@@ -579,6 +579,7 @@ When I started programming, my numeric input routines translated l
  '(indent-tabs-mode nil)
  '(indicate-buffer-boundaries (quote ((t . right) (top . left))))
  '(indicate-empty-lines t)
+ '(ispell-program-name "hunspell")
  '(ispell-silently-savep t)
  '(jde-compile-option-classpath nil)
  '(jde-global-classpath (quote ("/usr/lib/jvm/java-6-sun-1.6.0.26/jre/lib" "~/bin/play/framework" "~/bin/play/framework/lib")))
