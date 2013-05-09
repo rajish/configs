@@ -147,7 +147,12 @@
     (ansi-color-apply-on-region (point-min) (point-max))
     (toggle-read-only))
   (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
-  (add-hook 'compilation-mode-hook 'ansi-color-for-comint-mode-on))
+  (add-hook 'compilation-mode-hook 'ansi-color-for-comint-mode-on)
+  (defun eshell-handle-ansi-color ()
+    (ansi-color-apply-on-region eshell-last-output-start
+                                eshell-last-output-end))
+  (add-to-list 'eshell-output-filter-functions 'eshell-handle-ansi-color)
+)
 
 ; ============ desktop ============
 
@@ -414,11 +419,18 @@ When I started programming, my numeric input routines translated l
        (warn "auto-complete not found"))))
 ;;===================== js2-mode =============================
 ;;(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/js2-mode"))
-(eval-after-load "js3-mode"
+;; (eval-after-load "js3-mode"
+;;   '(progn
+;;      (if (autoload 'js3-mode "js3" nil t)
+;;          (add-to-list 'auto-mode-alist '("\\.js$" . js3-mode))
+;;        (warn "js3-mode not found")
+;;        )))
+
+(eval-after-load "js2-mode"
   '(progn
-     (if (autoload 'js3-mode "js3-mode" nil t)
-         (add-to-list 'auto-mode-alist '("\\.js$" . js3-mode))
-       (warn "js3-mode not found")
+     (if (require 'js2-mode  nil 'noerror)
+         (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+       (warn "js2-mode not found")
        )))
 
 ;;===================== develock =============================

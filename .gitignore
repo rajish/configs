@@ -18,3 +18,5 @@ session.*
 /.emacs.d/semanticdb/
 /.sbt/boot
 /.sbt/staging
+/.sbt/plugins/project/target/
+/.sbt/plugins/target/
