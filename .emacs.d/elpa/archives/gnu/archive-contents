@@ -1,6 +1,6 @@
 (1
  (ack .
-      [(1 1)
+      [(1 2)
        nil "Interface to ack-like source code search tools" tar])
  (adaptive-wrap .
 		[(0 2)
@@ -12,20 +12,16 @@
 	 [(11 86)
 	  nil "Integrated environment for *TeX*" tar])
  (cl-lib .
-	 [(0 2)
+	 [(0 3)
 	  nil "Properly prefixed CL functions and macros" single])
  (coffee-mode .
 	      [(0 4 1)
 	       nil "Major mode for CoffeeScript files" tar])
  (company .
-<<<<<<< HEAD
-	  [(0 6 7)
-=======
-	  [(0 6 8)
->>>>>>> 5526e58cd730b44a46d0e0e3789fc57ff6911fe4
+	  [(0 6 10)
 	   nil "Modular in-buffer completion framework" tar])
  (csv-mode .
-	   [(1 1)
+	   [(1 2)
 	    nil "Major mode for editing comma/char separated values" single])
  (debbugs .
 	  [(0 4)
@@ -61,7 +57,7 @@
 			[(1 1)
 			 nil "Parse and browse f90 interfaces" single])
  (ggtags .
-	 [(0 6 3)
+	 [(0 6 6)
 	  nil "GNU Global source code tagging system" single])
  (heap .
        [(0 3)
@@ -73,20 +69,14 @@
 	      [(1 0)
 	       nil "Major mode for Jgraph files" single])
  (js2-mode .
-	   [(20130307)
+	   [(20130619)
 	    ((emacs
 	      (24 1)))
 	    "Improved JavaScript editing mode" single])
  (jumpc .
-	[(2 0)
+	[(3 0)
 	 nil "jump to previous insertion points" single])
  (lex .
-<<<<<<< HEAD
-      [(1 1)
-       nil "Lexical analyser construction" tar])
- (lmc .
-=======
->>>>>>> 5526e58cd730b44a46d0e0e3789fc57ff6911fe4
       [(1 1)
        nil "Lexical analyser construction" tar])
  (lmc .
@@ -126,11 +116,7 @@
 	   [(1 0)
 	    nil "Support for OWL Manchester Notation" single])
  (org .
-<<<<<<< HEAD
-      [(20130408)
-=======
-      [(20130422)
->>>>>>> 5526e58cd730b44a46d0e0e3789fc57ff6911fe4
+      [(20130617)
        nil "Outline-based notes management and organizer" tar])
  (quarter-plane .
 		[(0 1)
@@ -139,7 +125,7 @@
 	[(0 1)
 	 nil "Queue data structure" single])
  (rainbow-mode .
-	       [(0 7)
+	       [(0 8)
 		nil "Colorize color names in buffers" single])
  (register-list .
 		[(0 1)

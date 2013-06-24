@@ -97,23 +97,19 @@ source ~/configs/git-prompt.sh
 export MAKE_JOBS=-j9
 export HOST_N_CORES=9
 
-export PS1='$(if [ -n "$CHROOT" ]; then echo -ne "['$IWhite$CHROOT$Color_Off'] "; fi)'$IBlack$Time12h$Color_Off'$(git branch &>/dev/null;\
-if [ $? -eq 0 ]; then \
-  echo "$(echo `git status` | grep "nothing to commit" > /dev/null 2>&1; \
-  if [ "$?" -eq "0" ]; then \
-    # @4 - Clean repository - nothing to commit
-    echo "'$Green'"$(__git_ps1 " (%s)"); \
-  else \
-    # @5 - Changes to working tree
-    echo "'$IRed'"$(__git_ps1 " {%s}"); \
-  fi) '$BYellow$PathShort$Color_Off'\$ "; \
-else \
-  # @2 - Prompt when not in GIT repo
-  echo " '$Yellow$PathShort$Color_Off'\$ "; \
-fi)'
+export GIT_PS1_SHOWDIRTYSTATE=true
+export GIT_PS1_SHOWSTASHSTATE=true
+export GIT_PS1_SHOWUNTRACKEDFILES=true
+export GIT_PS1_SHOWCOLORHINTS=true
+
+export PS1_pre='$(if [ -n "$CHROOT" ]; then echo -ne "['$IWhite$CHROOT$Color_Off'] "; fi)'$IBlack$Time12h$Color_Off
+export PS1_post=$Yellow$PathShort$Color_Off'\$ '
 
 
-export PROMPT_COMMAND='echo -ne  "\033]0;$(if [ -n "$CHROOT" ]; then echo -ne  "[${CHROOT}]"; fi)${USER}@${HOSTNAME}:${PWD/$HOME/~}\007"'
+export PS1=$PS1_pre'$(__git_ps1 " {%s} ")'$PS1_post
+
+PROMPT_COMMAND='echo -ne  "\033]0;$(if [ -n "$CHROOT" ]; then echo -ne  "[${CHROOT}]"; fi) $(__git_ps1 " {%s}") ${USER}@${HOSTNAME}:${PWD/$HOME/~}\007"'
+export PROMPT_COMMAND=$PROMPT_COMMAND'; __git_ps1 "$PS1_pre" "$PS1_post" " {%s} "'
 
 export TZ='Europe/Warsaw'
 
@@ -124,3 +120,5 @@ if [ -z "$SSH_AUTH_SOCK" ]; then
 fi
 
 alias ll="ls -lahF"
+alias abip1='sudo nmap -sP 192.168.110.0/24 | grep -B2 E0:CB:4E:0E:F5:93 | head -n 1'
+export HISTCONTROL=ignoredups
