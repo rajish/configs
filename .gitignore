@@ -16,7 +16,5 @@ session.*
 /var/pcache/gh/gh-pulls-api/rajish
 /.emacs.d/ede-projects.el
 /.emacs.d/semanticdb/
-/.sbt/boot
-/.sbt/staging
-/.sbt/plugins/project/target/
-/.sbt/plugins/target/
+/.sbt
+/.emacs.d/eshell
