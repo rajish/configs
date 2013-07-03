@@ -507,7 +507,7 @@ When I started programming, my numeric input routines translated l
 ;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/scala-mode"))
 (eval-after-load "scala-mode2"
   '(progn
-     (if (require 'scala-mode2 nil 'noerror)
+     (if (require 'scala-mode2 nil t)
          (progn
            (add-to-list 'auto-mode-alist '("\\.scala.html$" . web-mode))
            (when  (require 'ensime nil 'noerror)

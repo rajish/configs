@@ -13,8 +13,18 @@ This JavaScript editing mode supports:
    - show some or all block comments as /*...*/
  - context-sensitive menu bar and popup menus
  - code browsing using the `imenu' package
- - typing helpers such as automatic insertion of matching braces/parens
  - many customization options
+
+Installation:
+
+To install it as your major mode for JavaScript editing:
+
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+
+Alternately, to install it as a minor mode just for JavaScript linting,
+you must add it to the appropriate major-mode hook.  Normally this would be:
+
+  (add-hook 'js-mode-hook 'js2-minor-mode)
 
 To customize how it works:
   M-x customize-group RET js2-mode RET
@@ -34,3 +44,7 @@ This mode does not yet work with "multi-mode" modes such as `mmm-mode'
 and `mumamo', although it could be made to do so with some effort.
 This means that `js2-mode' is currently only useful for editing JavaScript
 files, and not for editing JavaScript within <script> tags or templates.
+
+The project page on GitHub is used for development and issue tracking.
+The original homepage at Google Code is mentioned here for posterity, it has
+outdated information and is mostly unmaintained.
