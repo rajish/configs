@@ -126,6 +126,23 @@
 ; ============= Version control ================
 ;;(require 'pcl-cvs nil 'noerror)
 (require 'psvn nil 'noerror)
+(autoload 'svn-status "dsvn" "Run `svn status'." t)
+(autoload 'svn-update "dsvn" "Run `svn update'." t)
+
+(add-hook 'svn-pre-parse-status-hook 'svn-status-parse-fixup-externals-full-path)
+
+(defun svn-status-parse-fixup-externals-full-path ()
+ "SubVersion 1.17 adds the full path to externals;
+  this pre-parse hook fixes it up to look like pre-1.17.
+  Allowing psvn to continue as normal"
+ (goto-char (point-min))
+ (let (( search-string  (file-truename default-directory) ))
+      (save-match-data
+        (save-excursion
+          (while (re-search-forward search-string (point-max) t)
+          (replace-match "" nil nil)
+          )))))
+
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/magit"))
 (require 'magit nil 'noerror)
 (require 'magit-svn nil 'noerror)

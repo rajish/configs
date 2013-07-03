@@ -102,14 +102,14 @@ export GIT_PS1_SHOWSTASHSTATE=true
 export GIT_PS1_SHOWUNTRACKEDFILES=true
 export GIT_PS1_SHOWCOLORHINTS=true
 
-export PS1_pre='$(if [ -n "$CHROOT" ]; then echo -ne "['$IWhite$CHROOT$Color_Off'] "; fi)'$IBlack$Time12h$Color_Off
+export PS1_pre='$(if [ -n "$CHROOT" ]; then echo -ne "['$IWhite$CHROOT$Color_Off'] "; fi)'$IBlack$Time12h$Color_Off' '
 export PS1_post=$Yellow$PathShort$Color_Off'\$ '
 
 
-export PS1=$PS1_pre'$(__git_ps1 " {%s} ")'$PS1_post
+export PS1=$PS1_pre'$(__git_ps1 "{%s} ")'$PS1_post
 
 PROMPT_COMMAND='echo -ne  "\033]0;$(if [ -n "$CHROOT" ]; then echo -ne  "[${CHROOT}]"; fi) $(__git_ps1 " {%s}") ${USER}@${HOSTNAME}:${PWD/$HOME/~}\007"'
-export PROMPT_COMMAND=$PROMPT_COMMAND'; __git_ps1 "$PS1_pre" "$PS1_post" " {%s} "'
+export PROMPT_COMMAND=$PROMPT_COMMAND'; __git_ps1 "$PS1_pre" "$PS1_post" "{%s} "'
 
 export TZ='Europe/Warsaw'
 
