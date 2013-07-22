@@ -111,16 +111,18 @@
                               (when (not (require 'simple-httpd                 nil 'noerror)) (package-install 'simple-httpd                 ))
                               (when (not (require 'skewer-mode                  nil 'noerror)) (package-install 'skewer-mode                  ))
                               (when (not (require 'smartparens                  nil 'noerror)) (package-install 'smartparens                  ))
+                              (eval-after-load 'smartparens-autoloads
+                                '(progn
+                                   (smartparens-global-mode t)))
                               (when (not (require 'web-mode                     nil 'noerror)) (package-install 'web-mode                     ))
                               (eval-after-load 'web-mode-autoloads
                                 '(progn
                                    (if (require 'web-mode nil 'noerror)
                                        (progn
                                          (setq auto-mode-alist (delq (assoc "\\.[sx]?html?\\(\\.[a-zA-Z_]+\\)?\\'" auto-mode-alist) auto-mode-alist))
-                                         (add-to-list 'auto-mode-alist
-                                                      '("\\.html$" . web-mode)
-                                                      '("\\.hbs$" . web-mode)
-                                                      '("\\.scala.html$" . web-mode))
+                                         (add-to-list 'auto-mode-alist '("\\.html$" . web-mode))
+                                         (add-to-list 'auto-mode-alist '("\\.hbs$" . web-mode))
+                                         (add-to-list 'auto-mode-alist '("\\.scala.html$" . web-mode))
 
                                          (add-hook 'web-mode-hook
                                                    (lambda()
@@ -612,7 +614,7 @@ When I started programming, my numeric input routines translated l
  '(indent-tabs-mode nil)
  '(indicate-buffer-boundaries (quote ((t . right) (top . left))))
  '(indicate-empty-lines t)
- '(ispell-program-name "hunspell")
+ '(ispell-program-name "hunspell" t)
  '(ispell-silently-savep t)
  '(jde-compile-option-classpath nil)
  '(jde-global-classpath (quote ("/usr/lib/jvm/java-6-sun-1.6.0.26/jre/lib" "~/bin/play/framework" "~/bin/play/framework/lib")))
@@ -664,7 +666,7 @@ When I started programming, my numeric input routines translated l
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:stipple nil :background "#000000" :foreground "#ffffff" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 90 :width normal :foundry "xos4" :family "Terminus"))))
+ '(default ((t (:stipple nil :background "#000000" :foreground "#ffffff" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "xos4" :family "Terminus"))))
  '(cursor ((t (:background "brown"))))
  '(develock-long-line-2 ((t (:background "#feff97" :foreground "Red"))))
  '(develock-whitespace-1 ((t (:background "#ffffaa00aa00"))))
