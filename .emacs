@@ -7,9 +7,48 @@
      "/usr/lib/xemacs/site-lisp")
 (global-auto-revert-mode 1)
 
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                           ("marmalade" . "http://marmalade-repo.org/packages/")
-                           ("melpa" . "http://melpa.milkbox.net/packages/")))
+(require 'package)
+
+(add-hook 'after-init-hook '(lambda ()
+                              (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                                                       ("marmalade" . "http://marmalade-repo.org/packages/")
+                                                       ("melpa" . "http://melpa.milkbox.net/packages/")))
+                              (package-refresh-contents)
+                              (when (not (require 'ac-js2                       nil 'noerror)) (package-install 'ac-js2                       ))
+                              (when (not (require 'auto-complete                nil 'noerror)) (package-install 'auto-complete                ))
+                              (when (not (require 'cl-lib                       nil 'noerror)) (package-install 'cl-lib                       ))
+                              (when (not (require 'coffee-mode                  nil 'noerror)) (package-install 'coffee-mode                  ))
+                              (when (not (require 'dash                         nil 'noerror)) (package-install 'dash                         ))
+                              (when (not (require 'deft                         nil 'noerror)) (package-install 'deft                         ))
+                              (when (not (require 'flymake-easy                 nil 'noerror)) (package-install 'flymake-easy                 ))
+                              (when (not (require 'flymake-shell                nil 'noerror)) (package-install 'flymake-shell                ))
+                              (when (not (require 'git-commit-mode              nil 'noerror)) (package-install 'git-commit-mode              ))
+                              (when (not (require 'git-gutter+                  nil 'noerror)) (package-install 'git-gutter+                  ))
+                              (when (not (require 'guru-mode                    nil 'noerror)) (package-install 'guru-mode                    ))
+                              (when (not (require 'js2-mode                     nil 'noerror)) (package-install 'js2-mode                     ))
+                              (when (not (require 'js2-refactor                 nil 'noerror)) (package-install 'js2-refactor                 ))
+                              (when (not (require 'magit                        nil 'noerror)) (package-install 'magit                        ))
+                              (when (not (require 'magit-commit-training-wheels nil 'noerror)) (package-install 'magit-commit-training-wheels ))
+                              (when (not (require 'markdown-mode                nil 'noerror)) (package-install 'markdown-mode                ))
+                              (when (not (require 'melpa                        nil 'noerror)) (package-install 'melpa                        ))
+                              (when (not (require 'multi-web-mode               nil 'noerror)) (package-install 'multi-web-mode               ))
+                              (when (not (require 'multiple-cursors             nil 'noerror)) (package-install 'multiple-cursors             ))
+                              (when (not (require 'paredit                      nil 'noerror)) (package-install 'paredit                      ))
+                              (when (not (require 'paredit-menu                 nil 'noerror)) (package-install 'paredit-menu                 ))
+                              (when (not (require 'popup                        nil 'noerror)) (package-install 'popup                        ))
+                              (when (not (require 'psvn                         nil 'noerror)) (package-install 'psvn                         ))
+                              (when (not (require 'rainbow-delimiters           nil 'noerror)) (package-install 'rainbow-delimiters           ))
+                              (when (not (require 's                            nil 'noerror)) (package-install 's                            ))
+                              (when (not (require 'scala-mode2                  nil 'noerror)) (package-install 'scala-mode2                  ))
+                              (when (not (require 'session                      nil 'noerror)) (package-install 'session                      ))
+                              (when (not (require 'simple-httpd                 nil 'noerror)) (package-install 'simple-httpd                 ))
+                              (when (not (require 'skewer-mode                  nil 'noerror)) (package-install 'skewer-mode                  ))
+                              (when (not (require 'smartparens                  nil 'noerror)) (package-install 'smartparens                  ))
+                              (when (not (require 'web-mode                     nil 'noerror)) (package-install 'web-mode                     ))
+                              (when (not (require 'yasnippet                    nil 'noerror)) (package-install 'yasnippet                    ))
+                              (when (not (require 'phi-search                   nil 'noerror)) (package-install 'phi-search                   ))
+                              (when (not (require 'tagedit                      nil 'noerror)) (package-install 'tagedit                      ))
+                              ))
 ;; =========== INFO =================
 ;; (when (require 'info nil 'noerror)
 ;;   (setq Info-directory-list
@@ -555,6 +594,11 @@ When I started programming, my numeric input routines translated l
   (global-set-key (kbd "C->") 'mc/mark-next-like-this)
   (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
   (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this))
+
+
+;;===================== flymake-shell =============================
+(when (require 'flymake-shell nil 'noerror)
+  (add-hook 'sh-set-shell-hook 'flymake-shell-load))
 
 ;;===================== my functions =============================
 
