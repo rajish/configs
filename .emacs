@@ -158,6 +158,7 @@
                auto-mode-alist))
 
 ;=========== ANSI color =============
+(require 'eshell)
 (when (require 'ansi-color nil 'noerror)
   (defun colorize-compilation-buffer ()
     (toggle-read-only)
@@ -548,6 +549,13 @@ When I started programming, my numeric input routines translated l
 (when (require 'less-css-mode nil 'noerror)
   (add-to-list 'auto-mode-alist '("\\.less$" . less-css-mode)))
 
+;;===================== multiple-cursors =============================
+(when (require 'multiple-cursors nil 'noerror)
+  (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+  (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this))
+
 ;;===================== my functions =============================
 
 (defun align-after-char (beg end c)
@@ -603,6 +611,7 @@ When I started programming, my numeric input routines translated l
  '(ensime-default-server-cmd "~/.emacs.d/plugins/ensime/bin/server")
  '(font-lock-verbose nil)
  '(frame-background-mode (quote dark))
+ '(git-gutter+-modified-sign "±")
  '(hippie-expand-dabbrev-as-symbol nil)
  '(ibuffer-formats (quote ((mark modified read-only " " (name 46 -1) " " (size 6 -1 :right) " " (mode 16 16 :right) " " filename) (mark " " (name 46 -1) " " filename))))
  '(indent-tabs-mode nil)
@@ -624,6 +633,7 @@ When I started programming, my numeric input routines translated l
  '(kill-whole-line t)
  '(longlines-show-hard-newlines t)
  '(longlines-wrap-follows-window-size t)
+ '(magit-log-auto-more t)
  '(markdown-command "pandoc")
  '(mode-require-final-newline nil)
  '(nxml-auto-insert-xml-declaration-flag t)
@@ -665,7 +675,7 @@ When I started programming, my numeric input routines translated l
  '(develock-whitespace-1 ((t (:background "#ffffaa00aa00"))))
  '(develock-whitespace-2 ((t (:background "#ffda97"))))
  '(develock-whitespace-3 ((t (:background "#feff97"))))
- '(ensime-errline-highlight ((t (:background "#270000"))))
+ '(ensime-errline-highlight ((t (:background "#3f0000" :overline "gold" :underline "gold"))))
  '(font-lock-builtin-face ((((class color) (min-colors 88)) (:foreground "firebrick"))))
  '(font-lock-comment-face ((t (:foreground "#54ab80" :slant italic))))
  '(font-lock-constant-face ((((class color) (min-colors 88)) (:foreground "saddle brown" :weight bold))))

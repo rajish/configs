@@ -18,3 +18,4 @@ session.*
 /.emacs.d/semanticdb/
 /.sbt
 /.emacs.d/eshell
+/.emacs.d/elpa*
