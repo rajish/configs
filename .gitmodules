@@ -1,6 +1,6 @@
-[submodule ".emacs.d/plugins/ethan-wspace"]
-	path = .emacs.d/plugins/ethan-wspace
-	url = git://github.com/glasserc/ethan-wspace.git
 [submodule ".emacs.d/plugins/doxymacs"]
 	path = .emacs.d/plugins/doxymacs
 	url = git://doxymacs.git.sourceforge.net/gitroot/doxymacs/doxymacs
+[submodule ".emacs.d/plugins/ensime"]
+	path = .emacs.d/plugins/ensime
+	url = git@github.com:rajish/ensime.git

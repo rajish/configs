@@ -7,6 +7,11 @@
      "/usr/lib/xemacs/site-lisp")
 (global-auto-revert-mode 1)
 
+;;================= Emacs server =================================
+(server-start)
+
+
+;;================= Emacs packagesx =================================
 (require 'package)
 
 (add-hook 'after-init-hook '(lambda ()
@@ -14,25 +19,87 @@
                                                        ("marmalade" . "http://marmalade-repo.org/packages/")
                                                        ("melpa" . "http://melpa.milkbox.net/packages/")))
                               (package-refresh-contents)
-                              (when (not (require 'ac-js2                       nil 'noerror)) (package-install 'ac-js2                       ))
                               (when (not (require 'auto-complete                nil 'noerror)) (package-install 'auto-complete                ))
+                              (eval-after-load 'auto-complete-autoloads
+                                '(progn
+                                   (if (require 'auto-complete-config nil 'noerror)
+                                       (progn
+                                         (add-to-list 'ac-dictionary-directories "~/.emacs.d/plugins/auto-complete/ac-dict")
+                                         (ac-config-default)
+                                         )
+                                     (warn "auto-complete not found"))))
+                              (when (not (require 'ac-js2                       nil 'noerror)) (package-install 'ac-js2                       ))
+
                               (when (not (require 'cl-lib                       nil 'noerror)) (package-install 'cl-lib                       ))
                               (when (not (require 'coffee-mode                  nil 'noerror)) (package-install 'coffee-mode                  ))
+                              (eval-after-load 'coffee-mode-autoloads
+                                '(progn
+                                   (add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
+                                   (add-to-list 'auto-mode-alist '("Cakefile" . coffee-mode))))
+
                               (when (not (require 'dash                         nil 'noerror)) (package-install 'dash                         ))
                               (when (not (require 'deft                         nil 'noerror)) (package-install 'deft                         ))
+                              (eval-after-load 'deft-autoloads
+                                '(progn
+                                   (if (require 'deft nil 'noerror)
+                                       (progn
+                                         (setq
+                                          deft-extension "md"
+                                          deft-directory "~/.deft/"
+                                          deft-text-mode 'markdown-mode
+                                          deft-use-filename-as-title t)
+                                         (global-set-key (kbd "<f9>") 'deft))
+                                     (warn "No deft mode found"))))
+
                               (when (not (require 'flymake-easy                 nil 'noerror)) (package-install 'flymake-easy                 ))
                               (when (not (require 'flymake-shell                nil 'noerror)) (package-install 'flymake-shell                ))
+                              (eval-after-load 'flymake-shell-autoloads
+                                '(progn
+                                   (add-hook 'sh-set-shell-hook 'flymake-shell-load)))
+
                               (when (not (require 'git-commit-mode              nil 'noerror)) (package-install 'git-commit-mode              ))
                               (when (not (require 'git-gutter+                  nil 'noerror)) (package-install 'git-gutter+                  ))
                               (when (not (require 'guru-mode                    nil 'noerror)) (package-install 'guru-mode                    ))
                               (when (not (require 'js2-mode                     nil 'noerror)) (package-install 'js2-mode                     ))
+                              (eval-after-load 'js2-mode-autoloads
+                                '(progn
+                                   (if (require 'js2-mode  nil 'noerror)
+                                       (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+                                     (warn "js2-mode not found")
+                                     )))
+
                               (when (not (require 'js2-refactor                 nil 'noerror)) (package-install 'js2-refactor                 ))
+                              (when (not (require 'less-css-mode                nil 'noerror)) (package-install 'less-css-mode                ))
+                              (eval-after-load 'less-css-mode-autoloads
+                                '(progn
+                                   (add-to-list 'auto-mode-alist '("\\.less$" . less-css-mode))))
+
                               (when (not (require 'magit                        nil 'noerror)) (package-install 'magit                        ))
                               (when (not (require 'magit-commit-training-wheels nil 'noerror)) (package-install 'magit-commit-training-wheels ))
                               (when (not (require 'markdown-mode                nil 'noerror)) (package-install 'markdown-mode                ))
+                              (eval-after-load 'markdown-mode-autoloads
+                                '(progn
+                                   (if  (require 'markdown-mode nil 'noerror)
+                                       (progn
+                                         ;; (add-hook 'markdown-mode (lambda ()
+                                         ;; (ethan-wspace-clean-all-modes)
+                                         ;; (ethan-wspace-clean-eol-mode-disable-highlight)))
+                                         (setq auto-mode-alist
+                                               (append '(("\\.text" . markdown-mode)
+                                                         ("\\.md" . markdown-mode)) auto-mode-alist)))
+                                     (warn "No markdown mode found"))))
+
                               (when (not (require 'melpa                        nil 'noerror)) (package-install 'melpa                        ))
                               (when (not (require 'multi-web-mode               nil 'noerror)) (package-install 'multi-web-mode               ))
                               (when (not (require 'multiple-cursors             nil 'noerror)) (package-install 'multiple-cursors             ))
+                              (eval-after-load 'multiple-cursors-autoloads
+                                '(progn
+                                   (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+                                   (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+                                   (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+                                   (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)))
+
+                              (when (not (require 'phi-search                   nil 'noerror)) (package-install 'phi-search                   ))
                               (when (not (require 'paredit                      nil 'noerror)) (package-install 'paredit                      ))
                               (when (not (require 'paredit-menu                 nil 'noerror)) (package-install 'paredit-menu                 ))
                               (when (not (require 'popup                        nil 'noerror)) (package-install 'popup                        ))
@@ -45,9 +112,60 @@
                               (when (not (require 'skewer-mode                  nil 'noerror)) (package-install 'skewer-mode                  ))
                               (when (not (require 'smartparens                  nil 'noerror)) (package-install 'smartparens                  ))
                               (when (not (require 'web-mode                     nil 'noerror)) (package-install 'web-mode                     ))
+                              (eval-after-load 'web-mode-autoloads
+                                '(progn
+                                   (if (require 'web-mode nil 'noerror)
+                                       (progn
+                                         (setq auto-mode-alist (delq (assoc "\\.[sx]?html?\\(\\.[a-zA-Z_]+\\)?\\'" auto-mode-alist) auto-mode-alist))
+                                         (add-to-list 'auto-mode-alist
+                                                      '("\\.html$" . web-mode)
+                                                      '("\\.hbs$" . web-mode)
+                                                      '("\\.scala.html$" . web-mode))
+
+                                         (add-hook 'web-mode-hook
+                                                   (lambda()
+                                                     (setq sgml-basic-offset 4)
+                                                     (setq indent-tabs-mode t)
+                                                     (ethan-wspace-type-deactivate 'tabs))))
+                                     (warn "web-mode not found"))))
+
+                              (when (not (require 'yaml-mode                    nil 'noerror)) (package-install 'yaml-mode))
+                              (eval-after-load 'yaml-mode-autoloads
+                                '(progn
+                                   (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))))
+
                               (when (not (require 'yasnippet                    nil 'noerror)) (package-install 'yasnippet                    ))
-                              (when (not (require 'phi-search                   nil 'noerror)) (package-install 'phi-search                   ))
+                              (eval-after-load 'yasnippet-autoloads
+                                (progn
+                                  (yas/global-mode 1)
+                                  (setq yas/my-directory (expand-file-name "~/.emacs.d/snippets"))
+                                  (yas/load-directory yas/my-directory)
+                                  ))
                               (when (not (require 'tagedit                      nil 'noerror)) (package-install 'tagedit                      ))
+
+                              (when (not (require 'ascope                       nil 'noerror)) (package-install 'ascope                       ))
+                              (eval-after-load 'ascope-autoloads
+                                '(progn
+                                   (define-key global-map "\M-."  'ascope-find-this-symbol)))
+
+                              (when (not (require 'ethan-wspace                 nil 'noerror)) (package-install 'ethan-wspace                 ))
+                              (eval-after-load 'ethan-wspace-autoloads
+                                '(progn
+                                   (global-ethan-wspace-mode 1)
+                                   (add-hook 'c-mode-common-hook
+                                             (lambda()
+                                               (add-hook 'before-save-hook
+                                                         'delete-trailing-whitespace nil t)))
+                                   (add-hook 'html-mode-hook
+                                             (lambda()
+                                               (setq sgml-basic-offset 4)
+                                               (setq indent-tabs-mode t)
+                                               (ethan-wspace-type-deactivate 'tabs)))
+                                   (global-set-key (kbd "C-c p")
+                                                   (lambda()(interactive)
+                                                     (ispell-change-dictionary "polish")
+                                                     (flyspell-buffer)))))
+
                               ))
 ;; =========== INFO =================
 ;; (when (require 'info nil 'noerror)
@@ -64,20 +182,6 @@
 (when (require 'session nil 'noerror)
   (add-hook 'after-init-hook 'session-initialize))
 
-;; yasnippet
-;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/yasnippet"))
-
-(eval-after-load "yasnippet"
-  '(progn
-     (if (require 'yasnippet nil 'noerror)
-         (progn
-           (yas/global-mode 1)
-           (setq yas/my-directory (expand-file-name "~/.emacs.d/plugins/scala-mode/contrib/yasnippet/snippets"))
-           (yas/load-directory yas/my-directory)
-           )
-       (warn "yasnipet not found")
-       )
-     ))
 ;;(require 'newcomment nil 'noerror)
 (when (require 'ibuffer nil 'noerror)
   (define-key global-map "\C-x\C-b" 'ibuffer))
@@ -164,27 +268,24 @@
 
 ; ============= Version control ================
 ;;(require 'pcl-cvs nil 'noerror)
-(require 'psvn nil 'noerror)
-(autoload 'svn-status "dsvn" "Run `svn status'." t)
-(autoload 'svn-update "dsvn" "Run `svn update'." t)
+(when (require 'psvn nil 'noerror)
+  (autoload 'svn-status "dsvn" "Run `svn status'." t)
+  (autoload 'svn-update "dsvn" "Run `svn update'." t)
 
-(add-hook 'svn-pre-parse-status-hook 'svn-status-parse-fixup-externals-full-path)
+  (add-hook 'svn-pre-parse-status-hook 'svn-status-parse-fixup-externals-full-path)
 
-(defun svn-status-parse-fixup-externals-full-path ()
- "SubVersion 1.17 adds the full path to externals;
+  (defun svn-status-parse-fixup-externals-full-path ()
+    "SubVersion 1.17 adds the full path to externals;
   this pre-parse hook fixes it up to look like pre-1.17.
   Allowing psvn to continue as normal"
- (goto-char (point-min))
- (let (( search-string  (file-truename default-directory) ))
+    (goto-char (point-min))
+    (let (( search-string  (file-truename default-directory) ))
       (save-match-data
         (save-excursion
           (while (re-search-forward search-string (point-max) t)
-          (replace-match "" nil nil)
-          )))))
+            (replace-match "" nil nil)
+            ))))))
 
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/magit"))
-(require 'magit nil 'noerror)
-(require 'magit-svn nil 'noerror)
 
 ; ==============  modes hooking to file extensions =========
 ;;(remove-alist 'auto-mode-alist "\\.[ch]\\'")
@@ -224,30 +325,6 @@
 ;;(desktop-load-default)
 ;;(desktop-read)
 
-
-;; ============== CSCOPE ==================
-(when (require 'xcscope nil 'noerror)
-  ;;(define-key global-map [(control f3)]  'cscope-set-initial-directory)
-  ;;(define-key global-map [(control f4)]  'cscope-unset-initial-directory)
-  (define-key global-map "\M-."  'cscope-find-this-symbol)
-  ;;(define-key global-map [(control f6)]  'cscope-find-global-definition)
-  ;;(define-key global-map [(control f7)]
-  ;;  'cscope-find-global-definition-no-prompting)
-  (define-key global-map [(meta *)]  'cscope-pop-mark)
-  ;;(define-key global-map [(control f9)]  'cscope-next-symbol)
-  ;;(define-key global-map [(control f10)] 'cscope-next-file)
-  ;;(define-key global-map [(control f11)] 'cscope-prev-symbol)
-  ;;(define-key global-map [(control f12)] 'cscope-prev-file)
-  ;;      (define-key global-map [(meta f9)]  'cscope-display-buffer)
-  ;;      (defin-ekey global-map [(meta f10)] 'cscope-display-buffer-toggle)
-
-  (setq  cscope-database-regexps
-         '(
-           ("^/home/rajish/proj/net-snmp-5.4.1"
-            (t)
-            ("/home/rajish/proj/net-snmp-5.4.1"))
-           )
-         ))
 
 ;;; ============ Abbrevs ================
 (defun jump-to-column (arg)
@@ -308,9 +385,6 @@
 (add-hook 'docbook-mode-hook 'turn-on-font-lock)
 
 ;=========== JDE ==============
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/jdee/dist/jdee-2.4.1/lisp"))
-(require 'jde nil 'noerror)
-
 (require 'compile nil 'noerror)
 
 (defvar mvn-command-history nil
@@ -365,7 +439,6 @@
                (inher-cont . c-lineup-java-inher)
                (func-decl-cont . c-lineup-java-throws))))
 ;;================= emacs-wiki ===================================
-;;(require 'emacs-wik
 (when (require 'wikipedia-mode  nil 'noerror)
   (add-to-list 'auto-mode-alist
                '("\\.wiki\\'" . wikipedia-mode))
@@ -373,8 +446,6 @@
                '("itsalltext.*\\.txt$" . wikipedia-mode)))
 
 ;;(require 'wikipediafs nil 'noerror)
-;;================= Emacs server =================================
-(server-start)
 ;;===================== w3m ======================================
 (when (require 'w3m-browse-url nil 'noerror)
   (setq browse-url-browser-function 'w3m-browse-url)
@@ -444,131 +515,33 @@ When I started programming, my numeric input routines translated l
 (setq my-username (getenv "USERNAME"))
 (setq frame-title-format '("%f - " my-username "@" my-hostname))
 
-;;===================== ethan-wspace =============================
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/ethan-wspace/lisp"))
-(when (require 'ethan-wspace nil 'noerror)
-  (global-ethan-wspace-mode 1))
-;;(add-hook 'before-save-hook 'delete-trailing-whitespace)
-(add-hook 'c-mode-common-hook
-          (lambda()
-            (add-hook 'before-save-hook
-                      'delete-trailing-whitespace nil t)))
-(add-hook 'html-mode-hook
-          (lambda()
-            (setq sgml-basic-offset 4)
-            (setq indent-tabs-mode t)
-            (ethan-wspace-type-deactivate 'tabs)))
-;;            (flyspell-prog-mode 1)))
 
-(global-set-key (kbd "C-c p")
-                (lambda()(interactive)
-                  (ispell-change-dictionary "polish")
-                  (flyspell-buffer)))
-;;===================== auto-complete =============================
-;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/auto-complete/bin"))
-(eval-after-load 'auto-complete-autoloads
-  '(progn
-     (if (require 'auto-complete-config nil 'noerror)
-         (progn
-           (add-to-list 'ac-dictionary-directories "~/.emacs.d/plugins/auto-complete/ac-dict")
-           (ac-config-default)
-           )
-       (warn "auto-complete not found"))))
-;;===================== js2-mode =============================
-;;(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/js2-mode"))
-;; (eval-after-load "js3-mode"
-;;   '(progn
-;;      (if (autoload 'js3-mode "js3" nil t)
-;;          (add-to-list 'auto-mode-alist '("\\.js$" . js3-mode))
-;;        (warn "js3-mode not found")
-;;        )))
 
-(eval-after-load "js2-mode"
-  '(progn
-     (if (require 'js2-mode  nil 'noerror)
-         (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-       (warn "js2-mode not found")
-       )))
 
-;;===================== develock =============================
-;;(require 'develock nil 'noerror)
-(global-font-lock-mode 1)
-(require 'scss-mode nil 'noerror)
-
-;;===================== yaml-mode =============================
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/yaml-mode"))
-(when (require 'yaml-mode nil 'noerror)
-  (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode)))
-
-;;===================== deft-mode and markdown =============================
-;; http://jblevins.org/projects/deft/
-;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/deft"))
-;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/markdown-mode"))
-(eval-after-load 'deft-autoloads
-  '(progn
-     (if (require 'deft nil 'noerror)
-         (progn
-           (setq
-            deft-extension "md"
-            deft-directory "~/.deft/"
-            deft-text-mode 'markdown-mode
-            deft-use-filename-as-title t)
-           (global-set-key (kbd "<f9>") 'deft))
-       (warn "No deft mode found"))))
-
-(eval-after-load 'markdown-mode-autoloads
-  '(progn
-     (if  (require 'markdown-mode nil 'noerror)
-         (progn
-           ;; (add-hook 'markdown-mode (lambda ()
-           ;; (ethan-wspace-clean-all-modes)
-           ;; (ethan-wspace-clean-eol-mode-disable-highlight)))
-           (setq auto-mode-alist
-                 (append '(("\\.text" . markdown-mode)
-                           ("\\.md" . markdown-mode)) auto-mode-alist)))
-       (warn "No markdown mode found"))))
-;;========================= web-mode ================================
-(eval-after-load "web-mode"
-  '(progn
-     (if (require 'web-mode nil 'noerror)
-         (progn
-           (setq auto-mode-alist (delq (assoc "\\.[sx]?html?\\(\\.[a-zA-Z_]+\\)?\\'" auto-mode-alist) auto-mode-alist))
-           (add-to-list 'auto-mode-alist
-                        '("\\.html$" . web-mode)
-                        '("\\.hbs$" . web-mode))
-           (add-hook 'web-mode-hook
-                     (lambda()
-                       (setq sgml-basic-offset 4)
-                       (setq indent-tabs-mode t)
-                       (ethan-wspace-type-deactivate 'tabs))))
-       (warn "web-mode not found"))))
 ;;===================== scala-mode + ensime =======================
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/ensime/elisp"))
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/ensime/dist/elisp"))
 ;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/scala-mode"))
 (eval-after-load "scala-mode2"
   '(progn
      (if (require 'scala-mode2 nil t)
          (progn
-           (add-to-list 'auto-mode-alist '("\\.scala.html$" . web-mode))
            (when  (require 'ensime nil 'noerror)
              (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
-             (add-to-list 'ensime-doc-lookup-map '("^play\\.api\\." . make-play-doc-url)))
-           )
+             (add-to-list 'ensime-doc-lookup-map '("^play\\.api\\." . make-play-doc-url))
+             (setq ensime-sem-high-faces
+                   '(
+                     (var . (:foreground "#ff2222"))
+                     (val . (:foreground "#aaaaaa"))
+                     (varField . (:foreground "#ff6666"))
+                     (valField . (:foreground "#666666"))
+                     (functionCall . (:foreground "#84BEE3"))
+                     (param . (:foreground "#bbaabb"))
+                     (class . font-lock-type-face)
+                     (trait . (:foreground "#084EA8"))
+                     (object . (:foreground "#026DF7"))
+                     (package . font-lock-preprocessor-face)))))
        (warn "No scala-mode found"))))
 
-
-(setq ensime-sem-high-faces
-      '(
-        (var . (:foreground "#ff2222"))
-        (val . (:foreground "#aaaaaa"))
-        (varField . (:foreground "#ff6666"))
-        (valField . (:foreground "#666666"))
-        (functionCall . (:foreground "#84BEE3"))
-        (param . (:foreground "#bbaabb"))
-        (class . font-lock-type-face)
-        (trait . (:foreground "#084EA8"))
-        (object . (:foreground "#026DF7"))
-        (package . font-lock-preprocessor-face)))
 
 (defun make-play-doc-url (type &optional member)
   (ensime-make-java-doc-url-helper
@@ -577,28 +550,6 @@ When I started programming, my numeric input routines translated l
 (add-to-list 'auto-mode-alist '("\\.xsd$" . nxml-mode))
 ;;===================== js-beautifier =============================
 (require 'js-beautify nil 'noerror)
-
-;;===================== coffee-mode =============================
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/coffee-mode"))
-(when (require 'coffee-mode nil 'noerror)
-  (add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
-  (add-to-list 'auto-mode-alist '("Cakefile" . coffee-mode)))
-
-;;===================== less-css-mode =============================
-(when (require 'less-css-mode nil 'noerror)
-  (add-to-list 'auto-mode-alist '("\\.less$" . less-css-mode)))
-
-;;===================== multiple-cursors =============================
-(when (require 'multiple-cursors nil 'noerror)
-  (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
-  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-  (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this))
-
-
-;;===================== flymake-shell =============================
-(when (require 'flymake-shell nil 'noerror)
-  (add-hook 'sh-set-shell-hook 'flymake-shell-load))
 
 ;;===================== my functions =============================
 
