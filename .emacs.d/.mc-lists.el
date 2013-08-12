@@ -3,7 +3,10 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        dabbrev-expand
         kill-region
+        sp--self-insert-command
+        yas-expand
         ))
 
 (setq mc/cmds-to-run-once

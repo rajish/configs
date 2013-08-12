@@ -157,7 +157,7 @@
                                    (add-hook 'c-mode-common-hook
                                              (lambda()
                                                (add-hook 'before-save-hook
-                                                         'delete-trailing-whitespace nil t)))
+                                                         'delete-trailing-whitespace)))
                                    (add-hook 'html-mode-hook
                                              (lambda()
                                                (setq sgml-basic-offset 4)
@@ -213,6 +213,13 @@
                                 (subword-mode t)))
 (define-key global-map "\C-c\C-t" 'c-toggle-auto-hungry-state)
 (add-hook 'c-mode-common-hook (lambda () (font-lock-mode t)))
+
+(add-hook 'makefile-mode-hook (lambda ()
+                                (setq indent-tabs-mode t)
+                                (ethan-wspace-type-deactivate 'tabs)))
+(when (require 'xcscope nil 'noerror)
+  )
+
 ;; (add-hook 'c-mode-common-hook 'hs-minor-mode)
 ;; (c-add-style "ivo"
 ;;              ("stroustrup"))
