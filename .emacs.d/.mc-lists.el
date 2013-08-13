@@ -5,6 +5,7 @@
       '(
         coffee-dedent-line-backspace
         fill-paragraph
+        dabbrev-expand
         kill-region
         sp--self-insert-command
         yas-expand
