@@ -3,10 +3,15 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        coffee-dedent-line-backspace
+        fill-paragraph
         kill-region
+        sp--self-insert-command
+        yas-expand
         ))
 
 (setq mc/cmds-to-run-once
       '(
+        find-file
         ibuffer
         ))
