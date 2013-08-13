@@ -119,6 +119,7 @@ if [ -z "$SSH_AUTH_SOCK" ]; then
     eval "$ssh_env"
 fi
 
+alias ls="ls --color"
 alias ll="ls -lahF"
 alias abip1='sudo nmap -sP 192.168.110.0/24 | grep -B2 E0:CB:4E:0E:F5:93 | head -n 1'
 export HISTCONTROL=ignoredups
