@@ -158,15 +158,24 @@
                                              (lambda()
                                                (add-hook 'before-save-hook
                                                          'delete-trailing-whitespace)))
-                                   (add-hook 'html-mode-hook
-                                             (lambda()
-                                               (setq sgml-basic-offset 4)
-                                               (setq indent-tabs-mode t)
-                                               (ethan-wspace-type-deactivate 'tabs)))
-                                   (global-set-key (kbd "C-c p")
+                                    (add-hook 'html-mode-hook
+                                              (lambda()
+                                                (setq sgml-basic-offset 4)
+                                                (setq indent-tabs-mode t)
+                                                (ethan-wspace-type-deactivate 'tabs)))
+                                    (add-hook 'web-mode-hook
+                                              (lambda()
+                                                (setq sgml-basic-offset 4)
+                                                (setq indent-tabs-mode t)
+                                                (ethan-wspace-type-deactivate 'tabs)))
+                                    (add-hook 'makefile-mode-hook
+                                              (lambda()
+                                                (ethan-wspace-type-deactivate 'tabs)))
+                                    (global-set-key (kbd "C-c p")
                                                    (lambda()(interactive)
                                                      (ispell-change-dictionary "polish")
                                                      (flyspell-buffer)))))
+                              (when (not (require 'org-trello nil 'noerror)) (package-install 'org-trello))
 
                               ))
 ;; =========== INFO =================
@@ -644,6 +653,7 @@ When I started programming, my numeric input routines translated l
  '(mode-require-final-newline nil)
  '(nxml-auto-insert-xml-declaration-flag t)
  '(nxml-slash-auto-complete-flag t)
+ '(org-agenda-files (quote ("~/org/agenda.org")))
  '(pydb-many-windows t)
  '(safe-local-variable-values (quote ((c-style . whitesmith))))
  '(save-place t nil (saveplace))
