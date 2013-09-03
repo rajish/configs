@@ -20,3 +20,4 @@ session.*
 /.emacs.d/eshell
 /.emacs.d/elpa*
 /.emacs.d/url/cookies
+/.emacs.d/server/server

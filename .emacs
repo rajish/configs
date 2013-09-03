@@ -7,9 +7,6 @@
      "/usr/lib/xemacs/site-lisp")
 (global-auto-revert-mode 1)
 
-;;================= Emacs server =================================
-(server-start)
-
 
 ;;================= Emacs packagesx =================================
 (require 'package)
@@ -622,7 +619,6 @@ When I started programming, my numeric input routines translated l
  '(doxymacs-member-comment-start "/**<  ")
  '(ede-project-directories (quote ("/home/rajish/proj/sicl")))
  '(ensime-default-server-cmd "~/.emacs.d/plugins/ensime/bin/server")
- '(flyspell-dictionaries-that-consider-dash-as-word-delimiter (quote ("francais" "deutsch8" "norsk" "polski")))
  '(font-lock-verbose nil)
  '(frame-background-mode (quote dark))
  '(git-gutter+-modified-sign "±")
@@ -631,8 +627,7 @@ When I started programming, my numeric input routines translated l
  '(indent-tabs-mode nil)
  '(indicate-buffer-boundaries (quote ((t . right) (top . left))))
  '(indicate-empty-lines t)
- '(ispell-dictionary "english")
- '(ispell-program-name "hunspell")
+ '(ispell-program-name "hunspell" t)
  '(ispell-silently-savep t)
  '(jde-compile-option-classpath nil)
  '(jde-global-classpath (quote ("/usr/lib/jvm/java-6-sun-1.6.0.26/jre/lib" "~/bin/play/framework" "~/bin/play/framework/lib")))
@@ -714,5 +709,8 @@ When I started programming, my numeric input routines translated l
 ;;(set-frame-parameter (selected-frame) 'alpha '(<active> [<inactive>]))
 (set-frame-parameter (selected-frame) 'alpha '(85 75))
 (add-to-list 'default-frame-alist '(alpha 85 75))
+
+;;================= Emacs server =================================
+(server-start)
 
 ;;; .emacs ends here
