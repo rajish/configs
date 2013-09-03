@@ -699,6 +699,7 @@ When I started programming, my numeric input routines translated l
  '(jde-java-font-lock-doc-tag-face ((((class color)) (:foreground "green4" :weight bold))))
  '(jde-java-font-lock-modifier-face ((((class color)) (:foreground "Orchid4" :weight bold))))
  '(jde-java-font-lock-number-face ((((class color)) (:foreground "RosyBrown4"))))
+ '(magit-item-highlight ((t (:background "gray7" :weight bold))))
  '(semantic-decoration-on-unparsed-includes ((t (:background "#333300"))))
  '(semantic-highlight-func-current-tag-face ((t (:background "gray15")))))
 
@@ -712,6 +713,6 @@ When I started programming, my numeric input routines translated l
 (add-to-list 'default-frame-alist '(alpha 85 75))
 
 ;;================= Emacs server =================================
-(server-start)
+;; (server-start)
 
 ;;; .emacs ends here
