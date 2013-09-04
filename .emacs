@@ -656,7 +656,6 @@ When I started programming, my numeric input routines translated l
  '(scala-mode-feature:speedbar-open nil)
  '(scroll-bar-mode (quote right))
  '(select-active-regions t)
- '(server-host "192.168.1.35")
  '(server-use-tcp t)
  '(session-use-package t nil (session))
  '(show-paren-mode t)
@@ -713,6 +712,6 @@ When I started programming, my numeric input routines translated l
 (add-to-list 'default-frame-alist '(alpha 85 75))
 
 ;;================= Emacs server =================================
-;; (server-start)
+(server-start)
 
 ;;; .emacs ends here
