@@ -622,6 +622,7 @@ When I started programming, my numeric input routines translated l
  '(font-lock-verbose nil)
  '(frame-background-mode (quote dark))
  '(git-gutter+-modified-sign "±")
+ '(global-git-gutter+-mode t)
  '(hippie-expand-dabbrev-as-symbol nil)
  '(ibuffer-formats (quote ((mark modified read-only " " (name 46 -1) " " (size 6 -1 :right) " " (mode 16 16 :right) " " filename) (mark " " (name 46 -1) " " filename))))
  '(indent-tabs-mode nil)
