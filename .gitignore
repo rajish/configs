@@ -21,3 +21,5 @@ session.*
 /.emacs.d/elpa*
 /.emacs.d/url/cookies
 /.emacs.d/server/server
+/.ensime_lucene/
+/.emacs.d/.cask/

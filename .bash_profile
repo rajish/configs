@@ -7,7 +7,7 @@ fi
 
 # User specific environment and startup programs
 
-PATH=$HOME/.local/bin:$HOME/bin:$HOME/bin/sbt/bin:$HOME/bin/eclipse:$PATH
+PATH=$HOME/.cask/bin:$HOME/.local/bin:$HOME/bin:$HOME/bin/sbt/bin:$HOME/bin/eclipse:$PATH
 
 export PATH
 export MINICOM="-c on"
