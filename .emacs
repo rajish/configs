@@ -637,6 +637,9 @@ When I started programming, my numeric input routines translated l
  '(jde-imenu-sort (quote asc))
  '(jde-jdk (quote ("1.6.0")))
  '(jde-jdk-registry (quote (("1.5.0" . "/opt/sun-jdk-1.5.0.15") ("1.4.2" . "/opt/sun-jdk-1.4.2.17") ("1.6.0" . "/usr/lib/jvm/java-6-sun") ("1.6.0" . "/opt/sun-jdk-1.6.0.16"))))
+ '(jiralib-host "frodo.ftacom.com")
+ '(jiralib-url "http://frodo.ftacom.com:8080")
+ '(jiralib-wsdl-descriptor-url " http://frodo.ftacom.com:8080/rpc/soap/jirasoapservice-v2?wsdl")
  '(js-beautify-path "~/proj/js-beautify/python/js-beautify")
  '(js-expr-indent-offset 4)
  '(js2-auto-indent-p t)
@@ -681,7 +684,7 @@ When I started programming, my numeric input routines translated l
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:stipple nil :background "#000000" :foreground "#ffffff" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "xos4" :family "Terminus"))))
+ '(default ((t (:stipple nil :background "#000000" :foreground "#ffffff" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 90 :width normal :foundry "xos4" :family "Terminus"))))
  '(cursor ((t (:background "brown"))))
  '(develock-long-line-2 ((t (:background "#feff97" :foreground "Red"))))
  '(develock-whitespace-1 ((t (:background "#ffffaa00aa00"))))
