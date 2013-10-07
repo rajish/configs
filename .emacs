@@ -8,7 +8,7 @@
 (global-auto-revert-mode 1)
 
 
-;;================= Emacs packagesx =================================
+;;================= Emacs packages =================================
 (require 'package)
 
 (add-hook 'after-init-hook '(lambda ()
@@ -151,10 +151,10 @@
                               (eval-after-load 'ethan-wspace-autoloads
                                 '(progn
                                    (global-ethan-wspace-mode 1)
-                                   (add-hook 'c-mode-common-hook
-                                             (lambda()
-                                               (add-hook 'before-save-hook
-                                                         'delete-trailing-whitespace)))
+                                   ;; (add-hook 'c-mode-common-hook
+                                   ;;           (lambda()
+                                   ;;             (add-hook 'before-save-hook
+                                   ;;                       'delete-trailing-whitespace)))
                                     (add-hook 'html-mode-hook
                                               (lambda()
                                                 (setq sgml-basic-offset 4)
@@ -173,7 +173,11 @@
                                                      (ispell-change-dictionary "polish")
                                                      (flyspell-buffer)))))
                               (when (not (require 'org-trello nil 'noerror)) (package-install 'org-trello))
-
+                              (when (not (require 'move-text nil 'noerror)) (package-install 'move-text))
+                              (eval-after-load 'move-text-autoloads
+                                '(progn
+                                   (define-key global-map [(meta up)] 'move-text-up)
+                                   (define-key global-map [(meta down)] 'move-text-down)))
                               ))
 ;; =========== INFO =================
 ;; (when (require 'info nil 'noerror)
