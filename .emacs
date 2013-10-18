@@ -168,7 +168,7 @@
                                     (add-hook 'makefile-mode-hook
                                               (lambda()
                                                 (ethan-wspace-type-deactivate 'tabs)))
-                                    (global-set-key (kbd "C-c p")
+                                    (global-set-key (kbd "C-c p P")
                                                    (lambda()(interactive)
                                                      (ispell-change-dictionary "polish")
                                                      (flyspell-buffer)))))
