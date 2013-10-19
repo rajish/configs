@@ -16,7 +16,7 @@ session.*
 /var/pcache/gh/gh-pulls-api/rajish
 /.emacs.d/ede-projects.el
 /.emacs.d/semanticdb/
-/.sbt
+/.sbt/boot
 /.emacs.d/eshell
 /.emacs.d/elpa*
 /.emacs.d/url/cookies
