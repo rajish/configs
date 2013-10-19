@@ -538,8 +538,6 @@ When I started programming, my numeric input routines translated l
 
 
 ;;===================== scala-mode + ensime =======================
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/ensime/dist/elisp"))
-;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/scala-mode"))
 (eval-after-load "scala-mode2"
   '(progn
      (if (require 'scala-mode2 nil t)
