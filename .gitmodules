@@ -1,6 +1,3 @@
 [submodule ".emacs.d/plugins/doxymacs"]
 	path = .emacs.d/plugins/doxymacs
 	url = git://doxymacs.git.sourceforge.net/gitroot/doxymacs/doxymacs
-[submodule ".emacs.d/plugins/ensime"]
-	path = .emacs.d/plugins/ensime
-	url = git@github.com:rajish/ensime.git
