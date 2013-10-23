@@ -178,6 +178,10 @@
                                 '(progn
                                    (define-key global-map [(meta up)] 'move-text-up)
                                    (define-key global-map [(meta down)] 'move-text-down)))
+                              (when (not (require 'projectile nil 'noerror)) (package-install 'projectile))
+                              (eval-after-load 'projectile-autoloads
+                                '(progn
+                                   (projectile-global-mode)))
                               ))
 ;; =========== INFO =================
 ;; (when (require 'info nil 'noerror)
