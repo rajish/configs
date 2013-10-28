@@ -114,12 +114,13 @@ export PROMPT_COMMAND=$PROMPT_COMMAND'; __git_ps1 "$PS1_pre" "$PS1_post" "{%s} "
 export TZ='Europe/Warsaw'
 
 
-if [ -z "$SSH_AUTH_SOCK" ]; then
-    ssh_env=$(ssh-agent)
-    eval "$ssh_env"
-fi
+# if [ -z "$SSH_AUTH_SOCK" ]; then
+#     ssh_env=$(ssh-agent)
+#     eval "$ssh_env"
+# fi
 
 alias ls="ls --color"
 alias ll="ls -lahF"
 alias abip1='sudo nmap -sP 192.168.110.0/24 | grep -B2 E0:CB:4E:0E:F5:93 | head -n 1'
+alias qemacs='emacs -nw -Q'
 export HISTCONTROL=ignoredups
