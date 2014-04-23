@@ -12,8 +12,8 @@
 (require 'package)
 
 (add-hook 'after-init-hook '(lambda ()
-                              (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                                                       ("marmalade" . "http://marmalade-repo.org/packages/")
+                              (setq package-archives '(;; ("gnu" . "http://elpa.gnu.org/packages/")
+                                                       ;; ("marmalade" . "http://marmalade-repo.org/packages/")
                                                        ("melpa" . "http://melpa.milkbox.net/packages/")))
                               (package-refresh-contents)
                               (when (not (require 'auto-complete                nil 'noerror)) (package-install 'auto-complete                ))
@@ -86,7 +86,7 @@
                                                          ("\\.md" . markdown-mode)) auto-mode-alist)))
                                      (warn "No markdown mode found"))))
 
-                              (when (not (require 'melpa                        nil 'noerror)) (package-install 'melpa                        ))
+                              ;; (when (not (require 'melpa                        nil 'noerror)) (package-install 'melpa                        ))
                               (when (not (require 'multi-web-mode               nil 'noerror)) (package-install 'multi-web-mode               ))
                               (when (not (require 'multiple-cursors             nil 'noerror)) (package-install 'multiple-cursors             ))
                               (eval-after-load 'multiple-cursors-autoloads
@@ -585,6 +585,18 @@ When I started programming, my numeric input routines translated l
                         (list
                          (expand-file-name "~/bin/" )
                          (expand-file-name "~/bin/play2" ))))
+
+(define-key process-menu-mode-map (kbd "k") 'joaot/delete-process-at-point)
+
+(defun joaot/delete-process-at-point ()
+  (interactive)
+  (let ((process (get-text-property (point) 'tabulated-list-id)))
+    (cond ((and process
+                (processp process))
+           (delete-process process)
+           (revert-buffer))
+          (t
+           (error "no process at point!")))))
 ;================== CUSTOMIZATIONS ===============================
 
 (custom-set-variables
@@ -632,8 +644,8 @@ When I started programming, my numeric input routines translated l
  '(indent-tabs-mode nil)
  '(indicate-buffer-boundaries (quote ((t . right) (top . left))))
  '(indicate-empty-lines t)
- '(ispell-dictionary "english" t)
- '(ispell-program-name "hunspell" t)
+ '(ispell-dictionary "british")
+ '(ispell-program-name "/usr/local/bin/aspell")
  '(ispell-silently-savep t)
  '(jde-compile-option-classpath nil)
  '(jde-global-classpath (quote ("/usr/lib/jvm/java-6-sun-1.6.0.26/jre/lib" "~/bin/play/framework" "~/bin/play/framework/lib")))
@@ -688,7 +700,7 @@ When I started programming, my numeric input routines translated l
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:stipple nil :background "#000000" :foreground "#ffffff" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 90 :width normal :foundry "xos4" :family "Terminus"))))
+ '(default ((t (:stipple nil :background "#000000" :foreground "#ffffff" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 110 :width normal :foundry "xos4" :family "Consolas"))))
  '(cursor ((t (:background "brown"))))
  '(develock-long-line-2 ((t (:background "#feff97" :foreground "Red"))))
  '(develock-whitespace-1 ((t (:background "#ffffaa00aa00"))))
@@ -703,6 +715,7 @@ When I started programming, my numeric input routines translated l
  '(font-lock-string-face ((nil (:foreground "#bada55"))))
  '(font-lock-type-face ((((class color) (background light dark)) (:foreground "#742828" :weight semi-light))))
  '(font-lock-variable-name-face ((((class color) (min-colors 88) (background light dark)) (:foreground "red3"))))
+ '(highlight ((t (:background "gray16"))))
  '(jde-java-font-lock-doc-tag-face ((((class color)) (:foreground "green4" :weight bold))))
  '(jde-java-font-lock-modifier-face ((((class color)) (:foreground "Orchid4" :weight bold))))
  '(jde-java-font-lock-number-face ((((class color)) (:foreground "RosyBrown4"))))
