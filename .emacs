@@ -10,11 +10,10 @@
 
 ;;================= Emacs packages =================================
 (require 'package)
+(package-initialize)
 
 (add-hook 'after-init-hook '(lambda ()
-                              (setq package-archives '(;; ("gnu" . "http://elpa.gnu.org/packages/")
-                                                       ;; ("marmalade" . "http://marmalade-repo.org/packages/")
-                                                       ("melpa" . "http://melpa.milkbox.net/packages/")))
+                              (setq package-archives '(("melpa" . "http://melpa.milkbox.net/packages/")))
                               (package-refresh-contents)
                               (when (not (require 'auto-complete                nil 'noerror)) (package-install 'auto-complete                ))
                               (eval-after-load 'auto-complete-autoloads
