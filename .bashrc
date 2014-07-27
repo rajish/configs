@@ -2,10 +2,15 @@
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
-	. /etc/bashrc
+    . /etc/bashrc
 elif [ -f /etc/bash.bashrc ]; then
     . /etc/bash.bashrc
 fi
+
+if [ -f /etc/bash_completion]; then
+    . /etc/bash_completion
+fi
+
 
 # User specific aliases and functions
 # Reset
@@ -121,7 +126,6 @@ export TZ='Europe/Warsaw'
 
 alias ls="ls -G"
 alias ll="ls -lahF"
-alias abip1='sudo nmap -sP 192.168.110.0/24 | grep -B2 E0:CB:4E:0E:F5:93 | head -n 1'
 alias qemacs='emacs -nw -Q'
 export HISTCONTROL=ignoredups
 
