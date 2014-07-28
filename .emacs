@@ -71,7 +71,6 @@
                                    (add-to-list 'auto-mode-alist '("\\.less$" . less-css-mode))))
 
                               (when (not (require 'magit                        nil 'noerror)) (package-install 'magit                        ))
-                              (when (not (require 'magit-commit-training-wheels nil 'noerror)) (package-install 'magit-commit-training-wheels ))
                               (when (not (require 'markdown-mode                nil 'noerror)) (package-install 'markdown-mode                ))
                               (eval-after-load 'markdown-mode-autoloads
                                 '(progn
