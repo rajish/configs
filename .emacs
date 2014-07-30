@@ -595,6 +595,14 @@ When I started programming, my numeric input routines translated l
            (revert-buffer))
           (t
            (error "no process at point!")))))
+
+
+(defadvice ruby-mode-variables (after reset-final-newline)
+  "Reset final-newline that ruby-mode enforces but conflicts with ethan-wspace."
+  (setq require-final-newline nil)
+  (setq mode-require-final-newline nil))
+(ad-activate 'ruby-mode-variables)
+
 ;================== CUSTOMIZATIONS ===============================
 
 (custom-set-variables
