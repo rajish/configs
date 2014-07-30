@@ -16,4 +16,4 @@ PATH=$HOME/.cask/bin:$HOME/.local/bin:$HOME/bin:$HOME/bin/sbt/bin:$HOME/bin/acti
 export PATH
 export MINICOM="-c on"
 
-TZ='Europe/Warsaw'; export TZ
+# TZ='Europe/Warsaw'; export TZ
