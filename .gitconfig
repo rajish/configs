@@ -1,0 +1,27 @@
+[user]
+	name = Radzislaw Galler
+	email = r.galler@paycasso.com
+[filter "media"]
+	clean = git-media-clean %f
+	smudge = git-media-smudge %f
+[push]
+	default = simple
+[alias]
+	b    = branch
+	co   = checkout
+	c    = commit
+	cam  = commit -am
+	l    = log --pretty=format:'%h : %an, %ar : %s' --graph
+	s    = status
+	pick = cherry-pick
+	ull  = !"git fetch origin -v; git fetch upstream -v; git merge upstream/${1:-master}"
+	ci   = commit
+	rb   = rebase
+	subup = submodule update --init  --recursive
+	getpr = fetch --tags --progress upstream +refs/pull/*:refs/remotes/origin/pr/*
+[color]
+	branch = auto
+	diff = auto
+	status = auto
+	interactive = auto
+	ui = auto
