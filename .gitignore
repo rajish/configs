@@ -23,3 +23,5 @@ session.*
 /.emacs.d/server/server
 /.ensime_lucene/
 /.emacs.d/.cask/
+/.emacs.d/.emacs.desktop
+/.emacs.d/ensime-servers/

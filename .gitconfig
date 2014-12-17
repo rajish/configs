@@ -14,7 +14,7 @@
 	l    = log --pretty=format:'%h : %an, %ar : %s' --graph
 	s    = status
 	pick = cherry-pick
-	ull  = !"git fetch origin -v; git fetch upstream -v; git merge upstream/${1:-master}"
+	ull  = !"git fetch origin -v; git fetch ${2:-upstream} -v; git merge ${2:-upstream}/${1:-master}"
 	ci   = commit
 	rb   = rebase
 	subup = submodule update --init  --recursive
@@ -25,3 +25,7 @@
 	status = auto
 	interactive = auto
 	ui = auto
+[merge]
+    tool = ediff
+[mergetool "ediff"]
+    cmd = emacsclient -c -a \"\"  --eval \"(ediff-merge-files-with-ancestor \\\"$LOCAL\\\" \\\"$REMOTE\\\" \\\"$BASE\\\" nil \\\"$MERGED\\\")\"

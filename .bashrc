@@ -129,4 +129,4 @@ alias ll="ls -lahF"
 alias qemacs='emacs -nw -Q'
 export HISTCONTROL=ignoredups
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+export PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

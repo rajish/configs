@@ -118,6 +118,7 @@
                                          (add-to-list 'auto-mode-alist '("\\.html$" . web-mode))
                                          (add-to-list 'auto-mode-alist '("\\.hbs$" . web-mode))
                                          (add-to-list 'auto-mode-alist '("\\.scala.html$" . web-mode))
+                                         (add-to-list 'auto-mode-alist '("\\.html.erb$" . web-mode))
 
                                          (add-hook 'web-mode-hook
                                                    (lambda()
@@ -618,7 +619,8 @@ When I started programming, my numeric input routines translated l
  '(browse-url-browser-function (quote browse-url-firefox))
  '(c-default-style (quote ((c-mode . "stroustrup") (c++-mode . "stroustrup") (java-mode . "java") (other . "stroustrup"))))
  '(coffee-cygwin-mode nil)
- '(coffee-tab-width 4)
+ '(coffee-indent-tabs-mode nil)
+ '(coffee-tab-width 2)
  '(column-number-mode t)
  '(comment-column 80)
  '(comment-fill-column 180)
@@ -640,6 +642,9 @@ When I started programming, my numeric input routines translated l
  '(doxymacs-member-comment-end " */")
  '(doxymacs-member-comment-start "/**<  ")
  '(ede-project-directories (quote ("/home/rajish/proj/sicl")))
+ '(ensime-default-java-home "/Library/Java/JavaVirtualMachines/jdk1.7.0_67.jdk/Contents/Home")
+ '(ensime-sbt-command "/usr/local/bin/sbt")
+ '(ensime-sbt-program-name "/usr/local/bin/sbt")
  '(flyspell-dictionaries-that-consider-dash-as-word-delimiter (quote ("francais" "deutsch8" "norsk" "polski")))
  '(font-lock-verbose nil)
  '(frame-background-mode (quote dark))
