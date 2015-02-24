@@ -11,7 +11,6 @@ if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
-
 # User specific aliases and functions
 # Reset
 Color_Off="\[\033[0m\]"       # Text Reset
@@ -89,11 +88,11 @@ On_IWhite="\[\033[0;107m\]"   # White
 # Various variables you might want for your PS1 prompt instead
 Time12h="\T"
 Time12a="\@"
+Time24h="\D{%H:%M:%S}"
 PathShort="\w"
 PathFull="\W"
 NewLine="\n"
 Jobs="\j"
-
 
 # This PS1 snippet was adopted from code for MAC/BSD I saw from: http://allancraig.net/index.php?option=com_content&view=article&id=108:ps1-export-command-for-git&catid=45:general&Itemid=96
 # I tweaked it to work on UBUNTU 11.04 & 11.10 plus made it mo' better
@@ -107,17 +106,24 @@ export GIT_PS1_SHOWSTASHSTATE=true
 export GIT_PS1_SHOWUNTRACKEDFILES=true
 export GIT_PS1_SHOWCOLORHINTS=true
 
-export PS1_pre='$(if [ -n "$CHROOT" ]; then echo -ne "['$IWhite$CHROOT$Color_Off'] "; fi)'$IBlack$Time12h$Color_Off' '
+export PS1_pre='$(if [ -n "$CHROOT" ]; then echo -ne "['$IWhite$CHROOT$Color_Off'] "; fi)'$IBlack$Time24h$Color_Off' '
 export PS1_post=$Yellow$PathShort$Color_Off'\$ '
 
 
-export PS1=$PS1_pre'$(__git_ps1 "{%s} ")'$PS1_post
 
-PROMPT_COMMAND='echo -ne  "\033]0;$(if [ -n "$CHROOT" ]; then echo -ne  "[${CHROOT}]"; fi) $(__git_ps1 " {%s}") ${USER}@${HOSTNAME}:${PWD/$HOME/~}\007"'
-export PROMPT_COMMAND=$PROMPT_COMMAND'; __git_ps1 "$PS1_pre" "$PS1_post" "{%s} "'
+case $TERM in
+    xterm*)
+        PROMPT_COMMAND='echo -ne  "\033]0;$(if [ -n "$CHROOT" ]; then echo -ne  "[${CHROOT}]"; fi) $(__git_ps1 " {%s}") ${USER}@${HOSTNAME}:${PWD/$HOME/~}\007"'
+        export PROMPT_COMMAND=$PROMPT_COMMAND'; __git_ps1 "$PS1_pre" "$PS1_post" "{%s} "'
+        export PS1=$PS1_pre'$(__git_ps1 "{%s} ")'$PS1_post
+        ;;
+    *)
+        unset PROMPT_COMMAND
+        export PS1=$PS1_pre'$(__git_ps1 "{%s} ")'$PS1_post
+        ;;
+esac
 
-export TZ='Europe/Warsaw'
-
+# export TZ='Europe/Warsaw'
 
 # if [ -z "$SSH_AUTH_SOCK" ]; then
 #     ssh_env=$(ssh-agent)
@@ -129,4 +135,4 @@ alias ll="ls -lahF"
 alias qemacs='emacs -nw -Q'
 export HISTCONTROL=ignoredups
 
-export PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
