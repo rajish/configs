@@ -11,6 +11,12 @@ if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
+complete -C aws_completer aws
+
+if [ -f `brew --prefix`/etc/bash_completion.d/vagrant ]; then
+    source `brew --prefix`/etc/bash_completion.d/vagrant
+fi
+
 # User specific aliases and functions
 # Reset
 Color_Off="\[\033[0m\]"       # Text Reset
@@ -111,17 +117,17 @@ export PS1_post=$Yellow$PathShort$Color_Off'\$ '
 
 
 
-case $TERM in
-    xterm*)
-        PROMPT_COMMAND='echo -ne  "\033]0;$(if [ -n "$CHROOT" ]; then echo -ne  "[${CHROOT}]"; fi) $(__git_ps1 " {%s}") ${USER}@${HOSTNAME}:${PWD/$HOME/~}\007"'
-        export PROMPT_COMMAND=$PROMPT_COMMAND'; __git_ps1 "$PS1_pre" "$PS1_post" "{%s} "'
-        export PS1=$PS1_pre'$(__git_ps1 "{%s} ")'$PS1_post
-        ;;
-    *)
-        unset PROMPT_COMMAND
-        export PS1=$PS1_pre'$(__git_ps1 "{%s} ")'$PS1_post
-        ;;
-esac
+# case $TERM in
+#     xterm*)
+#         PROMPT_COMMAND='echo -ne  "\033]0;$(if [ -n "$CHROOT" ]; then echo -ne  "[${CHROOT}]"; fi) $(__git_ps1 " {%s}") ${USER}@${HOSTNAME}:${PWD/$HOME/~}\007"'
+#         export PROMPT_COMMAND=$PROMPT_COMMAND'; __git_ps1 "$PS1_pre" "$PS1_post" "{%s} "'
+#         export PS1=$PS1_pre'$(__git_ps1 "{%s} ")'$PS1_post
+#         ;;
+#     *)
+#         unset PROMPT_COMMAND
+#         export PS1=$PS1_pre'$(__git_ps1 "{%s} ")'$PS1_post
+#         ;;
+# esac
 
 # export TZ='Europe/Warsaw'
 
@@ -135,4 +141,8 @@ alias ll="ls -lahF"
 alias qemacs='emacs -nw -Q'
 export HISTCONTROL=ignoredups
 
+# export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python2.7/site-packages
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export TERM=xterm-256color
+source ~/liquidprompt/liquid.theme
+source ~/liquidprompt/liquidprompt
